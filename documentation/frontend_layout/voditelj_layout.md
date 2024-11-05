@@ -7,5 +7,5 @@ kartice:
 - Moja aktivnost: podatci o aktivnosti (naslov, ID, opis uz opciju promjene opisa), popis nastavnika koji su prihvatili aktivnost, mogućnost slanja novih ponuda nastavnicima
 - Evidencije: odabir proteklog termina (dostupno od zabilježenog vremena početka), evidentiranje studenata za odabrani termin (klikom na termin pojavljuje se popis studenata uz gumbe Prisutan i Odsutan, na dnu gumb Spremi)
 - Novi termin: forma za upisivanje detalja o novom terminu (datum, vrijeme početka i završetka, lokacija - vanjski servis, broj dostupnih mjesta)
-- Obavijesti: isto kao za studenta (voditelj dobiva obavijesti o prihvaćanju aktivnosti od strane nastavnika)
-- Odjava: isto kao za studenta
+- Obavijesti: lista s boxovima za obavijesti (naslov, tekst, datum i vrijeme)
+- Odjava: klikom se korisnik odjavljuje i šalje ga se na početni ekran za neprijavljene korisnike
