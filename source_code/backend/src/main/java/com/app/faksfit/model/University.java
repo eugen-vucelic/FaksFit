@@ -23,6 +23,14 @@ public class University {
         this.faculties = faculties;
     }
 
+    public List<Faculty> getFaculties() {
+        return faculties;
+    }
+
+    public void setFaculties(List<Faculty> faculties) {
+        this.faculties = faculties;
+    }
+
     public University() {
 
     }
