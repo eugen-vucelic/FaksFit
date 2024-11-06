@@ -1,5 +1,5 @@
 # Created by https://www.gitignore.io/api/netbeans,java,gradle,maven,intellij
-
+db
 ### NetBeans ###
 nbproject/private/
 build/
