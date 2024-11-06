@@ -14,17 +14,19 @@ public class Faculty {
     @Column
     private String facultyName;
 
-    @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userFaculty", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> users;
 
-    public Faculty(List<User> users, String facultyName, Long facultyId) {
-        this.users = users;
-        this.facultyName = facultyName;
-        this.facultyId = facultyId;
-    }
+    @ManyToOne
+    private University facultyUniversity;
 
-    public Faculty() {
+    public Faculty(Long facultyId, String facultyName, List<User> users, University facultyUniversity) {
+        this.facultyId = facultyId;
+        this.facultyName = facultyName;
+        this.users = users;
+        this.facultyUniversity = facultyUniversity;
     }
+    public Faculty() {}
 
     public Long getFacultyId() {
         return facultyId;
@@ -50,11 +52,11 @@ public class Faculty {
         this.users = users;
     }
 
-    @Override
-    public String toString() {
-        return "Faculty{" +
-                "facultyName='" + facultyName + '\'' +
-                ", facultyId=" + facultyId +
-                '}';
+    public University getFacultyUniversity() {
+        return facultyUniversity;
+    }
+
+    public void setFacultyUniversity(University facultyUniversity) {
+        this.facultyUniversity = facultyUniversity;
     }
 }

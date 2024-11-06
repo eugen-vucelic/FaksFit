@@ -18,15 +18,15 @@ public class Location {
     @Column
     private String cityCode;
 
-    @OneToMany(mappedBy = "termId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Term> terms;
+    @OneToMany(mappedBy = "locationTerm", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Term> termsOnLocation;
 
-    public Location(Long locationId, String locationName, String address, String cityCode, List<Term> terms) {
+    public Location(Long locationId, String locationName, String address, String cityCode, List<Term> termsOnLocation) {
         this.locationId = locationId;
         this.locationName = locationName;
         this.address = address;
         this.cityCode = cityCode;
-        this.terms = terms;
+        this.termsOnLocation = termsOnLocation;
     }
 
     public Location() {
@@ -65,12 +65,12 @@ public class Location {
         this.cityCode = cityCode;
     }
 
-    public List<Term> getTerms() {
-        return terms;
+    public List<Term> gettermsOnLocation() {
+        return termsOnLocation;
     }
 
-    public void setTerms(List<Term> terms) {
-        this.terms = terms;
+    public void settermsOnLocation(List<Term> termsOnLocation) {
+        this.termsOnLocation = termsOnLocation;
     }
 
     @Override

@@ -14,7 +14,7 @@ public class University {
     @Column
     private String universityName;
 
-    @OneToMany(mappedBy = "facultyId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "facultyUniversity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Faculty> faculties;
 
     public University(Long universityId, String universityName, List<Faculty> faculties) {

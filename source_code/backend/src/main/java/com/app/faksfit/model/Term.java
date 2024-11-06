@@ -3,6 +3,7 @@ package com.app.faksfit.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "TERMIN", schema = "FAKSFIT")
@@ -22,25 +23,32 @@ public class Term {
     @Column
     private Integer capacity;
 
-    @OneToOne
-    private ActivityType activityType;
+    @ManyToOne
+    private ActivityType activityTypeTerm;
 
-    @ManyToMany(mappedBy = termList)
-    private List<Student> students;
+    @ManyToOne
+    private ActivityLeader activityLeaderTerm;
 
-    public Term(Long termId, String termDescription, LocalDateTime termStart, LocalDateTime termEnd, Integer maxPoints, Integer capacity, ActivityType activityType, List<Student> students) {
+    @ManyToOne
+    private Location locationTerm;
+
+    @OneToMany(mappedBy = "term")
+    private List<StudentTerminAssoc> studentList;
+
+    public Term(Long termId, String termDescription, LocalDateTime termStart, LocalDateTime termEnd, Integer maxPoints, Integer capacity, ActivityType activityTypeTerm, ActivityLeader activityLeaderTerm, Location locationTerm, List<StudentTerminAssoc> studentList) {
         this.termId = termId;
         this.termDescription = termDescription;
         this.termStart = termStart;
         this.termEnd = termEnd;
         this.maxPoints = maxPoints;
         this.capacity = capacity;
-        this.activityType = activityType;
-        this.students = students;
+        this.activityTypeTerm = activityTypeTerm;
+        this.activityLeaderTerm = activityLeaderTerm;
+        this.locationTerm = locationTerm;
+        this.studentList = studentList;
     }
 
     public Term() {
-
     }
 
     public Long getTermId() {
@@ -91,32 +99,51 @@ public class Term {
         this.capacity = capacity;
     }
 
-    public ActivityType getActivityType() {
-        return activityType;
+    public ActivityType getActivityTypeTerm() {
+        return activityTypeTerm;
     }
 
-    public void setActivityType(ActivityType activityType) {
-        this.activityType = activityType;
+    public void setActivityTypeTerm(ActivityType activityTypeTerm) {
+        this.activityTypeTerm = activityTypeTerm;
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public ActivityLeader getActivityLeaderTerm() {
+        return activityLeaderTerm;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public void setActivityLeaderTerm(ActivityLeader activityLeaderTerm) {
+        this.activityLeaderTerm = activityLeaderTerm;
+    }
+
+    public Location getLocationTerm() {
+        return locationTerm;
+    }
+
+    public void setLocationTerm(Location locationTerm) {
+        this.locationTerm = locationTerm;
+    }
+
+    public List<StudentTerminAssoc> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<StudentTerminAssoc> studentList) {
+        this.studentList = studentList;
     }
 
     @Override
     public String toString() {
         return "Term{" +
-                "activityType=" + activityType +
-                ", capacity=" + capacity +
-                ", maxPoints=" + maxPoints +
-                ", termEnd=" + termEnd +
-                ", termStart=" + termStart +
+                "termId=" + termId +
                 ", termDescription='" + termDescription + '\'' +
-                ", termId=" + termId +
+                ", termStart=" + termStart +
+                ", termEnd=" + termEnd +
+                ", maxPoints=" + maxPoints +
+                ", capacity=" + capacity +
+                ", activityTypeTerm=" + activityTypeTerm +
+                ", activityLeaderTerm=" + activityLeaderTerm +
+                ", locationTerm=" + locationTerm +
+                ", studentList=" + studentList +
                 '}';
     }
 }

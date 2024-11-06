@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "TIPAKTIVNOSTI", schema = "FAKSFIT")
+@Table(name = "TIP_AKTIVNOSTI", schema = "FAKSFIT")
 public class ActivityType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,17 +14,19 @@ public class ActivityType {
     @Column
     private String activityTypeName;
 
-    @OneToMany(mappedBy = "userId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<ActivityLeader> activityLeaders;
+    @OneToMany(mappedBy = "leaderActivityType", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<ActivityLeader> activityTypeLeaders;
 
-    public ActivityType(Long activityTypeId, String activityTypeName, List<ActivityLeader> activityLeaders) {
+    @OneToMany(mappedBy = "activityTypeTerm", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Term> activityTypeTerms;
+
+    public ActivityType(Long activityTypeId, String activityTypeName, List<ActivityLeader> activityTypeLeaders, List<Term> activityTypeTerms) {
         this.activityTypeId = activityTypeId;
         this.activityTypeName = activityTypeName;
-        this.activityLeaders = activityLeaders;
+        this.activityTypeLeaders = activityTypeLeaders;
+        this.activityTypeTerms = activityTypeTerms;
     }
-
-    public ActivityType() {
-    }
+    public ActivityType() {}
 
     public Long getActivityTypeId() {
         return activityTypeId;
@@ -42,12 +44,20 @@ public class ActivityType {
         this.activityTypeName = activityTypeName;
     }
 
-    public List<ActivityLeader> getActivityLeaders() {
-        return activityLeaders;
+    public List<ActivityLeader> getActivityTypeLeaders() {
+        return activityTypeLeaders;
     }
 
-    public void setActivityLeaders(List<ActivityLeader> activityLeaders) {
-        this.activityLeaders = activityLeaders;
+    public void setActivityTypeLeaders(List<ActivityLeader> activityTypeLeaders) {
+        this.activityTypeLeaders = activityTypeLeaders;
+    }
+
+    public List<Term> getActivityTypeTerms() {
+        return activityTypeTerms;
+    }
+
+    public void setActivityTypeTerms(List<Term> activityTypeTerms) {
+        this.activityTypeTerms = activityTypeTerms;
     }
 
     @Override
@@ -55,6 +65,9 @@ public class ActivityType {
         return "ActivityType{" +
                 "activityTypeId=" + activityTypeId +
                 ", activityTypeName='" + activityTypeName + '\'' +
+                ", activityTypeLeaders=" + activityTypeLeaders +
+                ", activityTypeTerms=" + activityTypeTerms +
                 '}';
     }
 }
+
