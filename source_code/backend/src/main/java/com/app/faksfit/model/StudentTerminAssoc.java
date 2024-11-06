@@ -3,7 +3,7 @@ package com.app.faksfit.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "PRIJAVLJUJE_TERMIN")
+@Table(name = "PRIJAVLJUJE_TERMIN", schema="FAKSFIT")
 @IdClass(StudentTerminAssocId.class)
 public class StudentTerminAssoc {
 
