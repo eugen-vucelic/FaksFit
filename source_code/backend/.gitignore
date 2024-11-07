@@ -181,3 +181,6 @@ hs_err_pid*
 
 ### VS Code ###
 .vscode/
+
+### client and secret ID for google Oauth2 ###
+src/main/resources/secured.properties
