@@ -1,6 +1,7 @@
 import * as React from "react";
 import './App.css'
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
+import Header from "./components/Header.jsx";
 
 function App() {
 
@@ -18,7 +19,11 @@ export default App
 function AppContainer(props) {
   console.log(props)
   return (
-    <div>
-    </div>
+      <div>
+        <Header/>
+        <div className="App">
+          <Outlet/>
+        </div>
+      </div>
   )
 }
