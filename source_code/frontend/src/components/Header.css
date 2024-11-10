@@ -1,0 +1,12 @@
+header {
+    display: flex;
+}
+
+.title h1 {
+    margin-bottom: 0px;
+}
+
+.nav {
+    display: flex;
+    align-items: flex-end;
+}

@@ -2,6 +2,7 @@ import * as React from "react";
 import './App.css'
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 //import Login from "./components/Login.jsx";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         }
     ]);
 
+    // HANDLE LOGIN & DEFINE USER ROLE HERE
     React.useEffect(() => {
         fetch("/api/user")
             .then(response => {
@@ -33,6 +35,7 @@ function App() {
 
                 if (response.status === 200) {
                     setIsLoggedIn(true);
+                    setRole("Student");
                 } else {
                     setIsLoggedIn(false);
                 }
@@ -44,7 +47,7 @@ function App() {
     }
 
     function onLogin() {
-        setIsLoggedIn(true)
+        setIsLoggedIn(true);
     }
 
     function onLogout() {
@@ -71,7 +74,8 @@ function AppContainer(props) {
     console.log(props)
     return (
         <div>
-            <Header isLoggedIn={props.isLoggedIn, props.role}/>
+            <Header isLoggedIn={props.isLoggedIn} role={props.role}/>
+            <Footer/>
             <div className="App">
                 <Outlet/>
             </div>

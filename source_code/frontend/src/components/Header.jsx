@@ -11,7 +11,9 @@ function Header({isLoggedIn, role, props}) {
 
     return (
         <header>
-            <h1 className={"montserrat-semibold-italic"}>FaksFit</h1>
+            <div className="title">
+                <h1 className={"montserrat-semibold-italic"}>FaksFit</h1>
+            </div>
             {isLoggedIn &&
                 <div className="nav">
                     {role === "Student" &&
@@ -37,16 +39,13 @@ function Header({isLoggedIn, role, props}) {
                     {role === "Nastavnik" &&
                         <>
                             <Link to={'/dashboard'}>Dashboard</Link>
-                            <Link to={'/moja-aktivnost'}>Moja aktivnost</Link>
-                            <Link to={'/evidencije'}>Evidencije</Link>
-                            <Link to={'/novi-termin'}>Novi termin</Link>
-                            <Link to={'/obavijesti'}>Obavijesti</Link>
+                            <Link to={'/studenti'}>Studenti</Link>
+                            <Link to={'/aktivnosti'}>Aktivnosti</Link>
                             <button onClick={logout}>Odjava</button>
                         </>
                     }
-                </div>}
-            <Link to='/students/new'>Add student</Link>
-            <button onClick={logout}>Logout</button>
+                </div>
+            }
         </header>
     )
 }

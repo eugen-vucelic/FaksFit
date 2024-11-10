@@ -1,3 +1,12 @@
+body {
+    background: linear-gradient(180deg, #FFFFFF 16%, rgba(182, 205, 254, 40%) 63%, rgba(81, 135, 253, 40%) 90%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+}
+
 .montserrat-regular {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
