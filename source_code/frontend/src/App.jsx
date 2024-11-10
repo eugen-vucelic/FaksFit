@@ -4,6 +4,7 @@ import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import NotLoggedIn from "./components/NotLoggedIn.jsx";
+import Registration from "./components/Registration.jsx"
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -16,12 +17,12 @@ function App() {
             element: <AppContainer isLoggedIn={isLoggedIn} role={role}/>,
             children: [
                 {
-                    path: "students",
-                    //element: <StudentList/>
+                    path: "prijava",
+                    element: <NotLoggedIn/>
                 },
                 {
-                    path: "students/new",
-                    //element: <StudentForm/>
+                    path: "registracija",
+                    element: <Registration/>
                 },
             ]
         }
@@ -68,7 +69,7 @@ function AppContainer(props) {
     return (
         <div>
             <Header isLoggedIn={props.isLoggedIn} role={props.role}/>
-            <NotLoggedIn isLoggedIn={props.isLoggedIn}/>
+            {/* <NotLoggedIn isLoggedIn={props.isLoggedIn}/> */}
             <Footer/>
             <div className="App">
                 <Outlet/>
