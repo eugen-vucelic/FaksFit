@@ -4,6 +4,8 @@ import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import NotLoggedIn from "./components/NotLoggedIn.jsx";
+import Dashboard from "./components/Dashboard.jsx";
+import Registration from "./components/Registration.jsx"
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -16,25 +18,25 @@ function App() {
             element: <AppContainer isLoggedIn={isLoggedIn} role={role}/>,
             children: [
                 {
-                    path: "students",
-                    //element: <StudentList/>
+                    path: "prijava",
+                    element: <NotLoggedIn/>
                 },
                 {
-                    path: "students/new",
-                    //element: <StudentForm/>
+                    path: "registracija",
+                    element: <Registration/>
                 },
             ]
         }
     ]);
 
-    // HANDLE LOGIN & DEFINE USER ROLE HERE
+    // HANDLE LOGIN HERE AND CALL ONLOGIN
     React.useEffect(() => {
         fetch("/api/user")
             .then(response => {
                 setLoadingUser(false);
 
                 if (response.status === 200) {
-                    setIsLoggedIn(false);
+                    setIsLoggedIn(true);
                     setRole("Student");
                 } else {
                     setIsLoggedIn(false);
@@ -46,6 +48,7 @@ function App() {
         return <div>Loading...</div>
     }
 
+    // HANDLE ROLE ASSIGNMENT HERE
     function onLogin() {
         setIsLoggedIn(true);
     }
@@ -68,6 +71,8 @@ function AppContainer(props) {
         <div>
             <Header isLoggedIn={props.isLoggedIn} role={props.role}/>
             <NotLoggedIn isLoggedIn={props.isLoggedIn}/>
+            <Dashboard isLoggedIn={props.isLoggedIn}d/>
+            {/* <NotLoggedIn isLoggedIn={props.isLoggedIn}/> */}
             <Footer/>
             <div className="App">
                 <Outlet/>

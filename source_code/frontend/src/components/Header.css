@@ -1,12 +1,73 @@
 header {
     display: flex;
+    color: rgba(0, 0, 0, .75);
 }
 
 .title h1 {
     margin-bottom: 0px;
+    font-size: 50px;
+    margin-left: 90%;
+    height: auto;
+    width: auto;
 }
 
 .nav {
     display: flex;
+    position: relative;
+    left: 45%;
     align-items: flex-end;
+    gap: 2rem;
+}
+.line{
+    position: absolute;
+    height: 6px;
+    background-color: #4285f4;
+    width: 100%;
+    top: 6rem;
+}
+.line::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 29rem;
+    transform: translate(-50%, -50%);
+    width: 25px;
+    height: 25px;
+    background-color: #4285f4;
+    clip-path: polygon(100% 50%, 0 0, 0 100%);
+}
+
+.line::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 30rem;
+    transform: translate(-50%, -50%);
+    width: 25px;
+    height: 25px;
+    background-color: #4285f4;
+    clip-path: polygon(100% 50%, 0 0, 0 100%);
+}
+
+.link{
+    text-decoration: none;
+    color: #000000;
+    margin-bottom: 0.5rem;
+    transition: 0.2s ease;
+}
+.link:hover{
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: #4285f4;
+    text-underline-offset: 5px;
+}
+.link:visited{
+    color: #000000;
+}
+.nav button{
+    background: none;
+    border: none;
+    color: #4285f4;
+    font-size: medium;
+    margin-bottom: 0.5rem;
 }
