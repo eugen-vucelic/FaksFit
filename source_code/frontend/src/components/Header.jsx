@@ -16,7 +16,7 @@ function Header({isLoggedIn, role, props}) {
                 <h1 className={"montserrat-semibold-italic"}>FaksFit</h1>
             </div>
             {isLoggedIn &&
-                <div className="nav">
+                <div className="nav montserrat-regular">
                     {role === "Student" &&
                         <>
                             <Link to={'/dashboard'} className="link">Dashboard</Link>
