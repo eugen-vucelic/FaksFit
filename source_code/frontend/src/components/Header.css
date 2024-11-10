@@ -28,7 +28,7 @@ header {
     content: '';
     position: absolute;
     top: 50%;
-    left: 30%;
+    left: 29rem;
     transform: translate(-50%, -50%);
     width: 25px;
     height: 25px;
@@ -40,7 +40,7 @@ header {
     content: '';
     position: absolute;
     top: 50%;
-    left: 29%;
+    left: 30rem;
     transform: translate(-50%, -50%);
     width: 25px;
     height: 25px;
@@ -52,6 +52,7 @@ header {
     text-decoration: none;
     color: #000000;
     margin-bottom: 0.5rem;
+    transition: 0.2s ease;
 }
 .link:hover{
     font-weight: bold;
@@ -62,8 +63,6 @@ header {
 .link:visited{
     color: #000000;
 }
-
-
 .nav button{
     background: none;
     border: none;

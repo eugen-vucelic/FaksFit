@@ -4,6 +4,7 @@ import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import NotLoggedIn from "./components/NotLoggedIn.jsx";
+import Dashboard from "./components/Dashboard.jsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -34,7 +35,7 @@ function App() {
                 setLoadingUser(false);
 
                 if (response.status === 200) {
-                    setIsLoggedIn(false);
+                    setIsLoggedIn(true);
                     setRole("Student");
                 } else {
                     setIsLoggedIn(false);
@@ -68,6 +69,7 @@ function AppContainer(props) {
         <div>
             <Header isLoggedIn={props.isLoggedIn} role={props.role}/>
             <NotLoggedIn isLoggedIn={props.isLoggedIn}/>
+            <Dashboard></Dashboard>
             <Footer/>
             <div className="App">
                 <Outlet/>
