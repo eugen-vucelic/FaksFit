@@ -71,7 +71,7 @@ function AppContainer(props) {
         <div>
             <Header isLoggedIn={props.isLoggedIn} role={props.role}/>
             <NotLoggedIn isLoggedIn={props.isLoggedIn}/>
-            <Dashboard></Dashboard>
+            <Dashboard isLoggedIn={props.isLoggedIn}d/>
             {/* <NotLoggedIn isLoggedIn={props.isLoggedIn}/> */}
             <Footer/>
             <div className="App">

@@ -2,8 +2,12 @@ import "./Dashboard.css"
 import React from "react";
 import {Link} from "react-router-dom";
 
-function Dashboard() {
+function Dashboard(props) {
+
+    const {isLoggedIn} = props;
+    
     return (
+        isLoggedIn ?
         <div className="Dashboard">
             <div className="personal-info">
                 <h2 className={"montserrat-medium"}>Ime Prezime (0036545654)</h2>
@@ -27,7 +31,7 @@ function Dashboard() {
             <div className="activity-window">
                 <div className="window"></div>
             </div>
-        </div>
+        </div> : null
     )
 }
 
