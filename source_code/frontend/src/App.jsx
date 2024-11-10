@@ -3,7 +3,7 @@ import './App.css'
 import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
-//import Login from "./components/Login.jsx";
+import NotLoggedIn from "./components/NotLoggedIn.jsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -34,7 +34,7 @@ function App() {
                 setLoadingUser(false);
 
                 if (response.status === 200) {
-                    setIsLoggedIn(true);
+                    setIsLoggedIn(false);
                     setRole("Student");
                 } else {
                     setIsLoggedIn(false);
@@ -55,14 +55,6 @@ function App() {
         setRole(null);
     }
 
-    if (!isLoggedIn) {
-        return (
-            <div className="App">
-                {/*<Login onLogin={onLogin}/>*/}
-            </div>
-        )
-    }
-
     return (
         <RouterProvider router={router}/>
     )
@@ -75,6 +67,7 @@ function AppContainer(props) {
     return (
         <div>
             <Header isLoggedIn={props.isLoggedIn} role={props.role}/>
+            <NotLoggedIn isLoggedIn={props.isLoggedIn}/>
             <Footer/>
             <div className="App">
                 <Outlet/>
