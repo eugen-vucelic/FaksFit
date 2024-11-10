@@ -1,5 +1,6 @@
 package com.app.faksfit.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class Faculty {
         this.facultyName = facultyName;
     }
 
+    @JsonManagedReference
     public List<User> getUsers() {
         return users;
     }
