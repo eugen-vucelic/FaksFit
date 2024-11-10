@@ -4,7 +4,9 @@ import com.app.faksfit.model.Faculty;
 import com.app.faksfit.model.Role;
 import com.app.faksfit.model.User;
 import com.app.faksfit.service.IUserService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService implements IUserService {
     @Override
     public User findByEmail(String email) {
