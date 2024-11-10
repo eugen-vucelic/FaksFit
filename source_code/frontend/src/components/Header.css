@@ -1,5 +1,6 @@
 header {
     display: flex;
+    color: rgba(0, 0, 0, .75);
 }
 
 .title h1 {

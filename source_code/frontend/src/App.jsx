@@ -28,7 +28,7 @@ function App() {
         }
     ]);
 
-    // HANDLE LOGIN & DEFINE USER ROLE HERE
+    // HANDLE LOGIN HERE AND CALL ONLOGIN
     React.useEffect(() => {
         fetch("/api/user")
             .then(response => {
@@ -47,6 +47,7 @@ function App() {
         return <div>Loading...</div>
     }
 
+    // HANDLE ROLE ASSIGNMENT HERE
     function onLogin() {
         setIsLoggedIn(true);
     }
