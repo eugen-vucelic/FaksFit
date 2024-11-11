@@ -12,6 +12,8 @@ import java.util.List;
 public interface TermRepository extends JpaRepository<Term, Long> {
     Term findByTermId(Long termId);
 
+    List<Term> findByTermStartAfter(LocalDateTime date);
+
     List<Term> findByTermStartBetween(LocalDateTime start, LocalDateTime end);
 
     List<Term> findByLocationTerm(Location location);

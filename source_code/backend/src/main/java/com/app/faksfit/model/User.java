@@ -1,5 +1,7 @@
 package com.app.faksfit.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -17,11 +19,13 @@ public abstract class User {
     @Column(unique = true, nullable = false)
     private String email;
     @Column
+    @JsonIgnore
     private String password;
     @Column
     private String dateOfRegistration;
 
     @ManyToOne
+    @JsonBackReference
     private Faculty userFaculty;
 
     @ManyToOne

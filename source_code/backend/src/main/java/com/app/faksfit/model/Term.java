@@ -1,5 +1,6 @@
 package com.app.faksfit.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -24,12 +25,15 @@ public class Term {
     private Integer capacity;
 
     @ManyToOne
+    @JsonBackReference
     private ActivityType activityTypeTerm;
 
     @ManyToOne
+    @JsonBackReference
     private ActivityLeader activityLeaderTerm;
 
     @ManyToOne
+    @JsonBackReference
     private Location locationTerm;
 
     @OneToMany(mappedBy = "term")

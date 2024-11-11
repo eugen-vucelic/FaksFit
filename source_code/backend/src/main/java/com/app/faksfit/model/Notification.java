@@ -13,7 +13,7 @@ public class Notification {
     private Long notificationId;
 
     @Column
-    private String nofiticationTitle;
+    private String notificationTitle;
 
     @Column
     private LocalDateTime notificationDateTime;
@@ -24,9 +24,9 @@ public class Notification {
     @ManyToMany(mappedBy = "notificationList")
     private List<Student> studentList;
 
-    public Notification(Long notificationId, String nofiticationTitle, LocalDateTime notificationDateTime, String notificationMessage, List<Student> studentList) {
+    public Notification(Long notificationId, String notificationTitle, LocalDateTime notificationDateTime, String notificationMessage, List<Student> studentList) {
         this.notificationId = notificationId;
-        this.nofiticationTitle = nofiticationTitle;
+        this.notificationTitle = notificationTitle;
         this.notificationDateTime = notificationDateTime;
         this.notificationMessage = notificationMessage;
         this.studentList = studentList;
@@ -44,12 +44,12 @@ public class Notification {
         this.notificationId = notificationId;
     }
 
-    public String getNofiticationTitle() {
-        return nofiticationTitle;
+    public String getNotificationTitle() {
+        return notificationTitle;
     }
 
-    public void setNofiticationTitle(String nofiticationTitle) {
-        this.nofiticationTitle = nofiticationTitle;
+    public void setNotificationTitle(String notificationTitle) {
+        this.notificationTitle = notificationTitle;
     }
 
     public LocalDateTime getNotificationDateTime() {
@@ -80,7 +80,7 @@ public class Notification {
     public String toString() {
         return "Notification{" +
                 "notificationId=" + notificationId +
-                ", nofiticationTitle='" + nofiticationTitle + '\'' +
+                ", notificationTitle='" + notificationTitle + '\'' +
                 ", notificationDateTime=" + notificationDateTime +
                 ", notificationMessage='" + notificationMessage + '\'' +
                 ", studentList=" + studentList +
