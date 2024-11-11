@@ -31,7 +31,15 @@ function Dashboard(props) {
                 <button className="activity-button">Rukomet</button>
             </div>
             <div className="activity-window">
-                <div className="window"></div>
+                <div className="window">
+                    <h3>Nadolazeći termini za ....  :</h3>
+                    <div className="activity">
+                        <p>pon 17.11.2024</p>
+                        <p>17:00-18:00</p>
+                        <p>x slobodnih mjesta</p>
+                        <a>prijavi</a>
+                    </div>
+                </div>
             </div>
         </div> : null
     )
