@@ -56,7 +56,7 @@ function Registration({isLoggedIn}) {
                         </div>
                         <div className={"form-row"}>
                             <button type="button"  onClick={handleGoBack}>Povratak </button>
-                            <button type="submit" >Registracija</button>
+                            <button type="submit">Registracija</button>
                         </div>
                     </form>
                 </div>

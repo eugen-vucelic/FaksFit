@@ -24,7 +24,7 @@ function Header({isLoggedIn, role, props}) {
                             <Link to={'/moji-bodovi'} className="link">Moji bodovi</Link>
                             <Link to={'/profil'} className="link">Profil</Link>
                             <Link to={'/obavijesti'} className="link">Obavijesti</Link>
-                            <button onClick={logout}>Odjava</button>
+                            <button className="montserrat-regular" onClick={logout}>Odjava</button>
                         </>
                     }
                     {role === "Voditelj" &&
@@ -34,7 +34,7 @@ function Header({isLoggedIn, role, props}) {
                             <Link to={'/evidencije'} className="link">Evidencije</Link>
                             <Link to={'/novi-termin'} className="link">Novi termin</Link>
                             <Link to={'/obavijesti'} className="link">Obavijesti</Link>
-                            <button onClick={logout} className="link">Odjava</button>
+                            <button className="montserrat-regular" onClick={logout}>Odjava</button>
                         </>
                     }
                     {role === "Nastavnik" &&
@@ -42,7 +42,7 @@ function Header({isLoggedIn, role, props}) {
                             <Link to={'/dashboard'} className="link">Dashboard</Link>
                             <Link to={'/studenti'} className="link">Studenti</Link>
                             <Link to={'/aktivnosti'} className="link">Aktivnosti</Link>
-                            <button onClick={logout}>Odjava</button>
+                            <button className="montserrat-regular" onClick={logout}>Odjava</button>
                         </>
                     }
                 </div>

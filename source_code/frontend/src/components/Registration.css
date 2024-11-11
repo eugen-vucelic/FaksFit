@@ -18,6 +18,7 @@
     border-radius: 10px;
     width: 65%;
     margin-left: 17.5%;
+    height: 250px;
 }
 .left-container p{
     padding-left: 1rem;
@@ -98,4 +99,9 @@
 .form-row button:hover{
     background-color: #4285f4;
     color: white;
+}
+
+.blue {
+    max-height: 100px;
+    margin: 15px;
 }
