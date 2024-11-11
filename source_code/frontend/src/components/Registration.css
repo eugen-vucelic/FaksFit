@@ -1,0 +1,101 @@
+.registration-grid{
+    display: grid;
+    width: 80%;
+    height: 30rem;
+    margin-top: 1rem;
+    margin-left: 10%;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 20% 40% 40%;
+}
+
+
+.left-container{
+    display: flex;
+    flex-direction: column;
+    grid-row:2;
+    grid-column: 1;
+    border: 3px solid #4285f4;
+    border-radius: 10px;
+    width: 65%;
+    margin-left: 17.5%;
+}
+.left-container p{
+    padding-left: 1rem;
+    color: #4285f4;
+}
+
+.right-container{
+    display: flex;
+    flex-direction: column;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column: 2;
+}
+
+.registration-form{
+    border: 5px solid #4285f4;
+    height: 100%;
+    width: 80%;
+    margin-left: 5%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.form-row{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 1rem;
+}
+.form-row label{
+    margin-right: 10px;
+    min-width: 70px;
+    margin-left: 2em;
+}
+
+.form-row input{
+   height: 25px;
+    border: 2px solid lightgray;
+    border-radius: 7px;
+    transition: border-color 0.3s ease;
+    padding-left: 0.5rem;
+    margin-left: 2em;
+}
+.form-row input:focus {
+    border-color: #4285f4;
+    outline: none; /* Removes default outline for a cleaner look */
+}
+
+.form-row select{
+    height: 25px;
+    border: 2px solid lightgray;
+    border-radius: 7px;
+    transition: border-color 0.3s ease;
+    padding-left: 10px;
+}
+.form-row select:focus {
+    border-color: #4285f4;
+    outline: none; /* Removes default outline for a cleaner look */
+}
+.form-row button{
+    margin-top: 2rem;
+    margin-left: 2em;
+    border: 3px solid #4285f4;
+    height: 2.5rem;
+    width: 10rem;
+    border-radius: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background: none;
+    font-family: "Montserrat", sans-serif;
+    color: #4285f4;
+    transition: 0.3s ease;
+    font-weight: bold;
+    padding-left: 1rem;
+}
+.form-row button:hover{
+    background-color: #4285f4;
+    color: white;
+}
