@@ -12,6 +12,8 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Long> {
     Student findByJMBAG(String JMBAG);
 
+    Student findByUserId(Long userId);
+
     List<Student> findByPassStatus(Boolean passStatus);
 
     List<Student> findBySemester(String semester);
