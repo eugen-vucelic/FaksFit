@@ -11,4 +11,6 @@ public interface IStudentService {
     Student getById(Long id);
 
     void addStudent(StudentDTO studentDTO);
+
+    Student findByEmail(String email);
 }

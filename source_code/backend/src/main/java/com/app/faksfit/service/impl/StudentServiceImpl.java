@@ -35,4 +35,9 @@ public class StudentServiceImpl implements IStudentService {
     public void addStudent(StudentDTO studentDTO) {
         studentRepository.save(studentMapper.toStudentEntity(studentDTO));
     }
+
+    @Override
+    public Student findByEmail(String email) {
+        return studentRepository.findByEmail(email);
+    }
 }

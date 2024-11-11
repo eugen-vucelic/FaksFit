@@ -2,7 +2,7 @@ package com.app.faksfit.configuration;
 
 import com.app.faksfit.model.Student;
 import com.app.faksfit.model.User;
-import com.app.faksfit.service.impl.UserService;
+import com.app.faksfit.service.impl.StudentServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,15 +15,15 @@ import java.io.IOException;
 
 public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
-    private UserService userService;
+    private StudentServiceImpl studentServiceImpl;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = oAuth2User.getAttribute("email");
 
-        User user = userService.findByEmail(email);
+        Student student = studentServiceImpl.findByEmail(email);
 
-        if(user == null){
+        if(student == null){
             response.sendRedirect("/login?error=invalid_user"); //potrebno hendlat na frontu
         }
 
