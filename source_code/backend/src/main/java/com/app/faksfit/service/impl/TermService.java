@@ -11,8 +11,12 @@ import java.util.List;
 
 @Service
 public class TermService implements ITermService {
+    private final TermRepository termRepository;
+
     @Autowired
-    private TermRepository termRepository;
+    public TermService(TermRepository termRepository) {
+        this.termRepository = termRepository;
+    }
 
     @Override
     public List<Term> getAllTerms() {

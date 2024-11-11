@@ -27,7 +27,17 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
+    public Student getById(Long id) {
+        return studentRepository.findByUserId(id);
+    }
+
+    @Override
     public void addStudent(StudentDTO studentDTO) {
         studentRepository.save(studentMapper.toStudentEntity(studentDTO));
+    }
+
+    @Override
+    public Student findByEmail(String email) {
+        return studentRepository.findByEmail(email);
     }
 }
