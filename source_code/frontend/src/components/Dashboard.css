@@ -13,10 +13,13 @@
     grid-column-end: 3;
     grid-row: 1;
 }
-.personal-info h3,h2{
-    margin-left: 6rem;
+.personal-info h2{
+    margin-left: 5rem;
 }
+.personal-info h3{
+    margin-left: 6rem;
 
+}
 .bar{
     grid-column: 3;
     grid-row: 1;
@@ -32,7 +35,7 @@
 
 .progress-bar {
     height: 100%;
-    width: 70%;
+    width: 80%;
     background-color: #4285f4;
     transition: width 1s ease;
 }
@@ -87,4 +90,20 @@
     border-radius: 15px;
     margin-left: 5px;
     margin-top: 5px;
+}
+.window h3{
+    margin-left: 2%;
+    margin-top: 2%;
+}
+.activity{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.activity p, a{
+    margin: 0;
+    margin-left: 1rem;
+    font-family: "Montserrat", sans-serif;
+    font-size: small;
+    font-weight: bold;
 }
