@@ -18,12 +18,8 @@ function App() {
             element: <AppContainer isLoggedIn={isLoggedIn} role={role}/>,
             children: [
                 {
-                    path: "prijava",
-                    element: <NotLoggedIn/>
-                },
-                {
                     path: "registracija",
-                    element: <Registration/>
+                    element: <Registration isLoggedIn={isLoggedIn}/>
                 },
             ]
         }
@@ -36,7 +32,7 @@ function App() {
                 setLoadingUser(false);
 
                 if (response.status === 200) {
-                    setIsLoggedIn(true);
+                    setIsLoggedIn(false);
                     setRole("Student");
                 } else {
                     setIsLoggedIn(false);
@@ -55,7 +51,7 @@ function App() {
 
     function onLogout() {
         setIsLoggedIn(false);
-        setRole(null);
+        // setRole(null);
     }
 
     return (
@@ -66,17 +62,15 @@ function App() {
 export default App
 
 function AppContainer(props) {
-    console.log(props)
     return (
         <div>
             <Header isLoggedIn={props.isLoggedIn} role={props.role}/>
             <NotLoggedIn isLoggedIn={props.isLoggedIn}/>
             <Dashboard isLoggedIn={props.isLoggedIn}d/>
-            {/* <NotLoggedIn isLoggedIn={props.isLoggedIn}/> */}
-            <Footer/>
             <div className="App">
-                <Outlet/>
+                <Outlet isLoggedIn={props.isLoggedIn} role={props.role}/>
             </div>
+            <Footer/>
         </div>
     )
 }

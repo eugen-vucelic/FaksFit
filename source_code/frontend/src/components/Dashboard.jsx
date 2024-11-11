@@ -1,13 +1,15 @@
 import "./Dashboard.css"
 import React from "react";
 import {Link} from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 function Dashboard(props) {
 
     const {isLoggedIn} = props;
-    
+    const location = useLocation();
+
     return (
-        isLoggedIn ?
+        (isLoggedIn && location.pathname === '/') ?
         <div className="Dashboard">
             <div className="personal-info">
                 <h2 className={"montserrat-medium"}>Ime Prezime (0036545654)</h2>
