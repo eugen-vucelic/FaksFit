@@ -29,8 +29,9 @@ function Registration({isLoggedIn}) {
         };
       
         try {
-          const response = await fetch('http://localhost:8080/student', {
+          const response = await fetch('http://localhost:8080/student/register', {
             method: 'POST',
+            mode: 'cors',
             headers: {
               'Content-Type': 'application/json',
             },
@@ -39,8 +40,11 @@ function Registration({isLoggedIn}) {
       
           if (response.ok) {
             console.log('Korisnik uspješno poslan na backend');
-            navigate()
+            navigate('/dashboard');
+            const {user, token} = response.data;
+            localStorage.setItem('token', JSON.stringify('tokenABC'));
           } else {
+            //navigate('/dashboard');
             console.error('Greška pri slanju podataka');
           }
         } catch (error) {

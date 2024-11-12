@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.io.IOException;
 
+@CrossOrigin
 public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
     private StudentServiceImpl studentServiceImpl;
@@ -24,7 +26,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         Student student = studentServiceImpl.findByEmail(email);
 
         if(student == null){
-            response.sendRedirect("/login?error=invalid_user"); //potrebno hendlat na frontu
+            response.sendRedirect("/login?error=invalid_user");
         }
 
     }
