@@ -41,8 +41,8 @@ function Registration({isLoggedIn}) {
           if (response.ok) {
             console.log('Korisnik uspješno poslan na backend');
             //navigate('/dashboard');
-            const {user, token} = response.data;
-            localStorage.setItem('token', JSON.stringify('tokenABC'));
+            //const {user, token} = response.data;
+            //localStorage.setItem('token', JSON.stringify('tokenABC'));
           } else {
             //navigate('/dashboard');
             console.error('Greška pri slanju podataka');
