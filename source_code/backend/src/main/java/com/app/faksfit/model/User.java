@@ -28,7 +28,8 @@ public abstract class User {
     @JsonBackReference
     private Faculty userFaculty;
 
-    @ManyToOne
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Role userRole;
 
     public User(Long userId, String firstName, String lastName, String email, String password, String dateOfRegistration, Faculty userFaculty, Role userRole) {
