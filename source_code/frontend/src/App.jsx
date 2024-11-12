@@ -32,7 +32,7 @@ function App() {
                 setLoadingUser(false);
 
                 if (response.status === 200) {
-                    setIsLoggedIn(true);
+                    setIsLoggedIn(false);
                     setRole("Student");
                 } else {
                     setIsLoggedIn(false);

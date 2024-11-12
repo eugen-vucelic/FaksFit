@@ -1,15 +1,57 @@
 import {Link} from "react-router-dom";
 import "./Registration.css";
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Registration({isLoggedIn}) {
+    const [ime, setIme] = useState('');
+    const [prezime, setPrezime] = useState('');
+    const [email, setEmail] = useState('');
+    const [jmbag, setJmbag] = useState('');
+    const [Fakultet, setSelectedFakultet] = useState('FER');
+    const [Semestar, setSelectedSemestar] = useState('1')
 
     const navigate = useNavigate();
 
     const handleGoBack = () => {
         navigate('/');
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Sprečava ponovno učitavanje stranice
+      
+        const user = {
+          firstName: ime,
+          lastName: prezime,
+          email: email,
+          JMBAG: jmbag,
+          userFaculty: Fakultet,
+          semester: Semestar
+        };
+      
+        try {
+          const response = await fetch('http://localhost:8080/student/register', {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(user),
+          });
+      
+          if (response.ok) {
+            console.log('Korisnik uspješno poslan na backend');
+            //navigate('/dashboard');
+            //const {user, token} = response.data;
+            //localStorage.setItem('token', JSON.stringify('tokenABC'));
+          } else {
+            //navigate('/dashboard');
+            console.error('Greška pri slanju podataka');
+          }
+        } catch (error) {
+          console.error('Greška:', error);
+        }
+      };
 
     return (
         !isLoggedIn &&
@@ -21,18 +63,26 @@ function Registration({isLoggedIn}) {
                 </div>
                 <div className="right-container">
                     <h2 className="montserrat-semibold-italic">Registracija (za studente)</h2>
-                    <form method="POST" className="montserrat-regular registration-form">
+                    <form method="POST" className="montserrat-regular registration-form" onSubmit={handleSubmit}>
                         <div className="form-row">
                             <label htmlFor="ime">Ime:</label>
-                            <input type="text" id="ime" value={"ispunio OAuth"}></input>
+                            <input type="text" id="ime" value={ime} onChange={(e) => setIme(e.target.value)} required />
                         </div>
                         <div className="form-row">
                             <label htmlFor="prezime">Prezime:</label>
-                            <input type="text" id="prezime" value={"ispunio OAuth"}></input>
+                            <input type="text" id="prezime" value={prezime} onChange={(e) => setPrezime(e.target.value)} required />
+                        </div>
+                        <div className="form-row">
+                            <label htmlFor="email">Email:</label>
+                            <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        </div>
+                        <div className="form-row">
+                            <label htmlFor="jmbag">Jmbag:</label>
+                            <input type="text" id="jmbag" value={jmbag} onChange={(e) => setJmbag(e.target.value)} required />
                         </div>
                         <div className="form-row">
                             <label htmlFor="fakultet">Fakultet:</label>
-                            <select id="fakultet">
+                            <select id="fakultet" value={Fakultet} onChange={(e) => setSelectedFakultet(e.target.value)}>
                                 {/* EXTRACT FROM DATABASE */}
                                 <option value="fer">FER</option>
                                 <option value="pmf">PMF</option>
@@ -42,7 +92,7 @@ function Registration({isLoggedIn}) {
                         </div>
                         <div className={"form-row"}>
                             <label htmlFor="semestar">Semestar:</label>
-                            <select id="semestar">
+                            <select id="semestar" value={Semestar} onChange={(e) => setSelectedSemestar(e.target.value)}>
                                 {/* EXTRACT FROM DATABASE */}
                                 <option value="1">1.</option>
                                 <option value="2">2.</option>
@@ -51,7 +101,7 @@ function Registration({isLoggedIn}) {
                             </select>
                         </div>
                         <div className="form-row">
-                            <input type="checkbox" id="suglasnost"></input>
+                            <input type="checkbox" id="suglasnost" required></input>
                             <label htmlFor="suglasnost">Suglasan/na sam s uvjetima korištenja i GDPR privolama.</label>
                         </div>
                         <div className={"form-row"}>
