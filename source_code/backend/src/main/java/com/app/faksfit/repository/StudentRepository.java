@@ -29,7 +29,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
 
     boolean existsByJMBAG(String JMBAG);
 
-    List<Student> findByAcademicYearAndTotalPointsGreaterThan(LocalDateTime academicYear, Integer points);
+    List<Student> findByAcademicYearAndTotalPointsGreaterThan(String academicYear, Integer points);
 
     Student findByEmail(String email);
 }

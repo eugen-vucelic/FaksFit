@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     Teacher findByEmail(String email);
@@ -26,5 +27,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     @Query("SELECT t FROM Teacher t WHERE SIZE(t.students) = 0")
     List<Teacher> findTeachersWithoutStudents();
+
+    @Query(value = "SELECT t FROM Teacher t WHERE t.userFaculty = :faculty ORDER BY FUNCTION('RAND')")
+    Teacher findRandomTeacherByFaculty(@Param("faculty") Faculty faculty);
 
 }

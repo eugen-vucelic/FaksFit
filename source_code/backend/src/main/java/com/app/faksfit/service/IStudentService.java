@@ -2,6 +2,7 @@ package com.app.faksfit.service;
 
 
 import com.app.faksfit.dto.StudentDTO;
+import com.app.faksfit.dto.StudentDTONoEmail;
 import com.app.faksfit.model.Student;
 
 public interface IStudentService {
@@ -10,7 +11,7 @@ public interface IStudentService {
 
     Student getById(Long id);
 
-    void addStudent(StudentDTO studentDTO);
+    void addStudent(StudentDTONoEmail studentDTO, String email);
 
     Student findByEmail(String email);
 }
