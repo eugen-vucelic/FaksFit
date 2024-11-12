@@ -40,7 +40,7 @@ function Registration({isLoggedIn}) {
       
           if (response.ok) {
             console.log('Korisnik uspješno poslan na backend');
-            navigate('/dashboard');
+            //navigate('/dashboard');
             const {user, token} = response.data;
             localStorage.setItem('token', JSON.stringify('tokenABC'));
           } else {
