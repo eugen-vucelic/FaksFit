@@ -33,7 +33,7 @@ function Dashboard(props) {
             <div className="activity-window">
                 <div className="window">
                     <h3>Nadolazeći termini za ....  :</h3>
-                    <div className="activity">
+                    <div className="activity montserrat-regular">
                         <p>pon 17.11.2024</p>
                         <p>17:00-18:00</p>
                         <p>x slobodnih mjesta</p>
