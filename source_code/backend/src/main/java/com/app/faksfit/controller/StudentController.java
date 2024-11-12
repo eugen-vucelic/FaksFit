@@ -31,4 +31,9 @@ public class StudentController {
         studentService.addStudent(studentDTO);
         return ResponseEntity.ok("Student added successfully");
     }
+
+    @GetMapping("/register")
+    public String test(){
+        return "test";
+    }
 }
