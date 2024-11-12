@@ -1,7 +1,6 @@
 package com.app.faksfit.configuration;
 
 import com.app.faksfit.model.Student;
-import com.app.faksfit.model.User;
 import com.app.faksfit.service.impl.StudentServiceImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

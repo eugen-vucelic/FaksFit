@@ -1,6 +1,5 @@
 package com.app.faksfit.mapper;
 
-import com.app.faksfit.dto.StudentDTO;
 import com.app.faksfit.dto.StudentDTONoEmail;
 import com.app.faksfit.model.*;
 import com.app.faksfit.repository.FacultyRepository;

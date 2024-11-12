@@ -1,6 +1,5 @@
 package com.app.faksfit.controller;
 
-import com.app.faksfit.dto.StudentDTO;
 import com.app.faksfit.dto.StudentDTONoEmail;
 import com.app.faksfit.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class StudentController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> createStudent(@RequestParam(value = "email", required = true) String email,
+    public ResponseEntity<String> createStudent(@RequestParam(value = "email") String email,
                                                 @RequestBody StudentDTONoEmail studentDTONoEmail){
 
         studentService.addStudent(studentDTONoEmail, email);
