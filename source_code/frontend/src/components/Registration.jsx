@@ -8,8 +8,8 @@ function Registration({isLoggedIn}) {
     const [prezime, setPrezime] = useState('');
     const [email, setEmail] = useState('');
     const [jmbag, setJmbag] = useState('');
-    const [Fakultet, setSelectedFakultet] = useState('');
-    const [Semestar, setSelectedSemestar] = useState('')
+    const [Fakultet, setSelectedFakultet] = useState('FER');
+    const [Semestar, setSelectedSemestar] = useState('1')
 
     const navigate = useNavigate();
 
@@ -25,6 +25,7 @@ function Registration({isLoggedIn}) {
           lastName: prezime,
           email: email,
           JMBAG: jmbag,
+          userFaculty: Fakultet,
           semester: Semestar
         };
       
@@ -100,7 +101,7 @@ function Registration({isLoggedIn}) {
                             </select>
                         </div>
                         <div className="form-row">
-                            <input type="checkbox" id="suglasnost"></input>
+                            <input type="checkbox" id="suglasnost" required></input>
                             <label htmlFor="suglasnost">Suglasan/na sam s uvjetima korištenja i GDPR privolama.</label>
                         </div>
                         <div className={"form-row"}>
