@@ -1,22 +1,24 @@
 package com.app.faksfit.service.impl;
 
-import com.app.faksfit.dto.StudentDTONoEmail;
-import com.app.faksfit.mapper.ManualStudentMapper;
+import com.app.faksfit.dto.StudentDTO;
+import com.app.faksfit.mapper.StudentMapper;
 import com.app.faksfit.model.Student;
 import com.app.faksfit.repository.StudentRepository;
 import com.app.faksfit.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentServiceImpl implements IStudentService {
 
     private final StudentRepository studentRepository;
 
-    private final ManualStudentMapper studentMapper;
+    private final StudentMapper studentMapper;
 
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository, ManualStudentMapper studentMapper) {
+    public StudentServiceImpl(StudentRepository studentRepository, StudentMapper studentMapper) {
         this.studentRepository = studentRepository;
         this.studentMapper = studentMapper;
     }
@@ -32,12 +34,17 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public void addStudent(StudentDTONoEmail studentDTO, String email) {
-        studentRepository.save(studentMapper.toEntity(studentDTO, email));
+    public void addStudent(StudentDTO studentDTO) {
+        studentRepository.save(studentMapper.toEntity(studentDTO));
     }
 
     @Override
     public Student findByEmail(String email) {
         return studentRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 }

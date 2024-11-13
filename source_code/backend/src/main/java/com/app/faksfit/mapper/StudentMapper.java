@@ -1,6 +1,6 @@
 package com.app.faksfit.mapper;
 
-import com.app.faksfit.dto.StudentDTONoEmail;
+import com.app.faksfit.dto.StudentDTO;
 import com.app.faksfit.model.*;
 import com.app.faksfit.repository.FacultyRepository;
 import com.app.faksfit.repository.TeacherRepository;
@@ -11,20 +11,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Component
-public class ManualStudentMapper {
+public class StudentMapper {
 
     private final FacultyRepository facultyRepository;
 
     private final TeacherRepository teacherRepository;
 
     @Autowired
-    public ManualStudentMapper(FacultyRepository facultyRepository, TeacherRepository teacherRepository) {
+    public StudentMapper(FacultyRepository facultyRepository, TeacherRepository teacherRepository) {
         this.facultyRepository = facultyRepository;
         this.teacherRepository = teacherRepository;
     }
 
 
-    public Student toEntity(StudentDTONoEmail dto, String email) {
+    public Student toEntity(StudentDTO dto) {
         Student student = new Student();
 
         Faculty studentFaculty = facultyRepository.findByFacultyName(dto.userFaculty());
@@ -32,7 +32,7 @@ public class ManualStudentMapper {
 
         student.setFirstName(dto.firstName());
         student.setLastName(dto.lastName());
-        student.setEmail(email);
+        student.setEmail(dto.email());
         student.setUserFaculty(studentFaculty);
         student.setUserRole(Role.STUDENT);
 
