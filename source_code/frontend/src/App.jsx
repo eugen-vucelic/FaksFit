@@ -21,6 +21,10 @@ function App() {
                     path: "registracija",
                     element: <Registration isLoggedIn={isLoggedIn}/>
                 },
+                {
+                    path: "/student/dashboard",
+                    element: <Dashboard isLoggedIn={isLoggedIn}/>
+                }
             ]
         }
     ]);
@@ -66,7 +70,6 @@ function AppContainer(props) {
         <div>
             <Header isLoggedIn={props.isLoggedIn} role={props.role}/>
             <NotLoggedIn isLoggedIn={props.isLoggedIn}/>
-            <Dashboard isLoggedIn={props.isLoggedIn}d/>
             <div className="App">
                 <Outlet isLoggedIn={props.isLoggedIn} role={props.role}/>
             </div>

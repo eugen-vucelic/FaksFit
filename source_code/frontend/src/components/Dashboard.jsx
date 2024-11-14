@@ -9,7 +9,6 @@ function Dashboard(props) {
     const location = useLocation();
 
     return (
-        (isLoggedIn && location.pathname === '/') ?
         <div className="Dashboard">
             <div className="personal-info">
                 <h2 className={"montserrat-medium"}>Ime Prezime (0036545654)</h2>
@@ -41,7 +40,7 @@ function Dashboard(props) {
                     </div>
                 </div>
             </div>
-        </div> : null
+        </div>
     )
 }
 
