@@ -28,6 +28,9 @@ public class StudentTerminAssocId implements Serializable {
         this.term = term;
     }
 
+    public StudentTerminAssocId() {
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
