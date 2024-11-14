@@ -7,6 +7,7 @@ import com.app.faksfit.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -38,6 +39,11 @@ public class StudentMapper {
 
         student.setJMBAG(dto.JMBAG());
         student.setSemester(dto.semester());
+
+        student.setGender("N/A");
+        student.setNationality("N/A");
+        student.setBirthDate(LocalDate.MIN);
+        student.setPhoneNumber("N/A");
 
         student.setTotalPoints(0);
         student.setPassStatus(false);

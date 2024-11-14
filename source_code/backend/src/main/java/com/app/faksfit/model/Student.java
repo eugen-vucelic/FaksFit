@@ -2,6 +2,7 @@ package com.app.faksfit.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,18 @@ public class Student extends User {
 
     @Column(unique = true, nullable = false)
     private String JMBAG;
+
+    @Column
+    private String gender;
+
+    @Column
+    private String nationality;
+
+    @Column
+    private LocalDate birthDate;
+
+    @Column
+    private String phoneNumber;
 
     @Column
     private Integer totalPoints;
@@ -39,9 +52,13 @@ public class Student extends User {
     @ManyToOne
     private Teacher studentTeacher;
 
-    public Student(Long userId, String firstName, String lastName, String email, String password, String dateOfRegistration, Faculty userFaculty, Role userRole, String JMBAG, Integer totalPoints, Boolean passStatus, String semester, String academicYear, List<StudentTerminAssoc> terminList, List<Notification> notificationList, Teacher studentTeacher) {
+    public Student(Long userId, String firstName, String lastName, String email, String password, String dateOfRegistration, Faculty userFaculty, Role userRole, String JMBAG, String gender, String nationality, LocalDate birthDate, String phoneNumber, Integer totalPoints, Boolean passStatus, String semester, String academicYear, List<StudentTerminAssoc> terminList, List<Notification> notificationList, Teacher studentTeacher) {
         super(userId, firstName, lastName, email, password, dateOfRegistration, userFaculty, userRole);
         this.JMBAG = JMBAG;
+        this.gender = gender;
+        this.nationality = nationality;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
         this.totalPoints = totalPoints;
         this.passStatus = passStatus;
         this.semester = semester;
@@ -51,8 +68,12 @@ public class Student extends User {
         this.studentTeacher = studentTeacher;
     }
 
-    public Student(String JMBAG, Integer totalPoints, Boolean passStatus, String semester, String academicYear, List<StudentTerminAssoc> terminList, List<Notification> notificationList, Teacher studentTeacher) {
+    public Student(String JMBAG, String gender, String nationality, LocalDate birthDate, String phoneNumber, Integer totalPoints, Boolean passStatus, String semester, String academicYear, List<StudentTerminAssoc> terminList, List<Notification> notificationList, Teacher studentTeacher) {
         this.JMBAG = JMBAG;
+        this.gender = gender;
+        this.nationality = nationality;
+        this.birthDate = birthDate;
+        this.phoneNumber = phoneNumber;
         this.totalPoints = totalPoints;
         this.passStatus = passStatus;
         this.semester = semester;
@@ -72,6 +93,38 @@ public class Student extends User {
 
     public void setJMBAG(String JMBAG) {
         this.JMBAG = JMBAG;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Integer getTotalPoints() {
@@ -128,19 +181,5 @@ public class Student extends User {
 
     public void setStudentTeacher(Teacher studentTeacher) {
         this.studentTeacher = studentTeacher;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "JMBAG='" + JMBAG + '\'' +
-                ", totalPoints=" + totalPoints +
-                ", passStatus=" + passStatus +
-                ", semester='" + semester + '\'' +
-                ", academicYear=" + academicYear +
-                ", terminList=" + terminList +
-                ", notificationList=" + notificationList +
-                ", studentTeacher=" + studentTeacher +
-                "} " + super.toString();
     }
 }

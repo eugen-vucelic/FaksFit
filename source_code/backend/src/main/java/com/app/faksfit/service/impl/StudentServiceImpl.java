@@ -1,7 +1,7 @@
 package com.app.faksfit.service.impl;
 
 import com.app.faksfit.dto.StudentDTO;
-import com.app.faksfit.dto.StudentDashboardDTO;
+import com.app.faksfit.dto.StudentSettingsDTO;
 import com.app.faksfit.mapper.StudentDashboardMapper;
 import com.app.faksfit.mapper.StudentMapper;
 import com.app.faksfit.model.Student;
@@ -19,13 +19,10 @@ public class StudentServiceImpl implements IStudentService {
 
     private final StudentMapper studentMapper;
 
-    private final StudentDashboardMapper studentDashboardMapper;
-
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository, StudentMapper studentMapper, StudentDashboardMapper studentDashboardMapper) {
+    public StudentServiceImpl(StudentRepository studentRepository, StudentMapper studentMapper) {
         this.studentRepository = studentRepository;
         this.studentMapper = studentMapper;
-        this.studentDashboardMapper = studentDashboardMapper;
     }
 
     @Override
@@ -52,4 +49,38 @@ public class StudentServiceImpl implements IStudentService {
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
+
+    @Override
+    public boolean updateStudent(String email, StudentSettingsDTO studentSettingsDTO) {
+        Student student = studentRepository.findByEmail(email);
+        updateNonNullFields(student, studentSettingsDTO);
+        studentRepository.save(student);
+        return true;
+    }
+
+
+    private void updateNonNullFields(Student student, StudentSettingsDTO studentSettingsDTO) {
+        if (studentSettingsDTO.firstName() != null) {
+            student.setFirstName(studentSettingsDTO.firstName());
+        }
+        if (studentSettingsDTO.lastName() != null) {
+            student.setLastName(studentSettingsDTO.lastName());
+        }
+        if (studentSettingsDTO.gender() != null) {
+            student.setGender(studentSettingsDTO.gender());
+        }
+        if (studentSettingsDTO.nationality() != null) {
+            student.setNationality(studentSettingsDTO.nationality());
+        }
+        if (studentSettingsDTO.birthDate() != null) {
+            student.setBirthDate(studentSettingsDTO.birthDate());
+        }
+        if (studentSettingsDTO.phoneNumber() != null) {
+            student.setPhoneNumber(studentSettingsDTO.phoneNumber());
+        }
+        if (studentSettingsDTO.semester() != null) {
+            student.setSemester(studentSettingsDTO.semester());
+        }
+    }
 }
+
