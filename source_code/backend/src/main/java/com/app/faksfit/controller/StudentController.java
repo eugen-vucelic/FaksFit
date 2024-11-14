@@ -42,6 +42,28 @@ public class StudentController {
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
+    @GetMapping("/current")
+    public ResponseEntity<StudentSettingsDTO> getCurrentStudent(@AuthenticationPrincipal OAuth2User oauthUser) {
+        String email = oauthUser.getAttribute("email");
+        Student student = studentService.findByEmail(email);
+
+        if (student == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+
+        StudentSettingsDTO studentSettingsDTO = new StudentSettingsDTO(
+                student.getFirstName(),
+                student.getLastName(),
+                student.getGender(),
+                student.getNationality(),
+                student.getBirthDate(),
+                student.getPhoneNumber(),
+                student.getSemester()
+        );
+
+        return ResponseEntity.ok(studentSettingsDTO);
+    }
+
     @PatchMapping("/patch")
     public ResponseEntity<String> updateStudent(@AuthenticationPrincipal OAuth2User oauthUser, @RequestBody StudentSettingsDTO studentSettingsDTO){
         String email = oauthUser.getAttribute("email");
