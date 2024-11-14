@@ -5,6 +5,7 @@ body {
     background-repeat: no-repeat;
     height: 100vh;
     margin: 0;
+    color: rgba(0, 0, 0, .75);
 }
 
 .montserrat-regular {

@@ -63,6 +63,7 @@ function Registration({ isLoggedIn }) {
   };
 
   return (
+    !isLoggedIn ?
     <div className="registration-grid">
       <div className="left-container">
         <p className="montserrat-regular blue">Potrebno je odabrati fakultet na kojem polažete predmet Tjelesne i zdravstvene kulture.</p>
@@ -116,7 +117,7 @@ function Registration({ isLoggedIn }) {
         </form>
       </div>
     </div>
-  );
+  : navigate('/dashboard/student'));
 }
 
 export default Registration;

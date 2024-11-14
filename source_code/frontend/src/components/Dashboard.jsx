@@ -1,11 +1,12 @@
 import "./Dashboard.css";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Dashboard(props) {
     const {isLoggedIn,setIsLoggedIn} = props;
     const [dashboardData, setDashboardData] = useState(null);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('http://localhost:8080/dashboard/student', {
@@ -14,6 +15,7 @@ function Dashboard(props) {
         })
             .then(response => {
                 if (!response.ok) {
+                    navigate('/');
                     throw new Error('Failed to fetch dashboard data');
                 }
                 
@@ -23,6 +25,7 @@ function Dashboard(props) {
                 setDashboardData(data);
             })
             .catch(error => {
+                navigate("/");
                 console.error('Error fetching dashboard data:', error);
                 setIsLoggedIn(false);
                 setError(error);
