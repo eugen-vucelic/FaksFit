@@ -2,6 +2,7 @@ package com.app.faksfit.service;
 
 
 import com.app.faksfit.dto.StudentDTO;
+import com.app.faksfit.dto.StudentDashboardDTO;
 import com.app.faksfit.model.Student;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface IStudentService {
 
     Student findByEmail(String email);
 
-    public List<Student> getAllStudents();
+    List<Student> getAllStudents();
 }
