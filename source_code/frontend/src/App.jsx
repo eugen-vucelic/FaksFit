@@ -36,7 +36,7 @@ function App() {
                 setLoadingUser(false);
 
                 if (response.status === 200) {
-                    setIsLoggedIn(false);
+                    setIsLoggedIn(true);
                     setRole("Student");
                 } else {
                     setIsLoggedIn(false);

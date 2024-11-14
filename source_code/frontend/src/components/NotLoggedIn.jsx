@@ -12,7 +12,7 @@ function NotLoggedIn(props) {
 
     useEffect(() => {
         if (isLoggedIn) {
-            navigate('/');
+            navigate('/student/dashboard');
         }
     }, [isLoggedIn, navigate]);
 
