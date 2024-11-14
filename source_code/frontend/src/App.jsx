@@ -22,7 +22,7 @@ function App() {
                     element: <Registration isLoggedIn={isLoggedIn}/>
                 },
                 {
-                    path: "/student/dashboard",
+                    path: "/dashboard/student",
                     element: <Dashboard isLoggedIn={isLoggedIn}/>
                 }
             ]

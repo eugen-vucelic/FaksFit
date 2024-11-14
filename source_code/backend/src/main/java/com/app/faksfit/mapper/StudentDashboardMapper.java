@@ -24,6 +24,8 @@ public class StudentDashboardMapper {
         TeacherDTO teacherDTO = toTeacherDTO(student.getStudentTeacher());
 
         return new StudentDashboardDTO(
+                student.getFirstName(),
+                student.getLastName(),
                 student.getJMBAG(),
                 student.getPassStatus(),
                 terminList,

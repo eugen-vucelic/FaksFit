@@ -37,7 +37,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
             String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
             response.sendRedirect("http://localhost:5173/registracija?email=" + encodedEmail);
         } else {
-            response.sendRedirect("http://localhost:5173/");
+            response.sendRedirect("http://localhost:5173/dashboard/student");
         }
 
     }

@@ -1,6 +1,8 @@
 package com.app.faksfit.service.impl;
 
 import com.app.faksfit.dto.StudentDTO;
+import com.app.faksfit.dto.StudentDashboardDTO;
+import com.app.faksfit.mapper.StudentDashboardMapper;
 import com.app.faksfit.mapper.StudentMapper;
 import com.app.faksfit.model.Student;
 import com.app.faksfit.repository.StudentRepository;
@@ -17,10 +19,13 @@ public class StudentServiceImpl implements IStudentService {
 
     private final StudentMapper studentMapper;
 
+    private final StudentDashboardMapper studentDashboardMapper;
+
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository, StudentMapper studentMapper) {
+    public StudentServiceImpl(StudentRepository studentRepository, StudentMapper studentMapper, StudentDashboardMapper studentDashboardMapper) {
         this.studentRepository = studentRepository;
         this.studentMapper = studentMapper;
+        this.studentDashboardMapper = studentDashboardMapper;
     }
 
     @Override
