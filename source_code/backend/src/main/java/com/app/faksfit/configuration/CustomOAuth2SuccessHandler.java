@@ -35,9 +35,9 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         if (student == null) {
             assert email != null;
             String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
-            response.sendRedirect("/student/register?email=" + encodedEmail);
+            response.sendRedirect("http://localhost:5173/registracija?email=" + encodedEmail);
         } else {
-            response.sendRedirect("/student/dashboard");
+            response.sendRedirect("http://localhost:5173/");
         }
 
     }
