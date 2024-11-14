@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Registration.css';
 
-function Registration({ isLoggedIn }) {
+function Registration({ isLoggedIn, setIsLoggedIn }) {
   const [ime, setIme] = useState('');
   const [prezime, setPrezime] = useState('');
   const [email, setEmail] = useState('');
   const [jmbag, setJmbag] = useState('');
   const [Fakultet, setSelectedFakultet] = useState('FER');
   const [Semestar, setSelectedSemestar] = useState('1');
+  // const {isLoggedIn,setIsLoggedIn} = props;
 
   const location = useLocation(); // Access query params
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function Registration({ isLoggedIn }) {
 
       if (response.ok) {
         console.log('Korisnik uspješno poslan na backend');
-        isLoggedIn = true;
+        setIsLoggedIn(true);
         navigate('/dashboard/student');
       } else {
         console.log(response);
