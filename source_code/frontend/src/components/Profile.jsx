@@ -95,6 +95,15 @@ function Profile(props) {
         return <div>Loading...</div>;
     }
 
+    const handleReset = () => {
+        setFirstName(initialValues.firstName || '');
+        setLastName(initialValues.lastName || '');
+        setSelectedGender(initialValues.gender || 'M');
+        setNationality(initialValues.nationality || '');
+        setBirthDate(initialValues.birthDate || '');
+        setPhoneNumber(initialValues.phoneNumber || '');
+    };
+
     return (
         <div className="profile-grid">
             <div className="profile-data">
@@ -131,6 +140,7 @@ function Profile(props) {
                     <input type="text" id="broj" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
                 </div>
                 <div className="form-row">
+                    <button type="button" onClick={handleReset}>Resetiraj</button>
                     <button type="submit">Promijeni podatke</button>
                 </div>
             </form>
