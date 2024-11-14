@@ -15,7 +15,7 @@ function App() {
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <AppContainer isLoggedIn={isLoggedIn} role={role}/>,
+            element: <AppContainer isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} role={role}/>,
             children: [
                 {
                     path: "registracija",
@@ -23,7 +23,7 @@ function App() {
                 },
                 {
                     path: "/dashboard/student",
-                    element: <Dashboard isLoggedIn={isLoggedIn}/>
+                    element: <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
                 }
             ]
         }
@@ -68,8 +68,8 @@ export default App
 function AppContainer(props) {
     return (
         <div>
-            <Header isLoggedIn={props.isLoggedIn} role={props.role}/>
-            <NotLoggedIn isLoggedIn={props.isLoggedIn}/>
+            <Header isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn} role={props.role}/>
+            <NotLoggedIn isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn}/>
             <div className="App">
                 <Outlet isLoggedIn={props.isLoggedIn} role={props.role}/>
             </div>

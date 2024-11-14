@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Dashboard(props) {
+    const {isLoggedIn,setIsLoggedIn} = props;
     const [dashboardData, setDashboardData] = useState(null);
     const [error, setError] = useState(null);
 
@@ -15,6 +16,7 @@ function Dashboard(props) {
                 if (!response.ok) {
                     throw new Error('Failed to fetch dashboard data');
                 }
+                
                 return response.json();
             })
             .then(data => {
@@ -22,9 +24,10 @@ function Dashboard(props) {
             })
             .catch(error => {
                 console.error('Error fetching dashboard data:', error);
+                setIsLoggedIn(false);
                 setError(error);
             });
-    }, []);
+    }, [setIsLoggedIn]);
 
     if (error) {
         return <div>Error: {error.message}</div>;

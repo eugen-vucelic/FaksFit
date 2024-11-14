@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom';
 
 function NotLoggedIn(props) {
 
-    const {isLoggedIn} = props;
+    const {isLoggedIn,setIsLoggedIn} = props;
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
+        setIsLoggedIn(false);
         if (isLoggedIn) {
-            navigate('/student/dashboard');
+            //navigate('/dashboard/student');
         }
     }, [isLoggedIn, navigate]);
 

@@ -52,7 +52,7 @@ function Registration({ isLoggedIn }) {
       if (response.ok) {
         console.log('Korisnik uspješno poslan na backend');
         isLoggedIn = true;
-        navigate('/');
+        navigate('/dashboard/student');
       } else {
         console.log(response);
         console.error('Greška pri slanju podataka');
@@ -81,7 +81,7 @@ function Registration({ isLoggedIn }) {
           </div>
           <div className="form-row">
             <label htmlFor="email">Email:</label>
-            <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="text" id="email" value={email} required />
           </div>
           <div className="form-row">
             <label htmlFor="jmbag">Jmbag:</label>

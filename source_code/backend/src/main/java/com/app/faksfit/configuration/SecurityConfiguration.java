@@ -39,7 +39,7 @@ public class SecurityConfiguration {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(successHandler)
-                        .failureUrl("http://localhost:5173/dashboard?error=true")
+                        .failureUrl("http://localhost:5173")
                 )
                 .csrf(AbstractHttpConfigurer::disable);
 
