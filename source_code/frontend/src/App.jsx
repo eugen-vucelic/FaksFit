@@ -6,6 +6,7 @@ import Footer from "./components/Footer.jsx";
 import NotLoggedIn from "./components/NotLoggedIn.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import Registration from "./components/Registration.jsx"
+import Profile from "./components/Profile.jsx";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -19,11 +20,15 @@ function App() {
             children: [
                 {
                     path: "registracija",
-                    element: <Registration isLoggedIn={isLoggedIn}/>
+                    element: <Registration isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
                 },
                 {
                     path: "/dashboard/student",
                     element: <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+                },
+                {
+                    path: "/profil",
+                    element: <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
                 }
             ]
         }
