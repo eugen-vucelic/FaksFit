@@ -124,7 +124,7 @@ function Profile(props) {
                 </div>
                 <div className="form-row">
                     <label htmlFor="datRod">Datum rođenja:</label>
-                    <input type="text" id="datRod" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
+                    <input type="date" id="datRod" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
                 </div>
                 <div className="form-row">
                     <label htmlFor="broj">Broj mobitela:</label>
