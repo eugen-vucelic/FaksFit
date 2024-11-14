@@ -13,9 +13,8 @@ function Profile(props) {
     const [nationality, setNationality] = useState('');
     const [birthDate, setBirthDate] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const location = useLocation(); // Always declared at the top level
+    const location = useLocation(); // deklarirano na vrhu, to izbjegava hook errore
 
-    // Fetch current profile data
     useEffect(() => {
         fetch('http://localhost:8080/student/current', {
             method: 'GET',
@@ -37,7 +36,6 @@ function Profile(props) {
         });
     }, [setIsLoggedIn]);
 
-    // Extract query parameters from the URL
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         
@@ -68,14 +66,13 @@ function Profile(props) {
     }, [location.search]);
 
     if (error) {
-        return <div>Error: {error.message}</div>; // Render fallback UI if there's an error
+        return <div>Error: {error.message}</div>;
     }
 
     if (!profileData) {
-        return <div>Loading...</div>; // Display loading state until profile data is fetched
+        return <div>Loading...</div>;
     }
 
-    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -90,7 +87,7 @@ function Profile(props) {
 
         try {
             const response = await fetch('http://localhost:8080/student/patch', {
-                method: 'POST',
+                method: 'PATCH',
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -113,6 +110,11 @@ function Profile(props) {
 
     return (
         <div className="profile-grid">
+            <div className="profile-data">
+                <div className="data-row">
+                    <p>{profileData.firstName}</p>
+                </div>
+            </div>
             <form method="POST" onSubmit={handleSubmit}>
                 <div className="form-row">
                     <label htmlFor="ime">Ime:</label>
@@ -120,26 +122,26 @@ function Profile(props) {
                 </div>
                 <div className="form-row">
                     <label htmlFor="prezime">Prezime:</label>
-                    <input type="text" id="prezime" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                    <input type="text" id="prezime" value={profileData.lastName} onChange={(e) => setLastName(e.target.value)} />
                 </div>
                 <div className="form-row">
                     <label htmlFor="spol">Spol:</label>
-                    <select id="spol" value={gender} onChange={(e) => setSelectedGender(e.target.value)}>
+                    <select id="spol" value={profileData.gender ? profileData.gender : 'M'} onChange={(e) => setSelectedGender(e.target.value)}>
                         <option value="M">M</option>
                         <option value="Ž">Ž</option>
                     </select>
                 </div>
                 <div className="form-row">
                     <label htmlFor="nacionalnost">Nacionalnost:</label>
-                    <input type="text" id="nacionalnost" value={nationality} onChange={(e) => setNationality(e.target.value)} />
+                    <input type="text" id="nacionalnost" value={profileData.nationality ? profileData.nationality : ''} onChange={(e) => setNationality(e.target.value)} />
                 </div>
                 <div className="form-row">
                     <label htmlFor="datRod">Datum rođenja:</label>
-                    <input type="text" id="datRod" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
+                    <input type="text" id="datRod" value={profileData.birthDate ? profileData.birthDate : ''} onChange={(e) => setBirthDate(e.target.value)} />
                 </div>
                 <div className="form-row">
                     <label htmlFor="broj">Broj mobitela:</label>
-                    <input type="text" id="broj" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+                    <input type="text" id="broj" value={profileData.phoneNumber ? profileData.phoneNumber : ''} onChange={(e) => setPhoneNumber(e.target.value)} />
                 </div>
                 <div className="form-row">
                     <button type="submit">Promijeni podatke</button>
