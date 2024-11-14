@@ -105,10 +105,14 @@ function Profile(props) {
     };
 
     return (
-        <div className="profile-grid">
+        <div className="profile-grid montserrat-regular">
             <div className="profile-data">
                 <div className="data-row">
-                    <p>{profileData.firstName} {profileData.lastName}</p>
+                    <p className="montserrat-bold">{profileData.firstName} {profileData.lastName}</p>
+                    <p>Spol: {profileData.gender}</p>
+                    <p>Nacionalnost: {profileData.nationality}</p>
+                    <p>Datum rođenja: {profileData.birthDate}</p>
+                    <p>Broj mobitela: {profileData.phoneNumber}</p>
                 </div>
             </div>
             <form method="PATCH" onSubmit={handleSubmit}>
