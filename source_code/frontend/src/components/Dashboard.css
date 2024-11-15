@@ -14,10 +14,10 @@
     grid-row: 1;
 }
 .personal-info h2{
-    margin-left: 5rem;
+    margin-left: 3rem;
 }
 .personal-info h3{
-    margin-left: 6rem;
+    margin-left: 4.5rem;
 
 }
 .bar{
@@ -57,12 +57,13 @@
 .activities p{
     color: #4285f4;
     font-size: large;
-    margin-left: 6rem;
+    margin-left: 5px;
 }
 .activity-buttons{
     grid-column-start: 1;
     grid-column-end: 2;
     grid-row: 3;
+    border: 1px solid black;
 }
 
 .activity-buttons button{
@@ -82,7 +83,17 @@
     grid-column-end: 4;
     grid-row: 3;
 }
+.available{
+    grid-row: 3;
+    grid-column: 1;
+}
 
+.available p{
+    color: #4285f4;
+    font-size: large;
+    margin-left: 5px;
+    margin-left: 4.5rem;
+}
 .window{
     height: 70%;
     width: 90%;

@@ -8,23 +8,23 @@
     grid-template-rows: 20% 40% 40%;
 }
 
-
 .left-container{
-    display: block;
-    grid-row:2;
+    grid-row-start: 1;
+    grid-row-end: 3;
     grid-column: 1;
     border: 3px solid #4285f4;
     border-radius: 10px;
     width: 55%;
-    margin-top: 5em;
+    margin-top: 7.5em;
     margin-left: 17.5%;
+    height: auto;
 }
 .left-container p{
     overflow-wrap: break-word;
     word-break: break-word;
     white-space: normal;
     font-size: 20px;
-    padding-left: 1rem;
+    padding-left: 0.5rem;
     color: #4285f4;
 }
 

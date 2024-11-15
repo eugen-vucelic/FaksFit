@@ -86,7 +86,7 @@ header {
     border: none;
     color: #4285f4;
     font-size: medium;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     transition: 0.2s ease;
 }
 .nav button:hover {

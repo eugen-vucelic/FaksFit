@@ -77,8 +77,9 @@ function Dashboard(props) {
                 </div>
                 <p>{dashboardData.totalPoints ?? 0}/100 bodova</p>
             </div>
-
-
+            <div className="available montserrat-regular">
+                <p>Dostupne aktivnosti:</p>
+            </div>
             {/* Activity Window */}
             <div className="activity-window">
                 <div className="activities montserrat-regular">
