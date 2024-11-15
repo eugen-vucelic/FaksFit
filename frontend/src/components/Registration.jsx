@@ -40,7 +40,7 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/student/register', {
+      const response = await fetch('https://faksfit.onrender.com/student/register', {
         method: 'POST',
         mode: 'cors',
         headers: {

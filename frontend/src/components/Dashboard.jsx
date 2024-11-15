@@ -9,7 +9,7 @@ function Dashboard(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:8080/dashboard/student', {
+        fetch('https://faksfit.onrender.com/dashboard/student', {
             method: 'GET',
             credentials: 'include',
         })
