@@ -1,5 +1,5 @@
 # FaksFit
-FaksFit - web aplikacija/projektni zadatak iz kolegija Programsko Inženjerstvo, grupa G04
+FaksFit - web aplikacija/projektni zadatak iz kolegija Programsko Inženjerstvo, grupa G04.1
 
 # Opis projekta
 Ovaj projekt je reuzltat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
