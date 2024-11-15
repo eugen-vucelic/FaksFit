@@ -8,7 +8,7 @@ FROM openjdk:21-jdk-slim AS build
 EXPOSE 8080
 
 # The application's jar file
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=*.jar
 
 # Add the application's jar to the container
 ADD ${JAR_FILE} app.jar
