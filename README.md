@@ -75,3 +75,6 @@ Orginal [![cc0-1.0][cc0-1.0-shield]][cc0-1.0]
 DEPLOYED WEBSITE:
 
 https://faksfit-front1.onrender.com/
+
+Ovdje se također nalazi izvješće rada koje ste zatražili.
+https://docs.google.com/document/d/1U7h6-F7r8TSdKrhOY0GaVsWiXMXEakoD5XCes8ez048/edit?usp=sharing 
