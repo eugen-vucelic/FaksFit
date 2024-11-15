@@ -3,7 +3,7 @@ name: Build and Push Backend Image
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - 'backend/**'      # Trigger only on changes in the /backend directory
   workflow_dispatch:
