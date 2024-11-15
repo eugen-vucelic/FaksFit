@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'backend/**'      # Trigger only on changes in the /backend directory
+      - 'source_code/backend/**'      # Trigger only on changes in the /backend directory
   workflow_dispatch:
 
 jobs:
