@@ -184,3 +184,5 @@ hs_err_pid*
 
 ### client and secret ID for google Oauth2 ###
 secured.properties
+
+!target/faksfit-0.0.1-SNAPSHOT.jar
