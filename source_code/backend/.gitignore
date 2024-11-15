@@ -183,3 +183,4 @@ hs_err_pid*
 .vscode/
 
 ### client and secret ID for google Oauth2 ###
+!target/faksfit-0.0.1-SNAPSHOT.jar
