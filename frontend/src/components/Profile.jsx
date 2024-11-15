@@ -18,7 +18,7 @@ function Profile(props) {
     const [initialValues, setInitialValues] = useState({});
 
     useEffect(() => {
-        fetch('http://localhost:8080/student/current', {
+        fetch('https://faksfit.onrender.com/student/current', {
             method: 'GET',
             credentials: 'include',
         })
@@ -65,7 +65,7 @@ function Profile(props) {
         if (phoneNumber !== initialValues.phoneNumber) updatedFields.phoneNumber = phoneNumber;
 
         try {
-            const response = await fetch('http://localhost:8080/student/patch', {
+            const response = await fetch('https://faksfit.onrender.com/student/patch', {
                 method: 'PATCH',
                 mode: 'cors',
                 headers: {
