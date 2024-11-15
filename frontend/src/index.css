@@ -1,0 +1,67 @@
+body {
+    background: linear-gradient(180deg, #FFFFFF 16%, rgba(182, 205, 254, 40%) 63%, rgba(81, 135, 253, 40%) 90%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: auto;
+    min-height: 100vh;
+    margin: 0;
+    color: rgba(0, 0, 0, .75);
+}
+
+.montserrat-regular {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.montserrat-medium {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.montserrat-semibold {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.montserrat-bold {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.montserrat-regular-italic {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.montserrat-medium-italic {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.montserrat-semibold-italic {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-weight: 600;
+}
+
+.montserrat-bold-italic {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-weight: 700;
+}

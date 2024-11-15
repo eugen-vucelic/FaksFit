@@ -1,0 +1,63 @@
+.container {
+    margin-left: 30%;
+    margin-top: 150px;
+    text-align: center;
+}
+
+@media (max-width: 1000px) {
+    .container {
+        margin-left: 0px;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+p {
+    color: rgba(0, 0, 0, .75);
+    font-size: 1.15vw;
+}
+
+@media (max-width: 1300px) {
+    p {
+        font-size: 1.5vw;
+    }
+}
+
+@media (max-width: 1100px) {
+    p {
+        font-size: 1.8vw;
+    }
+}
+
+@media (max-width: 900px) {
+    p {
+        font-size: 20px;
+    }
+}
+
+a {
+    text-decoration: underline;
+    color: #5187FD;
+}
+
+a:visited {
+    text-decoration: underline;
+    color: #5187FD;
+}
+
+.montserrat-bold {
+    color: #5187FD;
+}
+
+.arrow-box {
+    border: 5px solid #5187FD;
+    border-radius: 20px;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.montserrat-medium {
+    margin-bottom: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
