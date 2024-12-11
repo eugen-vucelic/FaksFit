@@ -1,5 +1,5 @@
 # Build stage
-FROM openjdk:21-jdk as builder
+FROM maven:3.9.6-eclipse-temurin-21 as builder
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY .mvn .mvn
 RUN chmod +x ./mvnw
 RUN ./mvnw clean package -DskipTests
 
-FROM openjdk:21-jdk
+FROM eclipse-temurin:21-jre-jammy
 
 VOLUME /tmp
 COPY --from=builder /app/target/*.jar app.jar
