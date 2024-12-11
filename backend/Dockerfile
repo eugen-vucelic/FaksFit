@@ -1,17 +1,14 @@
-FROM openjdk:21-jdk-slim AS builder
+FROM eclipse-temurin:11-jdk-alpine AS build
 
-WORKDIR /app
+COPY pom.xml /usr/src/app/
+COPY src /usr/src/app/src
 
-COPY pom.xml /app/pom.xml
-COPY src /app/src
+RUN mvn -f /usr/src/app/pom.xml clean package
 
-RUN mvn -f /app/pom.xml clean package
+FROM eclipse-temurin:11-jdk-alpine
 
-FROM openjdk:21-jdk-slim
-
-WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
+COPY --from=build /usr/src/app/target/*.jar /usr/app/app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+ENTRYPOINT ["java","-jar","usr/app/app.jar"]
