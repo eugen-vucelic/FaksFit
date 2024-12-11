@@ -2,10 +2,8 @@ FROM openjdk:21-jdk-slim AS builder
 
 COPY pom.xml /app/pom.xml
 COPY src /app/src
-COPY mvnw /app/mvnw
-COPY .mvn /app/.mvn
 
-RUN ./app/mvn clean package
+RUN mvn -f /app/pom.xml clean package
 
 FROM openjdk:21-jdk-slim
 
