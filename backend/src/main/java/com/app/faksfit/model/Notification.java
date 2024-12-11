@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "OBAVIJEST", schema = "FAKSFIT")
+@Table(name = "OBAVIJEST")
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
