@@ -3,7 +3,7 @@ FROM openjdk:21-jdk-slim AS builder
 WORKDIR /app
 
 COPY . .
-RUN mvn clean package
+RUN ./mvn clean package
 
 FROM openjdk:21-jdk-slim
 
