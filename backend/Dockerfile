@@ -1,31 +1,21 @@
 # Build stage
-FROM maven:3.8.4-openjdk-17 as builder
-
+FROM openjdk:21-jdk as builder
 
 WORKDIR /app
 
 COPY pom.xml .
-COPY .mvn/ .mvn/
+COPY src src
+
 COPY mvnw .
-COPY mvnw.cmd .
+COPY .mvn .mvn
 
+RUN chmod +x ./mvnw
+RUN ./mvnw clean package -DskipTests
 
-RUN mvn dependency:go-offline
+FROM openjdk:21-jdk
 
-
-COPY src/ src/
-
-
-RUN mvn clean package -DskipTests
-
-
-FROM openjdk:17-slim
-
-WORKDIR /app
-
+VOLUME /tmp
 COPY --from=builder /app/target/*.jar app.jar
 
-
+ENTRYPOINT ["java", "-jar", "app.jar"]
 EXPOSE 8080
-
-CMD ["java", "-jar", "app.jar"]
