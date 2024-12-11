@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "userId")
-@Table(name = "TEACHER", schema = "FAKSFIT")
+@Table(name = "TEACHER")
 public class Teacher extends User{
 
     @Column

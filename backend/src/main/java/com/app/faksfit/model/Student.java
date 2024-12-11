@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "userId")
-@Table(name = "STUDENT", schema = "FAKSFIT")
+@Table(name = "STUDENT")
 public class Student extends User {
 
     @Column(unique = true, nullable = false)

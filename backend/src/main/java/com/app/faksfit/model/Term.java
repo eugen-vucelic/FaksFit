@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "TERMIN", schema = "FAKSFIT")
+@Table(name = "TERMIN")
 public class Term {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
