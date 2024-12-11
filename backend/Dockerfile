@@ -1,14 +1,31 @@
-FROM eclipse-temurin:11-jdk-alpine AS build
+# Build stage
+FROM maven:3.8.4-openjdk-17 as builder
 
-COPY ./pom.xml /usr/src/app/
-COPY ./src /usr/src/app/src
 
-RUN mvn -f /usr/src/app/pom.xml clean package
+WORKDIR /app
 
-FROM eclipse-temurin:11-jdk-alpine
+COPY pom.xml .
+COPY .mvn/ .mvn/
+COPY mvnw .
+COPY mvnw.cmd .
 
-COPY --from=build /usr/src/app/target/*.jar /usr/app/app.jar
+
+RUN mvn dependency:go-offline
+
+
+COPY src/ src/
+
+
+RUN mvn clean package -DskipTests
+
+
+FROM openjdk:17-slim
+
+WORKDIR /app
+
+COPY --from=builder /app/target/*.jar app.jar
+
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","usr/app/app.jar"]
+CMD ["java", "-jar", "app.jar"]
