@@ -1,5 +1,7 @@
 FROM openjdk:21-jdk-slim AS builder
 
+WORKDIR /app
+
 COPY pom.xml /app/pom.xml
 COPY src /app/src
 
