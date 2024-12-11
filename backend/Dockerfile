@@ -1,7 +1,7 @@
 FROM eclipse-temurin:11-jdk-alpine AS build
 
-COPY pom.xml /usr/src/app/
-COPY src /usr/src/app/src
+COPY ./pom.xml /usr/src/app/
+COPY ./src /usr/src/app/src
 
 RUN mvn -f /usr/src/app/pom.xml clean package
 
