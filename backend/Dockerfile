@@ -1,9 +1,11 @@
 FROM openjdk:21-jdk-slim AS builder
 
-WORKDIR /app
+COPY pom.xml /app/pom.xml
+COPY src /app/src
+COPY mvnw /app/mvnw
+COPY .mvn /app/.mvn
 
-COPY . .
-RUN ./mvn clean package
+RUN ./app/mvn clean package
 
 FROM openjdk:21-jdk-slim
 
