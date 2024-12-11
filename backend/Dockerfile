@@ -1,9 +1,11 @@
-FROM maven:3.9.4-eclipse-temurin-21 AS builder
+FROM eclipse-temurin:21-jdk-alpine AS builder
+RUN apk add --no-cache dos2unix
+
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
+RUN find . -type f -exec dos2unix {} \;
 RUN mvn clean package -DskipTests
-
 
 FROM eclipse-temurin:21-jdk-alpine
 WORKDIR /app
