@@ -1,16 +1,18 @@
-# Start with a base image containing Java runtime
-FROM openjdk:21-jdk-slim AS build
+FROM openjdk:21-jdk-slim AS builder
+
+COPY ../../.mvn .mvn
+COPY ../../mvnw .
+COPY ../../pom.xml .
+COPY ../../src src
+RUN chmod +x mvnw
+
+RUN ./mvnw clean package -DskipTests
 
 
-# Add a volume pointing to /tmp
+FROM openjdk:21-jdk-slim
 
-# Make port 8080 available to the world outside this container
+COPY --from=builder target/*.jar app.jar
+
 EXPOSE 8080
 
-# The application's jar file
-ARG JAR_FILE=*.jar
-
-# Add the application's jar to the container
-ADD ${JAR_FILE} app.jar
-# Run the jar file
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app.jar"]
