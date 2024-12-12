@@ -17,7 +17,6 @@ import java.util.List;
 
 
 @Configuration
-//@PropertySource("file:./secured.properties")
 @EnableWebSecurity
 public class SecurityConfiguration {
 
@@ -31,7 +30,6 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/student/register", "/login**", "/error**", "/student/patch").permitAll()
@@ -39,21 +37,25 @@ public class SecurityConfiguration {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(successHandler)
-                        .failureUrl("https://faksfit-front1.onrender.com")
+                        .failureUrl("https://faksfit-7du1.onrender.com")
                 )
                 .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
 
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("https://faksfit-front1.onrender.com"));
+        config.setAllowedOrigins(List.of(
+                "https://faksfit-7du1.onrender.com",
+                "http://localhost:5173"
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
+
+        config.setExposedHeaders(List.of("Authorization"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

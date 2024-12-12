@@ -1,6 +1,7 @@
 import "./Profile.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { API_URL } from '../config';
 
 function Profile(props) {
     const { isLoggedIn, setIsLoggedIn } = props;
@@ -18,9 +19,12 @@ function Profile(props) {
     const [initialValues, setInitialValues] = useState({});
 
     useEffect(() => {
-        fetch('https://faksfit.onrender.com/student/current', {
+        fetch(`${API_URL}/student/current`, {
             method: 'GET',
             credentials: 'include',
+            headers: {
+                'Accept': 'application/json'
+            }
         })
         .then(response => {
             if (!response.ok) {
@@ -65,11 +69,11 @@ function Profile(props) {
         if (phoneNumber !== initialValues.phoneNumber) updatedFields.phoneNumber = phoneNumber;
 
         try {
-            const response = await fetch('https://faksfit.onrender.com/student/patch', {
+            const response = await fetch(`${API_URL}/student/patch`, {
                 method: 'PATCH',
-                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(updatedFields),
                 credentials: 'include',
@@ -81,6 +85,8 @@ function Profile(props) {
                 navigate('/dashboard/student');
             } else {
                 console.error('Error updating profile');
+                const errorData = await response.text();
+                console.error('Error details:', errorData);
             }
         } catch (error) {
             console.error('Error:', error);

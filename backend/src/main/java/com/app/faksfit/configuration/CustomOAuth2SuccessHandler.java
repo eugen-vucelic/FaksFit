@@ -20,6 +20,8 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 
     private final StudentServiceImpl studentServiceImpl;
 
+    private static final String FRONTEND_URL = "https://faksfit-7du1.onrender.com";
+
     @Autowired
     public CustomOAuth2SuccessHandler(StudentServiceImpl studentServiceImpl) {
         this.studentServiceImpl = studentServiceImpl;
@@ -35,10 +37,9 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         if (student == null) {
             assert email != null;
             String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
-            response.sendRedirect("https://faksfit-front1.onrender.com/registracija?email=" + encodedEmail);
+            response.sendRedirect(FRONTEND_URL + "/registracija?email=" + encodedEmail);
         } else {
-            response.sendRedirect("https://faksfit-front1.onrender.com/dashboard/student");
+            response.sendRedirect(FRONTEND_URL + "/dashboard/student");
         }
-
     }
 }

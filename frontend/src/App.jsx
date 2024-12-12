@@ -6,6 +6,7 @@ import Footer from "./components/Footer.jsx";
 import NotLoggedIn from "./components/NotLoggedIn.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import Registration from "./components/Registration.jsx"
+import { API_URL } from './config';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -29,9 +30,10 @@ function App() {
         }
     ]);
 
-    // HANDLE LOGIN HERE AND CALL ONLOGIN
     React.useEffect(() => {
-        fetch("/api/user")
+        fetch(`${API_URL}/api/user`, {
+            credentials: 'include'
+        })
             .then(response => {
                 setLoadingUser(false);
 
@@ -42,20 +44,23 @@ function App() {
                     setIsLoggedIn(false);
                 }
             })
+            .catch(error => {
+                console.error('Error fetching user:', error);
+                setLoadingUser(false);
+                setIsLoggedIn(false);
+            });
     }, []);
 
     if (loadingUser) {
         return <div>Loading...</div>
     }
 
-    // HANDLE ROLE ASSIGNMENT HERE
     function onLogin() {
         setIsLoggedIn(true);
     }
 
     function onLogout() {
         setIsLoggedIn(false);
-        // setRole(null);
     }
 
     return (
@@ -63,7 +68,6 @@ function App() {
     )
 }
 
-export default App
 
 function AppContainer(props) {
     return (
@@ -77,3 +81,5 @@ function AppContainer(props) {
         </div>
     )
 }
+
+export default App

@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Registration.css';
+import { API_URL } from '../config';
 
 function Registration({ isLoggedIn, setIsLoggedIn }) {
   const [ime, setIme] = useState('');
@@ -10,9 +11,8 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
   const [jmbag, setJmbag] = useState('');
   const [Fakultet, setSelectedFakultet] = useState('FER');
   const [Semestar, setSelectedSemestar] = useState('1');
-  // const {isLoggedIn,setIsLoggedIn} = props;
 
-  const location = useLocation(); // Access query params
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,11 +40,11 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
     };
 
     try {
-      const response = await fetch('https://faksfit.onrender.com/student/register', {
+      const response = await fetch(`${API_URL}/student/register`, {
         method: 'POST',
-        mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(user),
         credentials: 'include',
@@ -55,16 +55,20 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
         setIsLoggedIn(true);
         navigate('/dashboard/student');
       } else {
-        console.log(response);
-        console.error('Greška pri slanju podataka');
+        const errorData = await response.text();
+        console.error('Greška pri slanju podataka:', errorData);
       }
     } catch (error) {
       console.error('Greška:', error);
     }
   };
 
+  if (isLoggedIn) {
+    navigate('/dashboard/student');
+    return null;
+  }
+
   return (
-    !isLoggedIn ?
     <div className="registration-grid">
       <div className="left-container">
         <p className="montserrat-regular blue">Potrebno je odabrati fakultet na kojem polažete predmet Tjelesne i zdravstvene kulture.</p>
@@ -83,7 +87,7 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
           </div>
           <div className="form-row">
             <label htmlFor="email">Email:</label>
-            <input type="text" id="email" value={email} required />
+            <input type="text" id="email" value={email} readOnly required />
           </div>
           <div className="form-row">
             <label htmlFor="jmbag">Jmbag:</label>
@@ -92,10 +96,10 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
           <div className="form-row">
             <label htmlFor="fakultet">Fakultet:</label>
             <select id="fakultet" value={Fakultet} onChange={(e) => setSelectedFakultet(e.target.value)}>
-              <option value="fer">FER</option>
-              <option value="pmf">PMF</option>
-              <option value="fsb">FSB</option>
-              <option value="fkit">FKIT</option>
+              <option value="FER">FER</option>
+              <option value="PMF">PMF</option>
+              <option value="FSB">FSB</option>
+              <option value="FKIT">FKIT</option>
             </select>
           </div>
           <div className="form-row">
@@ -118,7 +122,7 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
         </form>
       </div>
     </div>
-  : navigate('/dashboard/student'));
+  );
 }
 
 export default Registration;

@@ -1,24 +1,27 @@
 import "./Dashboard.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from '../config';
 
 function Dashboard(props) {
-    const {isLoggedIn,setIsLoggedIn} = props;
+    const {isLoggedIn, setIsLoggedIn} = props;
     const [dashboardData, setDashboardData] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('https://faksfit.onrender.com/dashboard/student', {
+        fetch(`${API_URL}/dashboard/student`, {
             method: 'GET',
             credentials: 'include',
+            headers: {
+                'Accept': 'application/json'
+            }
         })
             .then(response => {
                 if (!response.ok) {
                     navigate('/');
                     throw new Error('Failed to fetch dashboard data');
                 }
-                
                 return response.json();
             })
             .then(data => {
@@ -30,7 +33,7 @@ function Dashboard(props) {
                 setIsLoggedIn(false);
                 setError(error);
             });
-    }, [setIsLoggedIn]);
+    }, [setIsLoggedIn, navigate]);
 
     if (error) {
         return <div>Error: {error.message}</div>;
