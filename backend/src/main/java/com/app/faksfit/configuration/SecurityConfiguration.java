@@ -49,7 +49,8 @@ public class SecurityConfiguration {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "https://faksfit-7du1.onrender.com",
-                "http://localhost:5173"
+                "http://localhost:5173",
+                "http://localhost:4173"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
