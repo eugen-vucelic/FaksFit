@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import "./NotLoggedIn.css";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -9,14 +9,9 @@ function NotLoggedIn(props) {
     const location = useLocation();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (isLoggedIn) {
-            navigate('/dashboard/student');
-        }
-    }, [isLoggedIn, navigate]);
-
+    
     return (
-        (!isLoggedIn && location.pathname === '/') &&
+        (location.pathname === '/') &&
         <div className="container">
             <p className="montserrat-medium">Aplikacija za nastavu Tjelesne i zdravstvene kulture na Sveučilištu u Zagrebu</p>
             <div className="arrow-box">

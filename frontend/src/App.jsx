@@ -12,7 +12,6 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [loadingUser, setLoadingUser] = React.useState(true);
     const [role, setRole] = React.useState(null);
-    const [error, setError] = React.useState(null);
 
     const router = createBrowserRouter([
         {
@@ -25,40 +24,30 @@ function App() {
                 },
                 {
                     path: "dashboard/student",
-                    element: isLoggedIn ? 
-                        <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> : 
-                        <Navigate to="/" replace />
+                    element: <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
                 }
             ]
         }
     ]);
 
     React.useEffect(() => {
-        console.log('Checking authentication status...');
         fetch(`${API_URL}/api/user`, {
             credentials: 'include',
             headers: {
                 'Accept': 'application/json'
             }
         })
-            .then(async response => {
-                console.log('Auth response status:', response.status);
-                
+            .then(response => {
                 if (response.status === 200) {
-                    const userData = await response.json();
-                    console.log('User data:', userData);
                     setIsLoggedIn(true);
                     setRole("Student");
                 } else {
                     setIsLoggedIn(false);
-                    setRole(null);
                 }
             })
             .catch(error => {
-                console.error('Auth error:', error);
-                setError(error.message);
+                console.error('Error fetching user:', error);
                 setIsLoggedIn(false);
-                setRole(null);
             })
             .finally(() => {
                 setLoadingUser(false);
@@ -66,20 +55,7 @@ function App() {
     }, []);
 
     if (loadingUser) {
-        return (
-            <div className="loading-container">
-                <div>Loading...</div>
-                {error && <div className="error-message">Error: {error}</div>}
-            </div>
-        );
-    }
-
-    function onLogin() {
-        setIsLoggedIn(true);
-    }
-
-    function onLogout() {
-        setIsLoggedIn(false);
+        return <div>Loading...</div>
     }
 
     return (
@@ -87,14 +63,13 @@ function App() {
     )
 }
 
-
 function AppContainer(props) {
     return (
         <div>
             <Header isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn} role={props.role}/>
-            <NotLoggedIn isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn}/>
+            {!props.isLoggedIn && <NotLoggedIn isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn}/>}
             <div className="App">
-                <Outlet isLoggedIn={props.isLoggedIn} role={props.role}/>
+                <Outlet />
             </div>
             <Footer/>
         </div>
