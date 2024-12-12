@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -24,18 +25,22 @@ public class AuthController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/registration-status")
-    public ResponseEntity<?> checkRegistrationStatus(HttpServletRequest request) {
-        // Check if the user has an OAuth session but hasn't completed registration
+    @GetMapping("/user")
+    public ResponseEntity<?> checkUserRegistrationStatus(HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
         if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
-            Optional<Student> student = Optional.ofNullable(studentService.findByEmail(auth.getName()));
+            String email = auth.getName();
+            Optional<Student> student = Optional.ofNullable(studentService.findByEmail(email));
+
             if (student.isPresent()) {
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok(Map.of("registrationComplete", true));
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+                return ResponseEntity.ok(Map.of("registrationComplete", false));
             }
         }
+
+        // User not authenticated
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
