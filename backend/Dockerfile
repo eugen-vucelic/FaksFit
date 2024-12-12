@@ -1,18 +1,21 @@
 FROM eclipse-temurin:21-alpine AS builder
 ENV HOME=/usr/app
+RUN mkdir -p $HOME
 WORKDIR $HOME
 
 RUN apk add --no-cache dos2unix
 
-COPY . .
+# copy the project files
+COPY pom.xml $HOME
+COPY src $HOME/src
+COPY mvnw $HOME
+COPY mvnw.cmd $HOME
+COPY .mvn $HOME/.mvn
 
-# Convert all files to unix format
-RUN find . -type f -name "*.sh" -exec dos2unix {} \;
-RUN find . -type f -name "mvnw" -exec dos2unix {} \;
-
-
+ADD . $HOME
+# fix fine endings
+RUN dos2unix mvnw
 RUN chmod +x ./mvnw
-
 RUN --mount=type=cache,target=/root/.m2 ./mvnw -f $HOME/pom.xml clean package
 
 FROM eclipse-temurin:21-alpine
