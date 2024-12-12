@@ -1,16 +1,18 @@
 FROM eclipse-temurin:21-alpine AS builder
 ENV HOME=/usr/app
-RUN mkdir -p $HOME
 WORKDIR $HOME
-
 
 RUN apk add --no-cache dos2unix
 
-ADD . $HOME
-# fix fine endings
-RUN dos2unix mvnw
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
+
+RUN dos2unix ./mvnw
 RUN chmod +x ./mvnw
-RUN --mount=type=cache,target=/root/.m2 ./mvnw -f $HOME/pom.xml clean package
+
+RUN --mount=type=cache,target=/root/.m2 ./mvnw clean package
 
 FROM eclipse-temurin:21-alpine
 ARG JAR_FILE=/usr/app/target/*.jar
