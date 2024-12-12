@@ -24,7 +24,9 @@ function App() {
                 },
                 {
                     path: "dashboard/student",
-                    element: <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+                    element: isLoggedIn ? 
+                        <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> : 
+                        <Navigate to="/" replace/>
                 }
             ]
         }
@@ -37,10 +39,16 @@ function App() {
                 'Accept': 'application/json'
             }
         })
-            .then(response => {
+            .then(async response => {
                 if (response.status === 200) {
-                    setIsLoggedIn(true);
-                    setRole("Student");
+                    const userData = await response.json();
+                    // Check if user has completed registration
+                    if (userData.registrationComplete) {
+                        setIsLoggedIn(true);
+                        setRole("Student");
+                    } else {
+                        setIsLoggedIn(false);
+                    }
                 } else {
                     setIsLoggedIn(false);
                 }

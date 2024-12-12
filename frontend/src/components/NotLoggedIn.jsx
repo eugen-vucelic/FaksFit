@@ -9,9 +9,8 @@ function NotLoggedIn(props) {
     const location = useLocation();
     const navigate = useNavigate();
 
-    
     return (
-        (location.pathname === '/') &&
+        (!isLoggedIn && location.pathname === '/') &&
         <div className="container">
             <p className="montserrat-medium">Aplikacija za nastavu Tjelesne i zdravstvene kulture na Sveučilištu u Zagrebu</p>
             <div className="arrow-box">
@@ -23,5 +22,3 @@ function NotLoggedIn(props) {
         </div>
     )
 }
-
-export default NotLoggedIn;

@@ -24,49 +24,91 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
   }, [location.search]);
 
   const handleGoBack = () => {
+    setIsLoggedIn(false);
+    document.cookie = 'JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     navigate('/');
   };
 
+  useEffect(() => {
+    // Check if we're coming back from OAuth but haven't completed registration
+    const checkAuthState = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/registration-status`, {
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (!response.ok) {
+          setIsLoggedIn(false);
+          navigate('/');
+        }
+      } catch (error) {
+        console.error('Error checking registration status:', error);
+        setIsLoggedIn(false);
+        navigate('/');
+      }
+    };
+
+    checkAuthState();
+  }, []);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form submitted');
 
     const user = {
-      firstName: ime,
-      lastName: prezime,
-      email: email,
-      JMBAG: jmbag,
-      userFaculty: Fakultet,
-      semester: Semestar
+        firstName: ime,
+        lastName: prezime,
+        email: email,
+        JMBAG: jmbag,
+        userFaculty: Fakultet,
+        semester: Semestar
     };
 
     try {
-      const response = await fetch(`${API_URL}/student/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(user),
-        credentials: 'include',
-      });
+        const response = await fetch(`${API_URL}/student/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(user),
+            credentials: 'include',
+        });
 
-      if (response.ok) {
-        console.log('Korisnik uspješno poslan na backend');
-        setIsLoggedIn(true);
-        navigate('/dashboard/student');
-      } else {
-        const errorData = await response.text();
-        console.error('Greška pri slanju podataka:', errorData);
-      }
+        if (response.ok) {
+            console.log('Registration successful');
+            setIsLoggedIn(true);
+            navigate('/dashboard/student');
+            const dashboardResponse = await fetch(`${API_URL}/dashboard/student`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (!dashboardResponse.ok) {
+                throw new Error('Failed to fetch dashboard data');
+            }
+        } else {
+            const errorData = await response.text();
+            console.error('Registration error:', errorData);
+            alert('Greška pri registraciji. Molimo provjerite unesene podatke.');
+        }
     } catch (error) {
-      console.error('Greška:', error);
+        console.error('Error:', error);
+        alert('Došlo je do greške. Molimo pokušajte ponovno.');
     }
-  };
+};
 
-  if (isLoggedIn) {
-    navigate('/dashboard/student');
-    return null;
-  }
+  // if (isLoggedIn) {
+  //   navigate('/dashboard/student');
+  //   return null;
+  // }
 
   return (
     <div className="registration-grid">

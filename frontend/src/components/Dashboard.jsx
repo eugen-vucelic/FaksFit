@@ -10,6 +10,11 @@ function Dashboard(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/');
+            return;
+        }
+
         fetch(`${API_URL}/dashboard/student`, {
             method: 'GET',
             credentials: 'include',
@@ -19,7 +24,6 @@ function Dashboard(props) {
         })
             .then(response => {
                 if (!response.ok) {
-                    navigate('/');
                     throw new Error('Failed to fetch dashboard data');
                 }
                 return response.json();
@@ -28,12 +32,12 @@ function Dashboard(props) {
                 setDashboardData(data);
             })
             .catch(error => {
-                navigate("/");
                 console.error('Error fetching dashboard data:', error);
-                setIsLoggedIn(false);
                 setError(error);
+                setIsLoggedIn(false);
+                navigate("/");
             });
-    }, [setIsLoggedIn, navigate]);
+    }, [isLoggedIn, setIsLoggedIn, navigate]);
 
     if (error) {
         return <div>Error: {error.message}</div>;
