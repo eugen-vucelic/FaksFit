@@ -5,16 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../config';
 
 function NotLoggedIn(props) {
-    const {isLoggedIn, setIsLoggedIn} = props;
+    const {isLoggedIn} = props;
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
-        setIsLoggedIn(false);
         if (isLoggedIn) {
-            //navigate('/dashboard/student');
+            navigate('/dashboard/student');
         }
-    }, [isLoggedIn, navigate, setIsLoggedIn]);
+    }, [isLoggedIn, navigate]);
 
     return (
         (!isLoggedIn && location.pathname === '/') &&
