@@ -1,25 +1,20 @@
 FROM eclipse-temurin:21-alpine AS builder
-ENV HOME=/usr/app
-RUN mkdir -p $HOME
-WORKDIR $HOME
 
-RUN apk add --no-cache dos2unix
+WORKDIR /app
+COPY pom.xml .
+COPY src src
+COPY mvnw .
+COPY mvnw.cmd .
+COPY .mvn .mvn
 
-# copy the project files
-COPY pom.xml $HOME
-COPY src $HOME/src
-COPY mvnw $HOME
-COPY mvnw.cmd $HOME
-COPY .mvn $HOME/.mvn
+RUN apk add --no-cache bash dos2unix
 
-ADD . $HOME
-# fix fine endings
-RUN dos2unix mvnw
-RUN chmod +x ./mvnw
-RUN --mount=type=cache,target=/root/.m2 ./mvnw -f $HOME/pom.xml clean package
+RUN dos2unix mvnw && chmod +x mvnw
+
+RUN ./mvnw clean package -DskipTests
 
 FROM eclipse-temurin:21-alpine
-ARG JAR_FILE=/usr/app/target/*.jar
-COPY --from=builder $JAR_FILE /app/runner.jar
+
+COPY --from=builder /app/target/faksfit-0.0.1-SNAPSHOT.jar /app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/runner.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
