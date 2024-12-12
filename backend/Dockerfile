@@ -1,14 +1,19 @@
-FROM eclipse-temurin:21-jdk-alpine AS builder
+FROM eclipse-temurin:21-alpine AS builder
+ENV HOME=/usr/app
+RUN mkdir -p $HOME
+WORKDIR $HOME
+
+
 RUN apk add --no-cache dos2unix
 
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-RUN find . -type f -exec dos2unix {} \;
-RUN mvn clean package -DskipTests
+ADD . $HOME
+# fix fine endings
+RUN dos2unix mvnw
+RUN chmod +x ./mvnw
+RUN --mount=type=cache,target=/root/.m2 ./mvnw -f $HOME/pom.xml clean package
 
-FROM eclipse-temurin:21-jdk-alpine
-WORKDIR /app
-COPY --from=builder /app/target/*.jar app.jar
+FROM eclipse-temurin:21-alpine
+ARG JAR_FILE=/usr/app/target/*.jar
+COPY --from=builder $JAR_FILE /app/runner.jar
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/runner.jar"]
