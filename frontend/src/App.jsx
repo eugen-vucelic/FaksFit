@@ -1,6 +1,6 @@
 import * as React from "react";
 import './App.css'
-import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Outlet, RouterProvider, Navigate} from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import NotLoggedIn from "./components/NotLoggedIn.jsx";
