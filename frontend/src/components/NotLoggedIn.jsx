@@ -5,9 +5,23 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { API_URL } from '../config';
 
 function NotLoggedIn(props) {
-    const {isLoggedIn} = props;
+    const { isLoggedIn, passedOauth, setPassedOAuth } = props;
     const location = useLocation();
     const navigate = useNavigate();
+
+    if (isLoggedIn) {
+        return <Navigate to="/dashboard/student" />;
+    }
+
+    if (passedOauth) {
+        return <Navigate to="/registracija" />;
+    }
+
+    const handleLoginClick = () => {
+        setPassedOAuth(true); // Update OAuth status
+        // Redirect to external URL for login
+        window.location.href = `${API_URL}/dashboard/student`;
+    };
 
     return (
         (!isLoggedIn && location.pathname === '/') &&
@@ -16,11 +30,13 @@ function NotLoggedIn(props) {
             <div className="arrow-box">
                 <p className="montserrat-medium-italic">Niste prijavljeni u sustav.</p>
                 <p className="montserrat-bold">
-                    <a href={`${API_URL}/dashboard/student`}>Prijava</a>
+                    <button onClick={handleLoginClick} className="link-button">
+                        Prijava
+                    </button>
                 </p>
             </div>
         </div>
-    )
+    );
 }
 
-export default NotLoggedIn
+export default NotLoggedIn;

@@ -12,11 +12,12 @@ function App() {
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
     const [loadingUser, setLoadingUser] = React.useState(true);
     const [role, setRole] = React.useState(null);
+    const [passedOauth, setPassedOAuth] = React.useState(false);
 
     const router = createBrowserRouter([
         {
             path: "/",
-            element: <AppContainer isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} role={role}/>,
+            element: <AppContainer isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} role={role} passedOauth={passedOauth} setPassedOAuth = {setPassedOAuth}/>,
             children: [
                 {
                     path: "registracija",
@@ -33,7 +34,7 @@ function App() {
     ]);
 
     React.useEffect(() => {
-        fetch(`${API_URL}/api/user`, {
+        fetch(`${API_URL}/student/current`, {
             credentials: 'include',
             headers: {
                 'Accept': 'application/json'
@@ -41,15 +42,10 @@ function App() {
         })
             .then(async response => {
                 if (response.status === 200) {
-                    const userData = await response.json();
-                    // Check if user has completed registration
-                    if (userData.registrationComplete) {
-                        setIsLoggedIn(true);
-                        setRole("Student");
-                    } else {
-                        setIsLoggedIn(false);
-                    }
-                } else {
+                    setIsLoggedIn(true);
+                    setRole(user.role || "Student");
+                }
+                else{
                     setIsLoggedIn(false);
                 }
             })
@@ -75,7 +71,7 @@ function AppContainer(props) {
     return (
         <div>
             <Header isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn} role={props.role}/>
-            {!props.isLoggedIn && <NotLoggedIn isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn}/>}
+            {!props.isLoggedIn && <NotLoggedIn isLoggedIn={props.isLoggedIn} setIsLoggedIn={props.setIsLoggedIn} passedOauth={props.passedOauth} setPassedOAuth={props.setPassedOAuth} />}
             <div className="App">
                 <Outlet />
             </div>

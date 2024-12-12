@@ -29,31 +29,6 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
     navigate('/');
   };
 
-  useEffect(() => {
-    // Check if we're coming back from OAuth but haven't completed registration
-    const checkAuthState = async () => {
-      try {
-        const response = await fetch(`${API_URL}/api/registration-status`, {
-          credentials: 'include',
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        
-        if (!response.ok) {
-          setIsLoggedIn(false);
-          navigate('/');
-        }
-      } catch (error) {
-        console.error('Error checking registration status:', error);
-        setIsLoggedIn(false);
-        navigate('/');
-      }
-    };
-
-    checkAuthState();
-  }, []);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
