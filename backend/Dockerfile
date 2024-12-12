@@ -4,15 +4,16 @@ WORKDIR $HOME
 
 RUN apk add --no-cache dos2unix
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
+COPY . .
 
-RUN dos2unix ./mvnw
+# Convert all files to unix format
+RUN find . -type f -name "*.sh" -exec dos2unix {} \;
+RUN find . -type f -name "mvnw" -exec dos2unix {} \;
+
+
 RUN chmod +x ./mvnw
 
-RUN --mount=type=cache,target=/root/.m2 ./mvnw clean package
+RUN --mount=type=cache,target=/root/.m2 ./mvnw -f $HOME/pom.xml clean package
 
 FROM eclipse-temurin:21-alpine
 ARG JAR_FILE=/usr/app/target/*.jar
