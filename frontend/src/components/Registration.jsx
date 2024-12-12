@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate , Navigate} from 'react-router-dom';
 import './Registration.css';
 import { API_URL } from '../config';
 

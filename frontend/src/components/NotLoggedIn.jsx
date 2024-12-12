@@ -1,7 +1,7 @@
 import React from 'react';
 import "./NotLoggedIn.css";
 import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { API_URL } from '../config';
 
 function NotLoggedIn(props) {

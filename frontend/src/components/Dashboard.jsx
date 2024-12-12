@@ -1,6 +1,6 @@
 import "./Dashboard.css";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate , Navigate} from "react-router-dom";
 import { API_URL } from '../config';
 
 function Dashboard(props) {
