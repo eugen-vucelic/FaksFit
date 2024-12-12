@@ -22,3 +22,5 @@ function NotLoggedIn(props) {
         </div>
     )
 }
+
+export default NotLoggedIn
