@@ -34,28 +34,30 @@ function App() {
     ]);
 
     React.useEffect(() => {
-        fetch(`${API_URL}/student/current`, {
-            credentials: 'include',
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-            .then(async response => {
+        const checkUserStatus = async () => {
+            try {
+                const response = await fetch(`${API_URL}/student/current`, {
+                    credentials: 'include',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
                 if (response.status === 200) {
+                    const user = await response.json();
                     setIsLoggedIn(true);
                     setRole(user.role || "Student");
-                }
-                else{
+                } else {
                     setIsLoggedIn(false);
                 }
-            })
-            .catch(error => {
+            } catch (error) {
                 console.error('Error fetching user:', error);
                 setIsLoggedIn(false);
-            })
-            .finally(() => {
+            } finally {
                 setLoadingUser(false);
-            });
+            }
+        };
+    
+        checkUserStatus();
     }, []);
 
     if (loadingUser) {
