@@ -25,17 +25,17 @@ function NotLoggedIn(props) {
 
     return (
         (!isLoggedIn && location.pathname === '/') &&
-        <div className="container">
-            <p className="montserrat-medium">Aplikacija za nastavu Tjelesne i zdravstvene kulture na Sveučilištu u Zagrebu</p>
-            <div className="arrow-box">
-                <p className="montserrat-medium-italic">Niste prijavljeni u sustav.</p>
-                <p className="montserrat-bold">
-                    <button onClick={handleLoginClick} className="link-button">
-                        Prijava
-                    </button>
-                </p>
+            <div className="container">
+                <p className="montserrat-medium desc">Aplikacija za nastavu Tjelesne i zdravstvene kulture na Sveučilištu u Zagrebu</p>
+                <div className="arrow-box">
+                    <p className="montserrat-medium-italic">Niste prijavljeni u sustav.</p>
+                    <p className="montserrat-bold">
+                        <button onClick={handleLoginClick} className="link-button montserrat-bold">
+                            Prijava
+                        </button>
+                    </p>
+                </div>
             </div>
-        </div>
     );
 }
 
