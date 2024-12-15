@@ -11,6 +11,7 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
   const [jmbag, setJmbag] = useState('');
   const [Fakultet, setSelectedFakultet] = useState('FER');
   const [Semestar, setSelectedSemestar] = useState('1');
+  // const {isLoggedIn,setIsLoggedIn} = props;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
           </div>
           <div className="form-row">
             <label htmlFor="email">Email:</label>
-            <input type="text" id="email" value={email} readOnly required />
+            <input type="text" id="email" value={email} readOnly />
           </div>
           <div className="form-row">
             <label htmlFor="jmbag">Jmbag:</label>
