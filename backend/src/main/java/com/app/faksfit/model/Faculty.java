@@ -16,7 +16,7 @@ public class Faculty {
     private String facultyName;
 
     @OneToMany(mappedBy = "userFaculty", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<User> users;
+    private List<Student> studenti;
 
     @ManyToOne
     private University facultyUniversity;
@@ -24,7 +24,7 @@ public class Faculty {
     public Faculty(Long facultyId, String facultyName, List<User> users, University facultyUniversity) {
         this.facultyId = facultyId;
         this.facultyName = facultyName;
-        this.users = users;
+        this.studenti = studenti;
         this.facultyUniversity = facultyUniversity;
     }
     public Faculty() {}
@@ -46,12 +46,12 @@ public class Faculty {
     }
 
     @JsonManagedReference
-    public List<User> getUsers() {
-        return users;
+    public List<Student> getUsers() {
+        return studenti;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUsers(List<Student> studenti) {
+        this.studenti = studenti;
     }
 
     public University getFacultyUniversity() {

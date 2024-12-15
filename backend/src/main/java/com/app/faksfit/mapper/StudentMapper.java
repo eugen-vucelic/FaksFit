@@ -42,7 +42,7 @@ public class StudentMapper {
 
         student.setGender("N/A");
         student.setNationality("N/A");
-        student.setBirthDate(LocalDate.MIN);
+        student.setBirthDate(LocalDate.of(1970, 1, 1));
         student.setPhoneNumber("N/A");
 
         student.setTotalPoints(0);

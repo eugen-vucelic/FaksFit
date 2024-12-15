@@ -27,7 +27,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT t FROM Teacher t WHERE SIZE(t.students) = 0")
     List<Teacher> findTeachersWithoutStudents();
 
-    @Query(value = "SELECT t FROM Teacher t WHERE t.userFaculty = :faculty ORDER BY FUNCTION('RAND')")
+    @Query(value = "SELECT t FROM Teacher t WHERE t.userFaculty = :faculty ORDER BY FUNCTION('RANDOM')")
     Teacher findRandomTeacherByFaculty(@Param("faculty") Faculty faculty);
 
 }
