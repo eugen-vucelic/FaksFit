@@ -7,6 +7,7 @@ function Dashboard(props) {
     const {isLoggedIn, setIsLoggedIn} = props;
     const [dashboardData, setDashboardData] = useState(null);
     const [error, setError] = useState(null);
+    const [selected, setSelected] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -87,12 +88,23 @@ function Dashboard(props) {
             <div className="available montserrat-regular">
                 <p>Dostupne aktivnosti:</p>
                 {/* TODO: uzeti sve aktivnosti s backenda i svaku prikazati u lijevom meniju 
-                npr. onclick naziv te aktivnosti staviti u varijablu selected*/}
+                npr. onclick tu aktivnost staviti u varijablu selected*/}
+                <div className="activities-menu">
+                    {dashboardData.activities && dashboardData.activities.length > 0 ?
+                        (dashboardData.activities.map((activity, index) => (
+                            <div key={index} className={`activity-block ${activity.name == selected ? 'selected' : ''}`}>
+                                <p className="montserrat-regular-italic">{activity.name}</p>
+                            </div>
+                        )))
+                        :
+                        <p>Nema aktivnosti.</p>
+                    }
+                </div>
             </div>
             {/* Activity Window */}
             <div className="activity-window">
                 <div className="activities montserrat-regular">
-                    <p>Nadolazeći termini za {/* vrijednost varijable selected */}:</p>
+                    <p>Nadolazeći termini za {/* naziv aktivnosti koje je u selected */}:</p>
                 </div>
                 <div className="window">
                     {dashboardData.terminList && dashboardData.terminList.length > 0 ? (
@@ -124,7 +136,7 @@ function Dashboard(props) {
                             </div>
                         ))
                     ) : (
-                        <p>Nema nadolazećih aktivnosti.</p>
+                        <p>Nema nadolazećih termina za odabranu aktivnost.</p>
                     )}
                 </div>
             </div>
