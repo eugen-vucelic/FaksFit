@@ -87,8 +87,6 @@ function Dashboard(props) {
             </div>
             <div className="available montserrat-regular">
                 <p>Dostupne aktivnosti:</p>
-                {/* TODO: uzeti sve aktivnosti s backenda i svaku prikazati u lijevom meniju 
-                npr. onclick tu aktivnost staviti u varijablu selected*/}
                 <div className="activities-menu">
                     {dashboardData.activities && dashboardData.activities.length > 0 ?
                         (dashboardData.activities.map((activity, index) => (
@@ -104,11 +102,11 @@ function Dashboard(props) {
             {/* Activity Window */}
             <div className="activity-window">
                 <div className="activities montserrat-regular">
-                    <p>Nadolazeći termini za {/* naziv aktivnosti koje je u selected */}:</p>
+                    <p>Nadolazeći termini za {selected?.name}:</p>
                 </div>
                 <div className="window">
-                    {dashboardData.terminList && dashboardData.terminList.length > 0 ? (
-                        dashboardData.terminList.map((term, index) => (
+                    {selected.terminList && selected.terminList.length > 0 ? (
+                        selected.terminList.map((term, index) => (
                             <div
                                 key={index}
                                 className="activity montserrat-regular"
