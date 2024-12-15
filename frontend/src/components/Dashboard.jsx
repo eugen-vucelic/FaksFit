@@ -7,6 +7,7 @@ function Dashboard(props) {
     const {isLoggedIn, setIsLoggedIn} = props;
     const [dashboardData, setDashboardData] = useState(null);
     const [error, setError] = useState(null);
+    const [selected, setSelected] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -61,6 +62,42 @@ function Dashboard(props) {
         return date.toLocaleTimeString('hr-HR', options);
     }
 
+    const handlePrijavi = async (termin) => {
+        termin.preventDefault();
+
+        const attendee = {
+            JMBAG: dashboardData.JMBAG,
+            termin: termin
+        };
+
+        try {
+            const response = await fetch(`${API_URL}/student/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'                    
+                },
+                body: JSON.stringify(attendee),
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                console.log('Sign-up successful');
+            } else {
+                const errorData = await response.text();
+                console.error('Sign-up error: ', errorData);
+                alert('Greška pri prijavi termina.')
+            }
+        } catch (error) {
+            console.error('Error: ', error);
+            alert('Došlo je do pogreške. Molimo pokušajte ponovno.');
+        }
+    };
+
+    const handleOdjavi = (termin) => {
+
+    };
+
     return (
         <div className="Dashboard">
             {/* Personal Information */}
@@ -86,17 +123,26 @@ function Dashboard(props) {
             </div>
             <div className="available montserrat-regular">
                 <p>Dostupne aktivnosti:</p>
-                {/* TODO: uzeti sve aktivnosti s backenda i svaku prikazati u lijevom meniju 
-                npr. onclick naziv te aktivnosti staviti u varijablu selected*/}
+                <div className="activities-menu">
+                    {dashboardData.activities && dashboardData.activities.length > 0 ?
+                        (dashboardData.activities.map((activity, index) => (
+                            <div key={index} className={`activity-block ${activity.name == selected ? 'selected' : ''}`}>
+                                <button className="montserrat-regular-italic" onClick={() => setSelected(activity)}>{activity.name}</button>
+                            </div>
+                        )))
+                        :
+                        <p>Nema aktivnosti.</p>
+                    }
+                </div>
             </div>
             {/* Activity Window */}
             <div className="activity-window">
                 <div className="activities montserrat-regular">
-                    <p>Nadolazeći termini za {/* vrijednost varijable selected */}:</p>
+                    <p>Nadolazeći termini za {selected?.name}:</p>
                 </div>
                 <div className="window">
-                    {dashboardData.terminList && dashboardData.terminList.length > 0 ? (
-                        dashboardData.terminList.map((term, index) => (
+                    {selected.terminList && selected.terminList.length > 0 ? (
+                        selected.terminList.map((term, index) => (
                             <div
                                 key={index}
                                 className="activity montserrat-regular"
@@ -114,9 +160,9 @@ function Dashboard(props) {
                                 <p>{term.maxPoints ?? 0} bodova</p>
                                 <div className="buttons">
                                     {dashboardData.JMBAG in term.signedUp ?
-                                        <button style="display: inline-block;">odjavi</button>
+                                        <button style="display: inline-block;" onClick={() => handleOdjavi(term)}>odjavi</button>
                                         :
-                                        <button style="display: inline-block;">prijavi</button>
+                                        <button style="display: inline-block;" onClick={() => handlePrijavi(term)}>prijavi</button>
                                     }
                                     <p style="display: inline-block;"> | </p>
                                     <button style="display: inline-block;">lokacija</button>
@@ -124,7 +170,7 @@ function Dashboard(props) {
                             </div>
                         ))
                     ) : (
-                        <p>Nema nadolazećih aktivnosti.</p>
+                        <p>Nema nadolazećih termina za odabranu aktivnost.</p>
                     )}
                 </div>
             </div>
