@@ -71,7 +71,7 @@ function Dashboard(props) {
         };
 
         try {
-            const response = await fetch(`${API_URL}/student/signup`, {
+            const response = await fetch(`${API_URL}/termini/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -94,8 +94,36 @@ function Dashboard(props) {
         }
     };
 
-    const handleOdjavi = (termin) => {
+    const handleOdjavi = async (termin) => {
+        termin.preventDefault();
 
+        const attendee = {
+            JMBAG: dashboardData.JMBAG,
+            termin: termin
+        };
+
+        try {
+            const response = await fetch(`${API_URL}/termini/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'                    
+                },
+                body: JSON.stringify(attendee),
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                console.log('Sign-up removal successful');
+            } else {
+                const errorData = await response.text();
+                console.error('Sign-up removal error: ', errorData);
+                alert('Greška pri odjavi termina.')
+            }
+        } catch (error) {
+            console.error('Error: ', error);
+            alert('Došlo je do pogreške. Molimo pokušajte ponovno.');
+        }
     };
 
     return (
