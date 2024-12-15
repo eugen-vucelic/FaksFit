@@ -62,6 +62,42 @@ function Dashboard(props) {
         return date.toLocaleTimeString('hr-HR', options);
     }
 
+    const handlePrijavi = async (termin) => {
+        termin.preventDefault();
+
+        const attendee = {
+            JMBAG: dashboardData.JMBAG,
+            termin: termin
+        };
+
+        try {
+            const response = await fetch(`${API_URL}/student/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'                    
+                },
+                body: JSON.stringify(attendee),
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                console.log('Sign-up successful');
+            } else {
+                const errorData = await response.text();
+                console.error('Sign-up error: ', errorData);
+                alert('Greška pri prijavi termina.')
+            }
+        } catch (error) {
+            console.error('Error: ', error);
+            alert('Došlo je do pogreške. Molimo pokušajte ponovno.');
+        }
+    };
+
+    const handleOdjavi = (termin) => {
+
+    };
+
     return (
         <div className="Dashboard">
             {/* Personal Information */}
@@ -124,9 +160,9 @@ function Dashboard(props) {
                                 <p>{term.maxPoints ?? 0} bodova</p>
                                 <div className="buttons">
                                     {dashboardData.JMBAG in term.signedUp ?
-                                        <button style="display: inline-block;">odjavi</button>
+                                        <button style="display: inline-block;" onClick={() => handleOdjavi(term)}>odjavi</button>
                                         :
-                                        <button style="display: inline-block;">prijavi</button>
+                                        <button style="display: inline-block;" onClick={() => handlePrijavi(term)}>prijavi</button>
                                     }
                                     <p style="display: inline-block;"> | </p>
                                     <button style="display: inline-block;">lokacija</button>
