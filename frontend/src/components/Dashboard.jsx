@@ -6,6 +6,7 @@ import { API_URL } from '../config';
 function Dashboard(props) {
     const {isLoggedIn, setIsLoggedIn} = props;
     const [dashboardData, setDashboardData] = useState(null);
+    const [activityData, setActivityData] = useState(null);
     const [error, setError] = useState(null);
     const [selected, setSelected] = useState(null);
     const navigate = useNavigate();
@@ -38,13 +39,36 @@ function Dashboard(props) {
                 setIsLoggedIn(false);
                 navigate("/");
             });
+
+        fetch(`${API_URL}/termini/svi-termini`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch activity data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setActivityData(data);
+            })
+            .catch(error => {
+                console.error('Error fetching activity data:', error);
+                setError(error);
+                setIsLoggedIn(false);
+                navigate("/");
+            });
     }, [isLoggedIn, setIsLoggedIn, navigate]);
 
     if (error) {
         return <div>Error: {error.message}</div>;
     }
 
-    if (!dashboardData) {
+    if (!(dashboardData && activityData)) {
         return <div>Loading...</div>;
     }
 
@@ -152,8 +176,8 @@ function Dashboard(props) {
             <div className="available montserrat-regular">
                 <p>Dostupne aktivnosti:</p>
                 <div className="activities-menu">
-                    {dashboardData.activities && dashboardData.activities.length > 0 ?
-                        (dashboardData.activities.map((activity, index) => (
+                    {activityData.activities && activityData.activities.length > 0 ?
+                        (activityData.activities.map((activity, index) => (
                             <div key={index} className={`activity-block ${activity.name == selected ? 'selected' : ''}`}>
                                 <button className="montserrat-regular-italic" onClick={() => setSelected(activity)}>{activity.name}</button>
                             </div>
