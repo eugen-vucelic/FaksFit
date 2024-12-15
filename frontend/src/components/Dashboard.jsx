@@ -93,7 +93,7 @@ function Dashboard(props) {
                     {dashboardData.activities && dashboardData.activities.length > 0 ?
                         (dashboardData.activities.map((activity, index) => (
                             <div key={index} className={`activity-block ${activity.name == selected ? 'selected' : ''}`}>
-                                <p className="montserrat-regular-italic">{activity.name}</p>
+                                <button className="montserrat-regular-italic" onClick={() => setSelected(activity)}>{activity.name}</button>
                             </div>
                         )))
                         :
