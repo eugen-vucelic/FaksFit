@@ -86,11 +86,13 @@ function Dashboard(props) {
             </div>
             <div className="available montserrat-regular">
                 <p>Dostupne aktivnosti:</p>
+                {/* TODO: uzeti sve aktivnosti s backenda i svaku prikazati u lijevom meniju 
+                npr. onclick naziv te aktivnosti staviti u varijablu selected*/}
             </div>
             {/* Activity Window */}
             <div className="activity-window">
                 <div className="activities montserrat-regular">
-                    <p>Nadolazeće aktivnosti:</p>
+                    <p>Nadolazeći termini za {/* vrijednost varijable selected */}:</p>
                 </div>
                 <div className="window">
                     {dashboardData.terminList && dashboardData.terminList.length > 0 ? (
@@ -103,9 +105,22 @@ function Dashboard(props) {
                                 <p>
                                     {formatTime(term.termStart)} - {formatTime(term.termEnd)}
                                 </p>
+                                {dashboardData.JMBAG in term.signedUp ?
+                                    <p className="montserrat-bold">prijavljeno</p>
+                                    :
+                                    <p>slobodna mjesta: {term.freePlaces}</p>
+                                }
                                 <p>{term.activityType?.activityTypeName ?? 'Unknown Activity'}</p>
                                 <p>{term.maxPoints ?? 0} bodova</p>
-                                <a href="#">prijavi</a>
+                                <div className="buttons">
+                                    {dashboardData.JMBAG in term.signedUp ?
+                                        <button style="display: inline-block;">odjavi</button>
+                                        :
+                                        <button style="display: inline-block;">prijavi</button>
+                                    }
+                                    <p style="display: inline-block;"> | </p>
+                                    <button style="display: inline-block;">lokacija</button>
+                                </div>
                             </div>
                         ))
                     ) : (
