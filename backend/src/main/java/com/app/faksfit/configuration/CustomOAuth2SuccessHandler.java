@@ -29,17 +29,27 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        String email = oAuth2User.getAttribute("email");
+        try {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oAuth2User.getAttribute("email");
 
-        Student student = studentServiceImpl.findByEmail(email);
+            if (email == null) {
+                response.sendRedirect(FRONTEND_URL + "/error?message=" +
+                        URLEncoder.encode("Email not provided", StandardCharsets.UTF_8));
+                return;
+            }
 
-        if (student == null) {
-            assert email != null;
-            String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
-            response.sendRedirect(FRONTEND_URL + "/registracija?email=" + encodedEmail);
-        } else {
-            response.sendRedirect(FRONTEND_URL + "/dashboard/student");
+            Student student = studentServiceImpl.findByEmail(email);
+
+            if (student == null) {
+                String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
+                response.sendRedirect(FRONTEND_URL + "/registracija?email=" + encodedEmail);
+            } else {
+                response.sendRedirect(FRONTEND_URL + "/dashboard/student");
+            }
+        } catch (Exception e) {
+            response.sendRedirect(FRONTEND_URL + "/error?message=" +
+                    URLEncoder.encode("Authentication failed", StandardCharsets.UTF_8));
         }
     }
 }
