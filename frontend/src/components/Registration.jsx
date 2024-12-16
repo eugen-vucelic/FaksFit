@@ -4,7 +4,7 @@ import { useLocation, useNavigate , Navigate} from 'react-router-dom';
 import './Registration.css';
 import { API_URL } from '../config';
 
-function Registration({ isLoggedIn, setIsLoggedIn }) {
+function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth}) {
   const [ime, setIme] = useState('');
   const [prezime, setPrezime] = useState('');
   const [email, setEmail] = useState('');
@@ -26,6 +26,7 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
 
   const handleGoBack = () => {
     setIsLoggedIn(false);
+    setPassedOauth(false);
     document.cookie = 'JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     navigate('/');
   };
@@ -59,17 +60,6 @@ function Registration({ isLoggedIn, setIsLoggedIn }) {
             console.log('Registration successful');
             setIsLoggedIn(true);
             navigate('/dashboard/student');
-            const dashboardResponse = await fetch(`${API_URL}/dashboard/student`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (!dashboardResponse.ok) {
-                throw new Error('Failed to fetch dashboard data');
-            }
         } else {
             const errorData = await response.text();
             console.error('Registration error:', errorData);
