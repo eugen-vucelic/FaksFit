@@ -21,7 +21,7 @@ function App() {
             children: [
                 {
                     path: "registracija",
-                    element: <Registration isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+                    element: <Registration isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setPassedOAuth={setPassedOAuth} passedOauth = {passedOauth}/>
                 },
                 {
                     path: "dashboard/student",

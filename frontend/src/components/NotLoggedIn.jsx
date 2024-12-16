@@ -18,9 +18,8 @@ function NotLoggedIn(props) {
     }
 
     const handleLoginClick = () => {
-        setPassedOAuth(true); // Update OAuth status
-        // Redirect to external URL for login
-        window.location.href = `${API_URL}/dashboard/student`;
+    setPassedOAuth(true)
+    window.location.href = `${API_URL}/login/oauth2/code/google`;   
     };
 
     return (
