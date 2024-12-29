@@ -19,8 +19,9 @@ import java.nio.charset.StandardCharsets;
 public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final StudentServiceImpl studentServiceImpl;
+    private final boolean production = false;
 
-    private static final String FRONTEND_URL = "https://faksfit-7du1.onrender.com";
+    private final String FRONTEND_URL = production ? "https://faksfit-7du1.onrender.com" : "http://localhost:5173";
 
     @Autowired
     public CustomOAuth2SuccessHandler(StudentServiceImpl studentServiceImpl) {
@@ -39,7 +40,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
             String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
             response.sendRedirect(FRONTEND_URL + "/registracija?email=" + encodedEmail);
         } else {
-            response.sendRedirect(FRONTEND_URL + "/dashboard/student");
+            response.sendRedirect(FRONTEND_URL + "/student/dashboard");
         }
     }
 }
