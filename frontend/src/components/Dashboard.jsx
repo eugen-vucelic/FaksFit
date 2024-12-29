@@ -1,6 +1,7 @@
 import "./Dashboard.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../config";
 
 function Dashboard(props) {
     const [dashboardData, setDashboardData] = useState(null);
@@ -9,7 +10,7 @@ function Dashboard(props) {
 
     const fetchDashboardData = () => {
         setLoading(true);
-        fetch('http://localhost:8080/dashboard/student', {
+        fetch(`${API_URL}/dashboard/student`, {
             method: 'GET',
             credentials: 'include',
         })

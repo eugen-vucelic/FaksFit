@@ -18,7 +18,7 @@ import java.util.List;
 public class SecurityConfiguration {
 
     private final CustomOAuth2SuccessHandler successHandler;
-    private final boolean production = false;
+    private final boolean production = true;
 
     private final String FRONTEND_URL = production ? "https://faksfit-7du1.onrender.com" : "http://localhost:5173";
 

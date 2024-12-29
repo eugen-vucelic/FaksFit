@@ -1,4 +1,4 @@
---IN PRODUCTION REMOVE COMMENT DO $$
+DO $$
 
 -- 1. Unos Sveučilišta
 INSERT INTO SVEUCILISTE (university_name)
@@ -260,4 +260,4 @@ VALUES
             );
 
 
--- END $$;
+END $$;
