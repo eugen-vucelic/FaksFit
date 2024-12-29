@@ -1,9 +1,10 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import "./Header.css";
 import React, { useEffect } from "react";
 
 function Header({ isLoggedIn, setIsLoggedIn, role }) {
     const navigate = useNavigate();
+    const location = useLocation();
     
     const Logout = async () => {
         setIsLoggedIn(false);
@@ -15,14 +16,14 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
             <div className="title">
                 <h1 className={"montserrat-semibold-italic"}>FaksFit</h1>
             </div>
-            {location.pathname !== ('/' || "/registracija") &&
+            {location.pathname !== '/' && location.pathname !== '/registracija' &&
                 <div className="nav">
                     {role == "Student" && (
                         <>
-                            <Link to={'/dashboard/student'} className={location.pathname === '/dashboard/student' ? "link current montserrat-regular" : "link montserrat-regular"}>Dashboard</Link>
+                            <Link to={'/student/dashboard'} className={location.pathname === '/student/dashboard' ? "link current montserrat-regular" : "link montserrat-regular"}>Dashboard</Link>
                             <Link to={'/moji-termini'} className={location.pathname === '/moji-termini' ? "link current montserrat-regular" : "link montserrat-regular"}>Moji termini</Link>
                             <Link to={'/moji-bodovi'} className={location.pathname === '/moji-bodovi' ? "link current montserrat-regular" : "link montserrat-regular"}>Moji bodovi</Link>
-                            <Link to={'/profil'} className={location.pathname === '/profil' ? "link current montserrat-regular" : "link montserrat-regular"}>Profil</Link>
+                            <Link to={'/student/profile'} className={location.pathname === '/profil' ? "link current montserrat-regular" : "link montserrat-regular"}>Profil</Link>
                             <Link to={'/obavijesti'} className={location.pathname === '/obavijesti' ? "link current montserrat-regular" : "link montserrat-regular"}>Obavijesti</Link>
                             <button className="montserrat-regular link" onClick={Logout}>Odjava</button>
                         </>

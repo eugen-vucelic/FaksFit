@@ -58,6 +58,7 @@ public class StudentDashboardMapper {
         return new TeacherDTO(
                 teacher.getFirstName(),
                 teacher.getLastName(),
+                teacher.getEmail(),
                 teacher.getOfficeLocation()
         );
     }

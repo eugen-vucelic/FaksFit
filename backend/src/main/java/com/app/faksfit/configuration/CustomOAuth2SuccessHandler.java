@@ -19,8 +19,9 @@ import java.nio.charset.StandardCharsets;
 public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final StudentServiceImpl studentServiceImpl;
+    private final boolean production = false;
 
-    private static final String FRONTEND_URL = "https://faksfit-7du1.onrender.com";
+    private final String FRONTEND_URL = production ? "https://faksfit-7du1.onrender.com" : "http://localhost:5173";
 
     @Autowired
     public CustomOAuth2SuccessHandler(StudentServiceImpl studentServiceImpl) {
@@ -28,28 +29,18 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
     }
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        try {
-            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-            String email = oAuth2User.getAttribute("email");
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        String email = oAuth2User.getAttribute("email");
 
-            if (email == null) {
-                response.sendRedirect(FRONTEND_URL + "/error?message=" +
-                        URLEncoder.encode("Email not provided", StandardCharsets.UTF_8));
-                return;
-            }
+        Student student = studentServiceImpl.findByEmail(email);
 
-            Student student = studentServiceImpl.findByEmail(email);
-
-            if (student == null) {
-                String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
-                response.sendRedirect(FRONTEND_URL + "/registracija?email=" + encodedEmail);
-            } else {
-                response.sendRedirect(FRONTEND_URL + "/dashboard/student");
-            }
-        } catch (Exception e) {
-            response.sendRedirect(FRONTEND_URL + "/error?message=" +
-                    URLEncoder.encode("Authentication failed", StandardCharsets.UTF_8));
+        if (student == null) {
+            assert email != null;
+            String encodedEmail = URLEncoder.encode(email, StandardCharsets.UTF_8);
+            response.sendRedirect(FRONTEND_URL + "/registracija?email=" + encodedEmail);
+        } else {
+            response.sendRedirect(FRONTEND_URL + "/student/dashboard");
         }
     }
 }

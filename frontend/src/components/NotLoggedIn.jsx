@@ -1,12 +1,9 @@
 import React from 'react';
 import "./NotLoggedIn.css";
-import { useLocation } from 'react-router-dom';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { API_URL } from '../config';
 
-function NotLoggedIn(props) {
-    const { isLoggedIn, passedOauth, setPassedOAuth } = props;
-    const location = useLocation();
+function NotLoggedIn({ isLoggedIn, passedOauth }) {
     const navigate = useNavigate();
 
     if (isLoggedIn) {
@@ -18,23 +15,22 @@ function NotLoggedIn(props) {
     }
 
     const handleLoginClick = () => {
-    setPassedOAuth(true)
-    window.location.href = `${API_URL}/login/oauth2/code/google`;   
+        window.location.href = `${API_URL}/oauth2/authorization/google`; // ovo je sad dobro, vise nije callback url
     };
 
     return (
-        (!isLoggedIn && location.pathname === '/') &&
-            <div className="container">
-                <p className="montserrat-medium desc">Aplikacija za nastavu Tjelesne i zdravstvene kulture na Sveučilištu u Zagrebu</p>
-                <div className="arrow-box">
-                    <p className="montserrat-medium-italic">Niste prijavljeni u sustav.</p>
-                    <p className="montserrat-bold">
-                        <button onClick={handleLoginClick} className="link-button montserrat-bold">
-                            Prijava
-                        </button>
-                    </p>
-                </div>
+        !isLoggedIn &&
+        <div className="container">
+            <p className="montserrat-medium desc">Aplikacija za nastavu Tjelesne i zdravstvene kulture na Sveučilištu u Zagrebu</p>
+            <div className="arrow-box">
+                <p className="montserrat-medium-italic">Niste prijavljeni u sustav.</p>
+                <p className="montserrat-bold">
+                    <button onClick={handleLoginClick} className="link-button montserrat-bold">
+                        Prijava
+                    </button>
+                </p>
             </div>
+        </div>
     );
 }
 

@@ -29,3 +29,28 @@ form {
     width: 80%;
     border-radius: 15px;
 }
+
+.profile-data-left {
+    grid-column: 1;               
+    grid-row-start: 1;           
+    grid-row-end: 4;
+    display: flex;
+    flex-direction: column;
+    width: 80%;                 
+    margin: 1rem auto;
+    padding: 1rem;
+    border: 5px solid #4285f4;  
+    border-radius: 15px;
+    background-color: #f9f9f9;   
+  }
+  
+  .profile-data-left h2 {
+    text-align: center;
+    color: #4285f4;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-data-left p {
+    margin: 0.5rem 0;
+  }
+  
