@@ -1,5 +1,3 @@
-DO $$
-
 -- 1. Unos Sveučilišta
 INSERT INTO SVEUCILISTE (university_name)
 VALUES ('Sveučilište u Zagrebu');
@@ -258,6 +256,3 @@ VALUES
                  LIMIT 1),
                 0
             );
-
-
-END $$;
