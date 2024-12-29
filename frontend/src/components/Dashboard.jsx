@@ -1,28 +1,17 @@
 import "./Dashboard.css";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate , Navigate} from "react-router-dom";
-import { API_URL } from '../config';
+import { Link } from "react-router-dom";
 
 function Dashboard(props) {
-    const {isLoggedIn, setIsLoggedIn} = props;
     const [dashboardData, setDashboardData] = useState(null);
-    const [activityData, setActivityData] = useState(null);
     const [error, setError] = useState(null);
-    const [selected, setSelected] = useState(null);
-    const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        if (!isLoggedIn) {
-            navigate('/');
-            return;
-        }
-
-        fetch(`${API_URL}/dashboard/student`, {
+    const fetchDashboardData = () => {
+        setLoading(true);
+        fetch('http://localhost:8080/dashboard/student', {
             method: 'GET',
             credentials: 'include',
-            headers: {
-                'Accept': 'application/json'
-            }
         })
             .then(response => {
                 if (!response.ok) {
@@ -32,44 +21,30 @@ function Dashboard(props) {
             })
             .then(data => {
                 setDashboardData(data);
+                setError(null);  // Clear errors on success
             })
             .catch(error => {
                 console.error('Error fetching dashboard data:', error);
                 setError(error);
-                setIsLoggedIn(false);
-                navigate("/");
-            });
-
-        fetch(`${API_URL}/termini/svi-termini`, {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch activity data');
-                }
-                return response.json();
             })
-            .then(data => {
-                setActivityData(data);
-            })
-            .catch(error => {
-                console.error('Error fetching activity data:', error);
-                setError(error);
-                setIsLoggedIn(false);
-                navigate("/");
-            });
-    }, [isLoggedIn, setIsLoggedIn, navigate]);
+            .finally(() => setLoading(false));
+    };
 
-    if (error) {
-        return <div>Error: {error.message}</div>;
+    useEffect(() => {
+        fetchDashboardData();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
 
-    if (!(dashboardData && activityData)) {
-        return <div>Loading...</div>;
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error.message}</p>
+                <button onClick={fetchDashboardData}>Retry</button>
+            </div>
+        );
     }
 
     function formatDate(dateTimeString) {
@@ -85,70 +60,6 @@ function Dashboard(props) {
         const date = new Date(dateTimeString);
         return date.toLocaleTimeString('hr-HR', options);
     }
-
-    const handlePrijavi = async (termin) => {
-        termin.preventDefault();
-
-        const attendee = {
-            JMBAG: dashboardData.JMBAG,
-            termin: termin
-        };
-
-        try {
-            const response = await fetch(`${API_URL}/termini/signup`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'                    
-                },
-                body: JSON.stringify(attendee),
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                console.log('Sign-up successful');
-            } else {
-                const errorData = await response.text();
-                console.error('Sign-up error: ', errorData);
-                alert('Greška pri prijavi termina.')
-            }
-        } catch (error) {
-            console.error('Error: ', error);
-            alert('Došlo je do pogreške. Molimo pokušajte ponovno.');
-        }
-    };
-
-    const handleOdjavi = async (termin) => {
-        termin.preventDefault();
-
-        const attendee = {
-            JMBAG: dashboardData.JMBAG,
-            termin: termin
-        };
-
-        try {
-            const response = await fetch(`${API_URL}/termini/delete`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'                    
-                },
-                body: JSON.stringify(attendee),
-                credentials: 'include',
-            });
-
-            if (response.ok) {
-                console.log('Sign-up removal successful');
-            } else {
-                const errorData = await response.text();
-                console.error('Sign-up removal error: ', errorData);
-                alert('Greška pri odjavi termina.')
-            }
-        } catch (error) {
-            console.error('Error: ', error);
-            alert('Došlo je do pogreške. Molimo pokušajte ponovno.');
-        }
-    };
 
     return (
         <div className="Dashboard">
@@ -173,28 +84,15 @@ function Dashboard(props) {
                 </div>
                 <p>{dashboardData.totalPoints ?? 0}/100 bodova</p>
             </div>
-            <div className="available montserrat-regular">
-                <p>Dostupne aktivnosti:</p>
-                <div className="activities-menu">
-                    {activityData.activities && activityData.activities.length > 0 ?
-                        (activityData.activities.map((activity, index) => (
-                            <div key={index} className={`activity-block ${activity.name == selected ? 'selected' : ''}`}>
-                                <button className="montserrat-regular-italic" onClick={() => setSelected(activity)}>{activity.name}</button>
-                            </div>
-                        )))
-                        :
-                        <p>Nema aktivnosti.</p>
-                    }
-                </div>
-            </div>
+
             {/* Activity Window */}
             <div className="activity-window">
                 <div className="activities montserrat-regular">
-                    <p>Nadolazeći termini za {selected?.name}:</p>
+                    <p>Nadolazeće aktivnosti:</p>
                 </div>
                 <div className="window">
-                    {selected.terminList && selected.terminList.length > 0 ? (
-                        selected.terminList.map((term, index) => (
+                    {dashboardData.terminList && dashboardData.terminList.length > 0 ? (
+                        dashboardData.terminList.map((term, index) => (
                             <div
                                 key={index}
                                 className="activity montserrat-regular"
@@ -203,26 +101,15 @@ function Dashboard(props) {
                                 <p>
                                     {formatTime(term.termStart)} - {formatTime(term.termEnd)}
                                 </p>
-                                {dashboardData.JMBAG in term.signedUp ?
-                                    <p className="montserrat-bold">prijavljeno</p>
-                                    :
-                                    <p>slobodna mjesta: {term.freePlaces}</p>
-                                }
                                 <p>{term.activityType?.activityTypeName ?? 'Unknown Activity'}</p>
                                 <p>{term.maxPoints ?? 0} bodova</p>
-                                <div className="buttons">
-                                    {dashboardData.JMBAG in term.signedUp ?
-                                        <button style="display: inline-block;" onClick={() => handleOdjavi(term)}>odjavi</button>
-                                        :
-                                        <button style="display: inline-block;" onClick={() => handlePrijavi(term)}>prijavi</button>
-                                    }
-                                    <p style="display: inline-block;"> | </p>
-                                    <button style="display: inline-block;">lokacija</button>
-                                </div>
+                                <button onClick={() => alert('Prijava nije implementirana.')}>
+                                    Prijavi
+                                </button>
                             </div>
                         ))
                     ) : (
-                        <p>Nema nadolazećih termina za odabranu aktivnost.</p>
+                        <p>Nema nadolazećih aktivnosti.</p>
                     )}
                 </div>
             </div>
