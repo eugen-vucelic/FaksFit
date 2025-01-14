@@ -6,7 +6,10 @@ import Footer from "./components/Footer.jsx";
 import NotLoggedIn from "./components/NotLoggedIn.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import Registration from "./components/Registration.jsx";
+import MojiBodovi from "./components/MojiBodovi.jsx"
 import Profile from "./components/Profile.jsx";
+import Obavijesti from "./components/Notification.jsx";
+import PrijavaTermina from "./components/NoviTermin.jsx";
 import { API_URL } from './config';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -45,7 +48,57 @@ function App() {
                             <Navigate to="/" replace />
                         )
                     )
-                }
+                },
+                {
+                  path: "student/moji-bodovi",
+                  element: (
+                      isLoggedIn ? (
+                          <MojiBodovi isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                      ) : (
+                          <Navigate to="/" replace />
+                      )
+                  )
+                },
+                {
+                  path: "student/obavijesti",
+                  element: (
+                      isLoggedIn ? (
+                          <Obavijesti isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                      ) : (
+                          <Navigate to="/" replace />
+                      )
+                  )
+                },
+                {
+                  path: "voditelj/dashboard",
+                  element: (
+                      isLoggedIn ? (
+                          <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                      ) : (
+                          loadingUser ? <div>Loading...</div> : <Navigate to="/" replace />
+                      )
+                  )
+                },
+                {
+                    path: "voditelj/noviTermin",
+                    element: (
+                      isLoggedIn ? (
+                        <PrijavaTermina />
+                      ) : (
+                        <Navigate to="/" replace />
+                      )
+                    ),
+                  },
+                  {
+                    path: "voditelj/obavijesti",
+                    element: (
+                      isLoggedIn ? (
+                        <Obavijesti isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                      ) : (
+                        <Navigate to="/" replace />
+                      )
+                    ),
+                  }
             ]
         }
     ]);
