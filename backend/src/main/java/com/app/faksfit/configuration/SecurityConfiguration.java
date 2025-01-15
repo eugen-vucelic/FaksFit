@@ -32,8 +32,11 @@ public class SecurityConfiguration {
         http
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/student/register", "/login**", "/error**", "/student/patch", "/oauth2/**").permitAll()
+                        .requestMatchers("/h2-console/**","/student/register", "/login**", "/error**", "/student/patch", "/oauth2/**").permitAll()
                         .anyRequest().authenticated()
+                )
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/h2-console/**") // Disable CSRF for /h2-console
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/oauth2/authorization/google")  // Enables endpoint
