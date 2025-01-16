@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { API_URL } from '../config';
+import { useNavigate } from 'react-router-dom';
 
 const PrijavaTermina = () => {
     const [datum, setDatum] = useState('');
@@ -14,38 +15,36 @@ const PrijavaTermina = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [data, setData] = useState('');
-
+    const navigate = useNavigate();
 
     const initMap = () => {
         const defaultLocation = { lat: 45.8150, lng: 15.9819 }; // Zagreb
         const mapInstance = new window.google.maps.Map(mapRef.current, {
             center: defaultLocation,
-            zoom: 13,  //Ovo mozemo mjenjat
+            zoom: 13, // Ovo mozemo mjenjat
+        });
+
+        mapInstance.addListener("click", (event) => {
+            const clickedLocation = event.latLng;
+            const geocoder = new window.google.maps.Geocoder();
+
+            geocoder.geocode({ location: clickedLocation }, (results, status) => {
+                if (status === "OK" && results[0]) {
+                    const address = results[0].formatted_address;
+                    setLokacija(address);
+
+                    new window.google.maps.Marker({
+                        position: clickedLocation,
+                        map: mapInstance,
+                        title: address,
+                    });
+                } else {
+                    alert("Nije moguće dohvatiti adresu. Pokušajte ponovno.");
+                }
+            });
         });
 
         setMap(mapInstance);
-    };
-
-    const handleSearch = () => {
-        if (!map || !searchQuery) return;
-
-        const geocoder = new window.google.maps.Geocoder();
-        geocoder.geocode({ address: searchQuery }, (results, status) => {
-            if (status === "OK" && results[0]) {
-                const location = results[0].geometry.location;
-
-                map.setCenter(location);
-                map.setZoom(16);
-
-                new window.google.maps.Marker({
-                    position: location,
-                    map,
-                    title: searchQuery,
-                });
-            } else {
-                alert("Location not found! Please try another search.");
-            }
-        });
     };
 
     useEffect(() => {
@@ -62,39 +61,43 @@ const PrijavaTermina = () => {
                     method: "GET",
                     credentials: "include",
                     headers: {
-                    "Content-Type": "application/json",
-                        },
-                    });
-            
+                        "Content-Type": "application/json",
+                    },
+                });
+
                 if (!response.ok) {
                     throw new Error(`Error: ${response.statusText}`);
                 }
-                
+
                 const result = await response.json();
                 setData(result);
-                } catch (err) {
-                    setError(err.message);
-                } finally {
-                    setLoading(false);
-                }
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
         };
-          
+
         fetchResults();
 
         return () => {
-        delete window.initMap;
+            delete window.initMap;
         };
     }, []);
 
-    const { activityLeaderID, activityType} = data;
-    
+    const { activityLeaderID, activityType } = data;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!datum || !lokacija || !kapacitet || !pocetak || !kraj || !maksBodova) {
+        if (!datum || !kapacitet || !pocetak || !kraj || !maksBodova) {
             alert('Sva polja su obavezna.');
             return;
         }
+        if (!lokacija) {
+            alert('Označite lokaciju na mapi.');
+            return;
+        }
+        
 
         const termin = {
             activityLeaderID,
@@ -105,7 +108,6 @@ const PrijavaTermina = () => {
             location: lokacija,
             maxPoints: maksBodova,
             maxCapacity: kapacitet,
-            
             listOfStudentsIDs: []
         };
 
@@ -121,6 +123,7 @@ const PrijavaTermina = () => {
             });
 
             if (response.ok) {
+                navigate('/voditelj/dashboard');
                 console.log('Uspješna prijava');
             } else {
                 const errorData = await response.text();
@@ -134,8 +137,8 @@ const PrijavaTermina = () => {
     };
 
     return (
-    <div style={{ display: "flex", height: "80vh" }}>
-        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "40%", padding: "10px" }}>
+        <div style={{ display: "flex", height: "80vh" }}>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "40%", padding: "10px" }}>
                 <h2>Prijava termina</h2>
                 <form method="POST" className="montserrat-regular registration-form" onSubmit={handleSubmit}>
                     <div className="form-row">
@@ -151,12 +154,8 @@ const PrijavaTermina = () => {
                         <input type="text" id="kraj" value={kraj} onChange={(e) => setKraj(e.target.value)} required />
                     </div>
                     <div className="form-row">
-                        <label htmlFor="lokacija">Lokacija:</label>
-                        <input type="text" id="lokacija" value={lokacija} onChange={(e) => setLokacija(e.target.value)} required />
-                    </div>
-                    <div className="form-row">
                         <label htmlFor="kapacitet">Kapacitet:</label>
-                        <input type="text" id="kapacitet" value={kapacitet} onChange={(e) => setKapacitet(e.target.value)} required/>
+                        <input type="text" id="kapacitet" value={kapacitet} onChange={(e) => setKapacitet(e.target.value)} required />
                     </div>
                     <div className="form-row">
                         <label htmlFor="maksBodova">Broj bodova:</label>
@@ -165,29 +164,19 @@ const PrijavaTermina = () => {
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
-                            <option value="4">5</option>
+                            <option value="5">5</option>
                         </select>
                     </div>
                     <div className="form-row">
                         <button type="submit">Pošalji</button>
                     </div>
                 </form>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column",width: "60%", justifyContent: "center",  alignItems: "center" }}>
-            <div style={{display: "flex", justifyContent: "flex-end", alignItems: "center" ,padding: "10px", height: "30px" }}>
-                <h2 style={{marginRight: "20px", whiteSpace: "nowrap"}}>Prikaži lokaciju</h2>
-                <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Unesi lokaciju..."
-                    style={{ padding: "10px", width: "100%", marginRight: "10px" }}
-                />
-                <button onClick={handleSearch} style={{ padding: "10px" }}>Pretraži</button>
             </div>
-            <div ref={mapRef} style={{height: "40vh", width: "70%"}}></div>
+            <div style={{ display: "flex", flexDirection: "column", width: "60%", justifyContent: "center", alignItems: "center" }}>
+                <h2>Odaberi lokaciju</h2>
+                <div ref={mapRef} style={{ height: "60vh", width: "80%" }}></div>
+            </div>
         </div>
-    </div>
     );
 };
 
