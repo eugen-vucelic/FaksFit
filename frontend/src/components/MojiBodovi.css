@@ -1,0 +1,94 @@
+body {
+    font-family: "Montserrat";
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.results-page {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    font-size: 1.4rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Status Box */
+.status-box {
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.status-box.pass {
+    background-color: #4caf50;
+}
+
+.status-box.fail {
+    background-color: #f44336;
+}
+
+.status-box.neutral {
+    background-color: #ff9800;
+}
+
+/* Progress Section */
+.progress-section {
+    margin-bottom: 20px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 25px;
+    background-color: #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+
+
+.progress-section label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Total Points */
+.total-points {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Scores Section (Leaving the existing styles untouched) */
+.scores-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.scores-section li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.scores-section li strong {
+    font-weight: bold;
+}

@@ -6,7 +6,8 @@ import Footer from "./components/Footer.jsx";
 import NotLoggedIn from "./components/NotLoggedIn.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import Registration from "./components/Registration.jsx";
-import MojiBodovi from "./components/MojiBodovi.jsx"
+import MojiBodovi from "./components/MojiBodovi.jsx";
+import MojiTermini from "./components/MojiTermini.jsx";
 import Profile from "./components/Profile.jsx";
 import Obavijesti from "./components/Notification.jsx";
 import PrijavaTermina from "./components/NoviTermin.jsx";
@@ -36,6 +37,16 @@ function App() {
                             <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
                         ) : (
                             loadingUser ? <div>Loading...</div> : <Navigate to="/" replace />
+                        )
+                    )
+                },
+                {
+                    path: "student/moji-termini",
+                    element: (
+                        isLoggedIn ? (
+                            <MojiTermini isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                        ) : (
+                            <Navigate to="/" replace />
                         )
                     )
                 },
