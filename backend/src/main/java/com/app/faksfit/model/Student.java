@@ -86,7 +86,6 @@ public class Student extends User {
     public Student() {
 
     }
-
     public String getJMBAG() {
         return JMBAG;
     }
