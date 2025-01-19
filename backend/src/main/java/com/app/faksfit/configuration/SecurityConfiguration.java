@@ -38,6 +38,9 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers("/h2-console/**") // Disable CSRF for /h2-console
                 )
+                .headers(headers -> headers
+                        .frameOptions().sameOrigin() // Allow H2 Console to be displayed in iframe
+                )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/oauth2/authorization/google")  // Enables endpoint
                         .successHandler(successHandler)
