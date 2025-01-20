@@ -26,7 +26,10 @@ function MojiTermini() {
                             "Content-Type": "application/json",
                         },
                     }),
-                ]);
+                ]); // ZOVI student/termini da dobis natrag TermDTO objekt, * pored onoga sto ti treba
+                // TermDTO izgleda ovako: (Integer maxPoints*, LocalDateTime termStart*, LocalDateTime termEnd*, LocationDTO location, ActivityTypeDTO activityType)
+                // LocationDTO izgleda ovako : (String locationName*, String address)
+                // ActivityTypeDTO izgleda ovako : (String activityTypeName*)
 
                 // Check for errors in both responses
                 if (!termsResponse.ok) {
