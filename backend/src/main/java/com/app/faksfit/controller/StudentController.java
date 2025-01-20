@@ -2,7 +2,9 @@ package com.app.faksfit.controller;
 
 import com.app.faksfit.dto.StudentDTO;
 import com.app.faksfit.dto.StudentSettingsDTO;
+import com.app.faksfit.mapper.StudentTermMapper;
 import com.app.faksfit.model.Student;
+import com.app.faksfit.model.StudentTerminAssoc;
 import com.app.faksfit.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+import com.app.faksfit.dto.TermDTO;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +23,12 @@ import java.util.Map;
 public class StudentController {
 
     private final StudentServiceImpl studentService;
+    private final StudentTermMapper studentTermMapper;
 
     @Autowired
-    public StudentController(StudentServiceImpl studentService) {
+    public StudentController(StudentServiceImpl studentService, StudentTermMapper studentTermMapper) {
         this.studentService = studentService;
+        this.studentTermMapper = studentTermMapper;
     }
 
     @PostMapping("/register")
@@ -115,5 +120,16 @@ public class StudentController {
         );
 
         return ResponseEntity.ok(Map.of("notifications", notifications));
+    }
+
+    @GetMapping("/termini")
+    public ResponseEntity<List<TermDTO>> getTerms(@AuthenticationPrincipal OAuth2User oauthUser) {
+        String email = oauthUser.getAttribute("email");
+        Student student = studentService.findByEmail(email);
+        List<StudentTerminAssoc> studentTerms = student.getTerminList();
+
+        List<TermDTO> termDTOList = studentTermMapper.toTermDTO(studentTerms);
+
+        return ResponseEntity.ok(termDTOList);
     }
 }

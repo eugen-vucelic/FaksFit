@@ -5,6 +5,7 @@ import com.app.faksfit.model.Term;
 import com.app.faksfit.service.impl.StudentServiceImpl;
 import com.app.faksfit.service.impl.TermService;
 import com.app.faksfit.service.impl.TermSignUpServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +22,7 @@ public class TermController {
     private final TermSignUpServiceImpl termSignUpService;
     private final StudentServiceImpl studentService;
 
+    @Autowired
     public TermController(TermService termService , TermSignUpServiceImpl termSignUpService, StudentServiceImpl studentService) {
         this.termService = termService;
         this.termSignUpService = termSignUpService;

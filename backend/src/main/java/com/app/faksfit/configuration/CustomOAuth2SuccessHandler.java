@@ -6,7 +6,6 @@ import com.app.faksfit.model.User;
 import com.app.faksfit.service.impl.StudentServiceImpl;
 import com.app.faksfit.service.impl.UserServiceImpl;
 import com.app.faksfit.utils.JWTUtil;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
