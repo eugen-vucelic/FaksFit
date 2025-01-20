@@ -1,7 +1,9 @@
 package com.app.faksfit.controller;
 
+import com.app.faksfit.dto.MyPointsDTO;
 import com.app.faksfit.dto.StudentDTO;
 import com.app.faksfit.dto.StudentSettingsDTO;
+import com.app.faksfit.mapper.StudentMyPointsMapper;
 import com.app.faksfit.mapper.StudentTermMapper;
 import com.app.faksfit.model.Student;
 import com.app.faksfit.model.StudentTerminAssoc;
@@ -14,7 +16,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import com.app.faksfit.dto.TermDTO;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,11 +25,13 @@ public class StudentController {
 
     private final StudentServiceImpl studentService;
     private final StudentTermMapper studentTermMapper;
+    private final StudentMyPointsMapper studentMyPointsMapper;
 
     @Autowired
-    public StudentController(StudentServiceImpl studentService, StudentTermMapper studentTermMapper) {
+    public StudentController(StudentServiceImpl studentService, StudentTermMapper studentTermMapper, StudentMyPointsMapper studentMyPointsMapper) {
         this.studentService = studentService;
         this.studentTermMapper = studentTermMapper;
+        this.studentMyPointsMapper = studentMyPointsMapper;
     }
 
     @PostMapping("/register")
@@ -82,16 +85,11 @@ public class StudentController {
         }
     }
     @GetMapping("/moji-bodovi")
-    public ResponseEntity<Map<String, Object>> getResults() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("status", "pass");
-        response.put("totalPoints", 75);
-        response.put("progress", 75);
-        response.put("scores", Map.of(
-                "terms", List.of(2,3,2,3,2,2,2,2,2,2,2),
-                "extra", 1
-        ));
-        return ResponseEntity.ok(response);
+    public ResponseEntity<MyPointsDTO> getResults(@AuthenticationPrincipal OAuth2User oauthUser) {
+        String email = oauthUser.getAttribute("email");
+        Student student = studentService.findByEmail(email);
+        MyPointsDTO myPointsDTO = studentMyPointsMapper.mapToMyPointsDTO(student);
+        return ResponseEntity.ok(myPointsDTO);
     }
 
     @GetMapping("/obavijesti")

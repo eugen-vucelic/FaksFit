@@ -17,7 +17,7 @@ public interface ITermService {
     Term getTermById(Long id);
     Term saveTerm(Term term);
     void deleteTerm(Long id);
-    boolean isTermAvailable(Long termId);
+
     void incrementCapacity(Long termId);
     void decrementCapacity(Long termId);
     int getCapacity(Long termId);

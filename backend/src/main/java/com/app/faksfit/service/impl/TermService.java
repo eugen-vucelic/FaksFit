@@ -80,11 +80,6 @@ public class TermService implements ITermService {
         termRepository.deleteById(id);
     }
 
-    @Override
-    public boolean isTermAvailable(Long termId) {
-        Term term = termRepository.findByTermId(termId);
-        return term.getCapacity() > 0;
-    }
 
     @Override
     public void incrementCapacity(Long termId) {
