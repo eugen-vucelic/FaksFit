@@ -11,6 +11,7 @@ import MojiTermini from "./components/MojiTermini.jsx";
 import Profile from "./components/Profile.jsx";
 import Obavijesti from "./components/Notification.jsx";
 import PrijavaTermina from "./components/NoviTermin.jsx";
+import LeaderDashboard from "./components/LeaderDashboard.jsx";
 import { API_URL } from './config';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -84,7 +85,7 @@ function App() {
                   path: "voditelj/dashboard",
                   element: (
                       isLoggedIn ? (
-                          <Dashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                          <LeaderDashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
                       ) : (
                           loadingUser ? <div>Loading...</div> : <Navigate to="/" replace />
                       )

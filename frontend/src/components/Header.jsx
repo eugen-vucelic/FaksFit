@@ -28,21 +28,21 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                             <button className="montserrat-regular link" onClick={Logout}>Odjava</button>
                         </>
                     )}
-                    {role === "Voditelj" &&(
+                    {role == "Voditelj" &&(
                         <>
-                            <Link to={'/dashboard/voditelj'} className="link">Dashboard</Link>
-                            <Link to={'/moja-aktivnost'} className="link">Moja aktivnost</Link>
-                            <Link to={'/evidencije'} className="link">Evidencije</Link>
-                            <Link to={'/novi-termin'} className="link">Novi termin</Link>
-                            <Link to={'/obavijesti'} className="link">Obavijesti</Link>
+                            <Link to={'/voditelj/dashboard'} className="link">Dashboard</Link>
+                            <Link to={'/voditelj/moja-aktivnost'} className="link">Moja aktivnost</Link>
+                            <Link to={'/voditelj/evidencije'} className="link">Evidencije</Link>
+                            <Link to={'/voditelj/novi-termin'} className="link">Novi termin</Link>
+                            <Link to={'/voditelj/obavijesti'} className="link">Obavijesti</Link>
                             <button className="montserrat-regular" onClick={Logout}>Odjava</button>
                         </>
                     )}
-                    {role === "Nastavnik" && (
+                    {role == "Nastavnik" && (
                         <>
-                            <Link to={'/dashboard/nastavnik'} className="link">Dashboard</Link>
-                            <Link to={'/studenti'} className="link">Studenti</Link>
-                            <Link to={'/aktivnosti'} className="link">Aktivnosti</Link>
+                            <Link to={'/nastavnik/dashboard'} className="link">Dashboard</Link>
+                            <Link to={'/nastavnik/studenti'} className="link">Studenti</Link>
+                            <Link to={'/nastavnik/aktivnosti'} className="link">Aktivnosti</Link>
                             <button className="montserrat-regular" onClick={Logout}>Odjava</button>
                         </>
                     )}
