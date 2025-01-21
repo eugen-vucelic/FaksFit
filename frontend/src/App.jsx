@@ -21,6 +21,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const useURLToken = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { handleLogin } = React.useContext(AuthContext);
 
   React.useEffect(() => {
     // Get token from URL parameters
@@ -30,13 +31,23 @@ const useURLToken = () => {
     if (token) {
       // Store the token
       localStorage.setItem('jwt_token', token);
+      handleLogin(token);
       
-      // Clean up the URL by removing the token
-      const newURL = window.location.pathname;
-      navigate(newURL, { replace: true });
+      // // Clean up the URL by removing the token
+      // const newURL = window.location.pathname;
+      // navigate(newURL, { replace: true });
+      const decodedToken = AuthUtils.getDecodedToken(token);
+      const userRole = decodedToken?.role?.toLowerCase();
+      if (userRole) {
+        navigate(`/${userRole}/dashboard`, { replace: true });
+      } else {
+        navigate('/', { replace: true });
+      }
     }
-  }, [location, navigate]);
+  }, [location, navigate, handleLogin]);
 };
+
+const AuthContext = React.createContext(null);
 
 // JWT and Auth utilities
 const AuthUtils = {
@@ -96,14 +107,14 @@ function App() {
   const [userEmail, setUserEmail] = React.useState(null);
   const [passedOauth, setPassedOAuth] = React.useState(false);
 
-  const handleLogin = (token) => {
+  const handleLogin = React.useCallback((token) => {
     AuthUtils.setToken(token);
     const decodedToken = AuthUtils.getDecodedToken();
     const userRole = decodedToken?.role?.toLowerCase();
     setRole(userRole);
     setIsLoggedIn(true);
     setUserEmail(decodedToken?.sub);
-  };
+  }, []);
 
   const handleLogout = () => {
     AuthUtils.setToken(null);
@@ -142,7 +153,8 @@ function App() {
         {
           path: "/",
           element: !loadingUser && (
-            isLoggedIn && role ? (
+            // isLoggedIn && role ? (
+            isLoggedIn ? (
               <Navigate to={`/${role}/dashboard`} replace />
             ) : (
               <NotLoggedIn
@@ -290,7 +302,11 @@ function App() {
     return <div>Loading...</div>;
   }
 
-  return <RouterProvider router={router} />;
+  return (
+    <AuthContext.Provider value={{ handleLogin, isLoggedIn, role }}>
+      <RouterProvider router={router} />
+    </AuthContext.Provider>
+  );
 }
 
 function AppContainer({
@@ -303,6 +319,8 @@ function AppContainer({
   handleLogin,
   }) {
   useURLToken();
+
+  console.log(isLoggedIn);
 
   return (
     <div className="min-h-screen flex flex-col">

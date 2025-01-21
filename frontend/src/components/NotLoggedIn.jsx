@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import "./NotLoggedIn.css";
 import { useNavigate, Navigate } from 'react-router-dom';
 import { API_URL } from '../config';
 
-function NotLoggedIn({ isLoggedIn, passedOauth }) {
+function NotLoggedIn({ isLoggedIn, passedOauth, setPassedOAuth }) {
     const navigate = useNavigate();
-    if (isLoggedIn) {
-        return <Navigate to="/student/dashboard" />;
-    }
+    const [shouldCheck, setShouldCheck] = useState(false);
 
-    if (passedOauth) {
-        return <Navigate to="/registracija" />;
-    }
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShouldCheck(true);
+        }, 5000); // 5 seconds delay
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    useEffect(() => {
+        if (shouldCheck && isLoggedIn) {
+            navigate('/registracija', { replace: true });
+        }
+    }, [shouldCheck, isLoggedIn, navigate]);
 
     const handleLoginClick = () => {
-        window.location.href = `${API_URL}/oauth2/authorization/google`; // ovo je sad dobro, vise nije callback url
+        setPassedOAuth(true);
+        window.location.href = `${API_URL}/oauth2/authorization/google`;
     };
+
+    // Early return if logged in but still within 5-second window
+    if (isLoggedIn && !shouldCheck) {
+        return <div>Checking authentication...</div>;
+    }
 
     return (
         !isLoggedIn &&

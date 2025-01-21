@@ -8,6 +8,7 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
     
     const Logout = async () => {
         setIsLoggedIn(false);
+        localStorage.removeItem("jwt_token");
         navigate("/");
         }
 
