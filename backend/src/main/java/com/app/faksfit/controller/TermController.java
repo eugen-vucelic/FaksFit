@@ -1,5 +1,7 @@
 package com.app.faksfit.controller;
 
+import com.app.faksfit.dto.TermDTO;
+import com.app.faksfit.mapper.TermMapper;
 import com.app.faksfit.model.Student;
 import com.app.faksfit.model.Term;
 import com.app.faksfit.service.impl.StudentServiceImpl;
@@ -21,27 +23,31 @@ public class TermController {
     private final TermService termService;
     private final TermSignUpServiceImpl termSignUpService;
     private final StudentServiceImpl studentService;
+    private final TermMapper termMapper;
 
     @Autowired
-    public TermController(TermService termService , TermSignUpServiceImpl termSignUpService, StudentServiceImpl studentService) {
+    public TermController(TermService termService , TermSignUpServiceImpl termSignUpService, StudentServiceImpl studentService, TermMapper termMapper) {
         this.termService = termService;
         this.termSignUpService = termSignUpService;
         this.studentService = studentService;
+        this.termMapper = termMapper;
     }
 
     @GetMapping("/svi-termini")
-    public ResponseEntity<List<Term>> getTerms() {
-        List<Term> terms = termService.getAllTerms();
+    public ResponseEntity<List<TermDTO>> getTerms() {
+        List<Term> terminList = termService.getAllTerms();
 
-        if (terms.isEmpty()) {
+        if (terminList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
+        List<TermDTO> terms = termMapper.toTermDTOList(terminList);
 
         return new ResponseEntity<>(terms, HttpStatus.OK);
     }
 
-    @GetMapping("/dostupni-termini/")
-    public ResponseEntity<List<Term>> getAvailableTerms(@AuthenticationPrincipal OAuth2User oauthUser) {
+    @GetMapping("/dostupni-termini")
+    public ResponseEntity<List<TermDTO>> getAvailableTerms(@AuthenticationPrincipal OAuth2User oauthUser) {
         String email = oauthUser.getAttribute("email");
         Student student = studentService.findByEmail(email);
 
@@ -55,7 +61,9 @@ public class TermController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(terms, HttpStatus.OK);
+        List<TermDTO> termDTOlist = termMapper.toTermDTOList(terms);
+
+        return new ResponseEntity<>(termDTOlist, HttpStatus.OK);
     }
 
     @PostMapping("/upis-na-termin/{termId}")
