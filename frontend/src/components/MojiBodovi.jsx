@@ -3,9 +3,9 @@ import { API_URL } from '../config';
 import "./MojiBodovi.css";
 
 function MojiBodovi() {
-    const [data, setData] = useState(null); // Holds the fetched data
-    const [loading, setLoading] = useState(true); // Loading state
-    const [error, setError] = useState(null); // Error state
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchResults = async () => {
@@ -36,15 +36,13 @@ function MojiBodovi() {
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
-
-    const { status, totalPoints, progress, scores } = data;
+    if (!data) return <div>No data available</div>;
 
     return (
         <div className="moji-bodovi-page">
-            <div className={`status-box ${status}`}>
-                {status === "pass" && <p>Prošli ste predmet! Čestitamo! 🎉</p>}
-                {status === "fail" && <p>Pali ste predmet. 😢 Potrudite se više!</p>}
-                {status === "neutral" && <p>Nema dovoljno podataka za ocjenu. 🤔</p>}
+            <div className={`status-box ${data.status}`}>
+                {data.status === "true" && <p>Prošli ste predmet! Čestitamo! 🎉</p>}
+                {data.status === "false" && <p>Nema dovoljno podataka za ocjenu. 🤔</p>}
             </div>
 
             <div className="progress-section">
@@ -52,31 +50,26 @@ function MojiBodovi() {
                 <div className="progress-bar-container">
                     <div
                         className="progress-bar"
-                        style={{ width: `${progress}%` }}
-                        title={`${progress}% završenog gradiva`}
+                        style={{ width: `${data.progress}%` }}
+                        title={`${data.progress}% završenog gradiva`}
                     ></div>
                 </div>
-                <p>{progress}% završenog gradiva</p>
+                <p>{data.progress}% završenog gradiva</p>
             </div>
 
             <div className="total-points">
-                <p><strong>Ukupno bodova:</strong> {totalPoints}</p>
+                <p><strong>Ukupno bodova:</strong> {data.totalPoints}</p>
             </div>
 
             <div className="scores-section">
                 <h3>Bodovi po terminima:</h3>
-                {scores && scores.terms && scores.terms.length > 0 ? (
+                {data.points && data.points.length > 0 ? (
                     <ul>
-                        {scores.terms.map((term, index) => (
-                            <li key={index}>
-                                <strong>Termin {index + 1}:</strong> {term} bodova
+                        {data.points.map((point) => (
+                            <li key={point.termId}>
+                                <strong>Termin {point.termId}:</strong> {point.points} bodova
                             </li>
                         ))}
-                        {scores.extra > 0 && (
-                            <li>
-                                <strong>Dodatni bodovi od nastavnika:</strong> {scores.extra}
-                            </li>
-                        )}
                     </ul>
                 ) : (
                     <p>Nema bodova iz termina.</p>

@@ -3,7 +3,7 @@ import { API_URL } from "../config";
 import "./MojiTermini.css";
 
 function MojiTermini() {
-    const [termsData, setTermsData] = useState(null);
+    const [terms, setTerms] = useState([]);  // Changed to direct array
     const [pointsData, setPointsData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -38,7 +38,7 @@ function MojiTermini() {
                 const termsResult = await termsResponse.json();
                 const pointsResult = await pointsResponse.json();
 
-                setTermsData(termsResult);
+                setTerms(termsResult);  // Store array directly
                 setPointsData(pointsResult);
             } catch (err) {
                 setError(err.message);
@@ -53,9 +53,6 @@ function MojiTermini() {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    const { terms } = termsData || {};
-    const { scores } = pointsData || {};
-
     return (
         <div className="terms-page">
             <h1>Moji Termini</h1>
@@ -63,9 +60,9 @@ function MojiTermini() {
             <div className="terms-section">
                 {terms && terms.length > 0 ? (
                     <ul>
-                        {terms.map((term, index) => (
-                            <li key={index} className="term-item">
-                                <strong>Termin {index + 1}:</strong>
+                        {terms.map((term) => (  // Changed to use termId as key
+                            <li key={term.termId} className="term-item">
+                                <strong>Termin {term.termId}:</strong>
                                 <p>Maksimalni bodovi: {term.maxPoints}</p>
                                 <p>Početak: {new Date(term.termStart).toLocaleString()}</p>
                                 <p>Kraj: {new Date(term.termEnd).toLocaleString()}</p>
@@ -82,16 +79,16 @@ function MojiTermini() {
             {/* Points Section */}
             <div className="points-section">
                 <h3>Prošli prijavljeni termini:</h3>
-                {scores && scores.terms && scores.terms.length > 0 ? (
+                {pointsData && pointsData.scores && pointsData.scores.terms && pointsData.scores.terms.length > 0 ? (
                     <ul>
-                        {scores.terms.map((term, index) => (
+                        {pointsData.scores.terms.map((term, index) => (
                             <li key={index}>
                                 <strong>Termin {index + 1}:</strong> {term} bodova
                             </li>
                         ))}
-                        {scores.extra > 0 && (
+                        {pointsData.scores.extra > 0 && (
                             <li>
-                                <strong>Dodatni bodovi od nastavnika:</strong> {scores.extra}
+                                <strong>Dodatni bodovi od nastavnika:</strong> {pointsData.scores.extra}
                             </li>
                         )}
                     </ul>
