@@ -201,7 +201,7 @@ function App() {
         },
         // Activity Leader Routes
         {
-          path: "voditelj/*",
+          path: "activity_leader/*",
           element: (
             <ProtectedRoute allowedRoles={['activity_leader']}>
               <Outlet />
