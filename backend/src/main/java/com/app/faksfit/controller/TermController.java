@@ -34,36 +34,26 @@ public class TermController {
     }
 
     @GetMapping("/svi-termini")
-    public ResponseEntity<List<TermDTO>> getTerms() {
-        List<Term> terminList = termService.getAllTerms();
-
-        if (terminList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<List<TermDTO>> getTerms(@AuthenticationPrincipal OAuth2User oauthUser) {
+        if (oauthUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        List<TermDTO> terms = termMapper.toTermDTOList(terminList);
-
-        return new ResponseEntity<>(terms, HttpStatus.OK);
-    }
-
-    @GetMapping("/dostupni-termini")
-    public ResponseEntity<List<TermDTO>> getAvailableTerms(@AuthenticationPrincipal OAuth2User oauthUser) {
         String email = oauthUser.getAttribute("email");
         Student student = studentService.findByEmail(email);
 
         if (student == null) {
-            return ResponseEntity.status(404).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        List<Term> terms = termSignUpService.getAvailableTerms(student);
+        List<Term> availableTerms = termSignUpService.getAvailableTerms(student);
 
-        if (terms.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        if (availableTerms.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
 
-        List<TermDTO> termDTOlist = termMapper.toTermDTOList(terms);
-
-        return new ResponseEntity<>(termDTOlist, HttpStatus.OK);
+        List<TermDTO> termDTOList = termMapper.toTermDTOList(availableTerms);
+        return ResponseEntity.ok(termDTOList);
     }
 
     @PostMapping("/upis-na-termin/{termId}")
@@ -80,6 +70,31 @@ public class TermController {
             return new ResponseEntity<>("User successfully added to the term", HttpStatus.OK);
         } catch (IllegalArgumentException | IllegalStateException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @DeleteMapping("/odjava/{termId}")
+    public ResponseEntity<String> removeUserFromTerm(
+            @PathVariable Long termId,
+            @AuthenticationPrincipal OAuth2User oauthUser) {
+
+        String email = oauthUser.getAttribute("email");
+        Student student = studentService.findByEmail(email);
+
+        if (student == null) {
+            return ResponseEntity.ok("Student not found");
+        }
+
+        try {
+            termSignUpService.removeUserFromTerm(termId, student);
+            return ResponseEntity.ok("User successfully removed from the term");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

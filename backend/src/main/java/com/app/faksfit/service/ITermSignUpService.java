@@ -9,4 +9,6 @@ public interface ITermSignUpService {
     List<Term> getAvailableTerms(Student student);
 
     void addUserToTerm(Long termId, Student student);
+
+    void removeUserFromTerm(Long termId, Student student);
 }
