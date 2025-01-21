@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import './TeacherDashboard.css';
 
 function TeacherDashboard() {
-    // Set up states for holding teacher data and loading/error states
     const [teacherData, setTeacherData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Fetch teacher data on component mount
     useEffect(() => {
         const fetchTeacherData = async () => {
             try {
