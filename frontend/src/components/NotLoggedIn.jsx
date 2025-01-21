@@ -5,7 +5,6 @@ import { API_URL } from '../config';
 
 function NotLoggedIn({ isLoggedIn, passedOauth }) {
     const navigate = useNavigate();
-
     if (isLoggedIn) {
         return <Navigate to="/dashboard/student" />;
     }

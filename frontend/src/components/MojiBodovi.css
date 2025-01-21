@@ -21,7 +21,6 @@ h3 {
     margin-bottom: 10px;
 }
 
-/* Status Box */
 .status-box {
     text-align: center;
     padding: 15px;
@@ -32,26 +31,27 @@ h3 {
     color: #fff;
 }
 
-.status-box.pass {
+.status-box pass {
     background-color: #4caf50;
 }
 
-.status-box.fail {
+.status-box fail {
     background-color: #f44336;
 }
 
-.status-box.neutral {
+.status-box neutral {
     background-color: #ff9800;
 }
 
-/* Progress Section */
+
 .progress-section {
     margin-bottom: 20px;
+    margin-left: 20px;
 }
 
 .progress-bar-container {
-    width: 100%;
-    height: 25px;
+    width: 50%;
+    height: 30px;
     background-color: #e0e0e0;
     border-radius: 15px;
     overflow: hidden;
@@ -66,14 +66,16 @@ h3 {
     margin-bottom: 5px;
 }
 
-/* Total Points */
 .total-points {
     font-size: 1.1rem;
     font-weight: bold;
     margin-bottom: 20px;
+    margin-left: 20px;
+}
+.scores-section{
+    margin-left: 20px;
 }
 
-/* Scores Section (Leaving the existing styles untouched) */
 .scores-section ul {
     list-style-type: none;
     padding: 0;
