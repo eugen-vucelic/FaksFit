@@ -97,7 +97,7 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
 
             if (response.ok) {
                 console.log('User successfully updated');
-                setIsLoggedIn(true);
+                // setIsLoggedIn(true);
                 navigate('/student/dashboard');
             } else {
                 const errorData = await response.json();

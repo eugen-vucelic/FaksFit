@@ -14,24 +14,8 @@ import PrijavaTermina from "./components/NoviTermin.jsx";
 import LeaderDashboard from "./components/LeaderDashboard.jsx";
 import TeacherDashboard from "./components/TeacherDashboard.jsx";
 import { API_URL } from './config';
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { useLocation, useNavigate } from "react-router-dom";
-
-// Component imports
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import NotLoggedIn from "./components/NotLoggedIn";
-import Dashboard from "./components/Dashboard";
-import Registration from "./components/Registration";
-import MojiBodovi from "./components/MojiBodovi";
-import MojiTermini from "./components/MojiTermini";
-import Profile from "./components/Profile";
-import Obavijesti from "./components/Notification";
-import PrijavaTermina from "./components/NoviTermin";
-import LeaderDashboard from "./components/LeaderDashboard";
-// import TeacherDashboard from "./components/TeacherDashboard";
 
 const useURLToken = () => {
   const location = useLocation();
