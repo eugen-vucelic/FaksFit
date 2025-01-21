@@ -3,7 +3,7 @@ package com.app.faksfit.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record TerminDTO(String activityLeaderID,
+public record TerminDTO(
                       String activityType,
                       String date,
                       String start,
