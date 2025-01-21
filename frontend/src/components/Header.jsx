@@ -18,7 +18,7 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
             </div>
             {location.pathname !== '/' && location.pathname !== '/registracija' &&
                 <div className="nav">
-                    {role == "Student" && (
+                    {role == "student" && (
                         <>
                             <Link to={'/student/dashboard'} className={location.pathname === '/student/dashboard' ? "link current montserrat-regular" : "link montserrat-regular"}>Dashboard</Link>
                             <Link to={'student/moji-termini'} className={location.pathname === '/moji-termini' ? "link current montserrat-regular" : "link montserrat-regular"}>Moji termini</Link>
@@ -28,7 +28,7 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                             <button className="montserrat-regular link" onClick={Logout}>Odjava</button>
                         </>
                     )}
-                    {role == "Voditelj" &&(
+                    {role == "activity_leader" &&(
                         <>
                             <Link to={'/voditelj/dashboard'} className="link">Dashboard</Link>
                             <Link to={'/voditelj/moja-aktivnost'} className="link">Moja aktivnost</Link>
@@ -38,7 +38,7 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                             <button className="montserrat-regular" onClick={Logout}>Odjava</button>
                         </>
                     )}
-                    {role == "Nastavnik" && (
+                    {role == "teacher" && (
                         <>
                             <Link to={'/nastavnik/dashboard'} className="link">Dashboard</Link>
                             <Link to={'/nastavnik/studenti'} className="link">Studenti</Link>

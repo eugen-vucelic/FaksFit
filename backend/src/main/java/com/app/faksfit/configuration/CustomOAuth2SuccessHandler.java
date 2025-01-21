@@ -50,7 +50,8 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
         } else {
             Role role = user.getUserRole();
             String jwtToken = jwtUtil.generateToken(email, role);
-            response.sendRedirect(FRONTEND_URL + "/student/dashboard?token=" + jwtToken);
+            //response.sendRedirect(FRONTEND_URL + "/student/dashboard?token=" + jwtToken);
+            response.sendRedirect(FRONTEND_URL + "/?token=" + jwtToken);
         }
     }
 }

@@ -2,10 +2,14 @@ import "./Dashboard.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { jwtDecode } from 'jwt-decode';
+import { useLocation, useNavigate } from "react-router-dom";
+
 function Dashboard(props) {
     const [dashboardData, setDashboardData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [role, setRole] = React.useState(null);
 
     const fetchDashboardData = () => {
         setLoading(true);
@@ -29,6 +33,122 @@ function Dashboard(props) {
             })
             .finally(() => setLoading(false));
     };
+
+    // const useURLToken = () => {
+    //     const location = useLocation();
+    //     const navigate = useNavigate();
+
+    //     React.useEffect(() => {
+    //         // Get token from URL parameters
+    //         const params = new URLSearchParams(location.search);
+    //         const token = params.get('token');
+            
+    //         if (token) {
+    //         // Store the token
+    //         localStorage.setItem('jwt_token', token);
+            
+    //         // Clean up the URL by removing the token
+    //         const newURL = window.location.pathname;
+    //         navigate(newURL, { replace: true });
+    //         }
+    //     }, [location, navigate]);
+    // };
+
+    // const AuthUtils = {
+    //     TOKEN_KEY: 'jwt_token',
+    //     ROLES: {
+    //       STUDENT: 'STUDENT',
+    //       LEADER: 'ACTIVITY_LEADER',
+    //       TEACHER: 'TEACHER'
+    //     },
+      
+    //     getToken: () => localStorage.getItem(AuthUtils.TOKEN_KEY),
+      
+    //     setToken: (token) => {
+    //       if (token) {
+    //         localStorage.setItem(AuthUtils.TOKEN_KEY, token);
+    //       } else {
+    //         localStorage.removeItem(AuthUtils.TOKEN_KEY);
+    //       }
+    //     },
+      
+    //     getDecodedToken: () => {
+    //       const token = AuthUtils.getToken();
+    //       if (!token) return null;
+    //       try {
+    //         return jwtDecode(token);
+    //       } catch (error) {
+    //         console.error('Token decode error:', error);
+    //         return null;
+    //       }
+    //     },
+      
+    //     isTokenValid: (token) => {
+    //       if (!token) return false;
+    //       try {
+    //         const decoded = jwtDecode(token);
+    //         return decoded.exp * 1000 > Date.now();
+    //       } catch {
+    //         return false;
+    //       }
+    //     },
+      
+    //     getRole: () => {
+    //       const decoded = AuthUtils.getDecodedToken();
+    //       return decoded?.role?.toLowerCase() || null;
+    //     },
+      
+    //     getEmail: () => {
+    //       const decoded = AuthUtils.getDecodedToken();
+    //       return decoded?.sub || null;
+    //     }
+    // };
+
+    // React.useEffect(() => {
+    //     const checkUserStatus = async () => {
+    //         try {
+    //             const token = AuthUtils.getToken();
+                
+    //             if (!token || !AuthUtils.isTokenValid(token)) {
+    //             //   handleLogout();
+    //             //   setLoadingUser(false);
+    //             return;
+    //             }
+        
+    //             // Verify token with backend
+    //             // const response = await fetch(`localhost:8080/auth/verify`, {
+    //             //   headers: {
+    //             //     'Accept': 'application/json',
+    //             //     'Authorization': `Bearer ${token}`,
+    //             //   },
+    //             // });
+            
+    //             const userRole = AuthUtils.getRole();
+                
+    //             // setIsLoggedIn(true);
+    //             setRole(userRole);
+    //         } catch (error) {
+    //             console.error('Auth check error:', error);
+    //             // handleLogout();
+    //         } finally {
+    //             // setLoadingUser(false);
+    //       }
+    //     };
+    
+    //     checkUserStatus();
+    
+    //     // Token expiration checker
+    //     const tokenCheckInterval = setInterval(() => {
+    //       const token = AuthUtils.getToken();
+    //       if (token && !AuthUtils.isTokenValid(token)) {
+    //         handleLogout();
+    //       }
+    //     }, 60000); // Check every minute
+    
+    //     return () => clearInterval(tokenCheckInterval);
+    // }, []);
+
+    // useURLToken();
 
     useEffect(() => {
         fetchDashboardData();
