@@ -126,7 +126,7 @@ public class StudentController {
         Student student = studentService.findByEmail(email);
         List<StudentTerminAssoc> studentTerms = student.getTerminList();
 
-        List<TermDTO> termDTOList = studentTermMapper.toTermDTO(studentTerms);
+        List<TermDTO> termDTOList = studentTermMapper.toTermDTOList(studentTerms);
 
         return ResponseEntity.ok(termDTOList);
     }

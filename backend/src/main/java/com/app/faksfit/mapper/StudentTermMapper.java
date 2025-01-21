@@ -8,34 +8,57 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Component
 public class StudentTermMapper {
 
-    public List<TermDTO> toTermDTO(List<StudentTerminAssoc> terminList){
-        List<TermDTO> result = new ArrayList<>();
-
-        for (StudentTerminAssoc studentTerminAssoc : terminList) {
-            if (studentTerminAssoc == null || studentTerminAssoc.getTerm() == null) {
-                return null;
-            }
-
-            Term term = studentTerminAssoc.getTerm();
-            Location location = term.getLocationTerm();
-            LocationDTO locationDTO = new LocationDTO(location.getLocationName(), location.getAddress());
-
-            ActivityType activityType = term.getActivityTypeTerm();
-            ActivityTypeDTO activityTypeDTO = new ActivityTypeDTO(activityType.getActivityTypeName());
-
-            result.add(new TermDTO(
-                    studentTerminAssoc.getTerm().getMaxPoints(),
-                    studentTerminAssoc.getTerm().getTermStart(),
-                    studentTerminAssoc.getTerm().getTermEnd(),
-                    locationDTO,
-                    activityTypeDTO,
-                    studentTerminAssoc.getTerm().getTermId()
-            ));
+    public LocationDTO mapLocation(Location location) {
+        if (location == null) {
+            return null;
         }
-        return result;
+
+        return new LocationDTO(
+                location.getLocationName(),
+                location.getAddress()
+        );
+    }
+
+
+    public ActivityTypeDTO mapActivityType(ActivityType activityType) {
+        if (activityType == null) {
+            return null;
+        }
+
+        return new ActivityTypeDTO(
+                activityType.getActivityTypeName()
+        );
+    }
+
+    public TermDTO map(StudentTerminAssoc studentTerminAssoc) {
+        if (studentTerminAssoc == null || studentTerminAssoc.getTerm() == null) {
+            return null;
+        }
+
+        return new TermDTO(
+                studentTerminAssoc.getTerm().getMaxPoints(),
+                studentTerminAssoc.getTerm().getTermStart(),
+                studentTerminAssoc.getTerm().getTermEnd(),
+                mapLocation(studentTerminAssoc.getTerm().getLocationTerm()),
+                mapActivityType(studentTerminAssoc.getTerm().getActivityTypeTerm()),
+                studentTerminAssoc.getTerm().getTermId()
+        );
+    }
+
+    public List<TermDTO> toTermDTOList(List<StudentTerminAssoc> terminList){
+        if (terminList == null) {
+            return List.of();
+        }
+
+        return terminList.stream()
+                .filter(Objects::nonNull)
+                .map(this::map)
+                .collect(Collectors.toList());
     }
 }
