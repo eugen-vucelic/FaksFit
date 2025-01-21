@@ -12,6 +12,7 @@ import Profile from "./components/Profile.jsx";
 import Obavijesti from "./components/Notification.jsx";
 import PrijavaTermina from "./components/NoviTermin.jsx";
 import LeaderDashboard from "./components/LeaderDashboard.jsx";
+import TeacherDashboard from "./components/TeacherDashboard.jsx";
 import { API_URL } from './config';
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -110,7 +111,17 @@ function App() {
                         <Navigate to="/" replace />
                       )
                     ),
-                  }
+                  },
+                {
+                    path: "nastavnik/dashboard",
+                    element: (
+                        isLoggedIn ? (
+                            <TeacherDashboard isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                        ) : (
+                            loadingUser ? <div>Loading...</div> : <Navigate to="/" replace />
+                        )
+                    )
+                }
             ]
         }
     ]);
