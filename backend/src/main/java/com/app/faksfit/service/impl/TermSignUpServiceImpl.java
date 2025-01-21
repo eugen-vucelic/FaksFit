@@ -7,6 +7,7 @@ import com.app.faksfit.repository.StudentRepository;
 import com.app.faksfit.repository.TermRepository;
 import com.app.faksfit.service.ITermSignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,17 +41,23 @@ public class TermSignUpServiceImpl implements ITermSignUpService {
 
     @Override
     public void addUserToTerm(Long termId, Student student) {
-        Term term = termRepository.findById(termId)
-                .orElseThrow(() -> new IllegalArgumentException("Termin s identifikatorom " + termId + " nije pronađen!"));
+        Term term = termRepository.findByTermId(termId);
+
+        if (term == null) {
+            throw new IllegalArgumentException("Termin s tim id-om ne postoji!");
+        }
 
         List<Term> fullyOccupiedTerms = termRepository.findFullTerms();
         if (fullyOccupiedTerms.contains(term)) {
             throw new IllegalStateException("Termin je popunjen!");
         }
 
-        StudentTerminAssoc assoc = new StudentTerminAssoc(student, term, 0);
-        student.getTerminList().add(assoc);
-
-        studentRepository.save(student);
+        try {
+            StudentTerminAssoc assoc = new StudentTerminAssoc(student, term, 0);
+            student.getTerminList().add(assoc);
+            studentRepository.save(student);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Greška pri spremanju podataka", e);
+        }
     }
 }
