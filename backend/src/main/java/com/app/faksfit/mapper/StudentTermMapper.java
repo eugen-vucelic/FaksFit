@@ -32,7 +32,8 @@ public class StudentTermMapper {
                     studentTerminAssoc.getTerm().getTermStart(),
                     studentTerminAssoc.getTerm().getTermEnd(),
                     locationDTO,
-                    activityTypeDTO
+                    activityTypeDTO,
+                    studentTerminAssoc.getTerm().getTermId()
             ));
         }
         return result;

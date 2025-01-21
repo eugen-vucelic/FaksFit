@@ -6,6 +6,6 @@ public record TermDTO(Integer maxPoints,
                       LocalDateTime termStart,
                       LocalDateTime termEnd,
                       LocationDTO location,
-                      ActivityTypeDTO activityType
-                      ) {
+                      ActivityTypeDTO activityType,
+                      Long termId) {
 }

@@ -25,7 +25,8 @@ public class TermMapper {
                     term.getTermStart(),
                     term.getTermEnd(),
                     locationDTO,
-                    activityTypeDTO
+                    activityTypeDTO,
+                    term.getTermId()
             ));
         }
         return result;
