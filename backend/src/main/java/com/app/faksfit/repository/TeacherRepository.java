@@ -1,6 +1,7 @@
 package com.app.faksfit.repository;
 
 import com.app.faksfit.model.Faculty;
+import com.app.faksfit.model.Student;
 import com.app.faksfit.model.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,8 @@ import java.util.List;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     Teacher findByEmail(String email);
+
+    Teacher findByUserId(Long userId);
 
     @Query("SELECT t FROM Teacher t WHERE t.firstName = :firstName AND t.lastName = :lastName")
     List<Teacher> findByFirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);

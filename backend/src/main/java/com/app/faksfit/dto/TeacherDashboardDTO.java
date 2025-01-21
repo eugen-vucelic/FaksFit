@@ -1,6 +1,9 @@
 package com.app.faksfit.dto;
 
 public record TeacherDashboardDTO(
-        //TODO
+        String firstname,
+        String lastname,
+        String email,
+        String officeLocation
 ) {
 }
