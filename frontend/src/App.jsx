@@ -13,6 +13,7 @@ import Obavijesti from "./components/Notification.jsx";
 import PrijavaTermina from "./components/NoviTermin.jsx";
 import LeaderDashboard from "./components/LeaderDashboard.jsx";
 import TeacherDashboard from "./components/TeacherDashboard.jsx";
+import ListaTermina from "./components/PrijavaTermina.jsx";
 import { API_URL } from './config';
 import { jwtDecode } from 'jwt-decode';
 import { useLocation, useNavigate } from "react-router-dom";
@@ -184,6 +185,10 @@ function App() {
             {
               path: "moji-termini",
               element: <MojiTermini />,
+            },
+            {
+              path: "prijava-termina",
+              element: <ListaTermina />,
             },
             {
               path: "profile",

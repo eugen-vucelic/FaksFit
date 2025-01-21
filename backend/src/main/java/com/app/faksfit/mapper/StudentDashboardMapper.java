@@ -45,7 +45,8 @@ public class StudentDashboardMapper {
                 studentTerminAssoc.getTerm().getTermStart(),
                 studentTerminAssoc.getTerm().getTermEnd(),
                 mapLocation(studentTerminAssoc.getTerm().getLocationTerm()),
-                mapActivityType(studentTerminAssoc.getTerm().getActivityTypeTerm())
+                mapActivityType(studentTerminAssoc.getTerm().getActivityTypeTerm()),
+                studentTerminAssoc.getTerm().getTermId()
         );
     }
 

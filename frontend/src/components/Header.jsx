@@ -21,6 +21,7 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                     {role == "student" && (
                         <>
                             <Link to={'/student/dashboard'} className={location.pathname === '/student/dashboard' ? "link current montserrat-regular" : "link montserrat-regular"}>Dashboard</Link>
+                            <Link to={'/student/prijava-termina'} className={location.pathname === '/prijava-termina' ? "link current montserrat-regular" : "link montserrat-regular"}>Prijava termina</Link>                            
                             <Link to={'student/moji-termini'} className={location.pathname === '/moji-termini' ? "link current montserrat-regular" : "link montserrat-regular"}>Moji termini</Link>
                             <Link to={'/student/moji-bodovi'} className={location.pathname === '/moji-bodovi' ? "link current montserrat-regular" : "link montserrat-regular"}>Moji bodovi</Link>
                             <Link to={'/student/profile'} className={location.pathname === '/profil' ? "link current montserrat-regular" : "link montserrat-regular"}>Profil</Link>
