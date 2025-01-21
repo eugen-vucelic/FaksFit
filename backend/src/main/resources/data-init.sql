@@ -103,7 +103,7 @@ VALUES
         (SELECT user_id
          FROM KORISNIK
          WHERE email = 'ivan.horvat@fz.unizg.hr'),
-        'http://example.com/images/ivan_horvat.jpg',
+            'http://example.com/images/ivan_horvat.jpg',
         'Ured 101, PMF'
     ),
     (

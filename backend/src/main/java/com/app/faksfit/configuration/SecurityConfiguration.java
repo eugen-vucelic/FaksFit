@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -19,12 +20,14 @@ public class SecurityConfiguration {
 
     private final CustomOAuth2SuccessHandler successHandler;
     private final boolean production = false;
+    private final JWTFilter jwtfilter;
 
     private final String FRONTEND_URL = production ? "https://faksfit-7du1.onrender.com" : "http://localhost:5173";
 
     @Autowired
-    public SecurityConfiguration(CustomOAuth2SuccessHandler successHandler) {
+    public SecurityConfiguration(CustomOAuth2SuccessHandler successHandler, JWTFilter jwtfilter) {
         this.successHandler = successHandler;
+        this.jwtfilter = jwtfilter;
     }
 
     @Bean
@@ -33,6 +36,9 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/h2-console/**","/student/register", "/login**", "/error**", "/student/patch", "/oauth2/**").permitAll()
+//                        .requestMatchers("/student/**").hasRole("STUDENT")
+//                        .requestMatchers("/teacher/**").hasRole("TEACHER")
+//                        .requestMatchers("/voditelj/**").hasRole("ACTIVITY_LEADER") #to add once jwt works on the front
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf
@@ -47,6 +53,9 @@ public class SecurityConfiguration {
                         .failureUrl(FRONTEND_URL)
                 )
                 .csrf(AbstractHttpConfigurer::disable);
+
+//        http.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class); #once jwt works on the front
+
 
         return http.build();
     }

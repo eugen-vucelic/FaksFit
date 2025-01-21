@@ -1,6 +1,21 @@
 import * as React from "react";
 import './App.css';
 import { createBrowserRouter, Outlet, RouterProvider, Navigate } from "react-router-dom";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import NotLoggedIn from "./components/NotLoggedIn.jsx";
+import Dashboard from "./components/Dashboard.jsx";
+import Registration from "./components/Registration.jsx";
+import MojiBodovi from "./components/MojiBodovi.jsx";
+import MojiTermini from "./components/MojiTermini.jsx";
+import Profile from "./components/Profile.jsx";
+import Obavijesti from "./components/Notification.jsx";
+import PrijavaTermina from "./components/NoviTermin.jsx";
+import LeaderDashboard from "./components/LeaderDashboard.jsx";
+import TeacherDashboard from "./components/TeacherDashboard.jsx";
+import { API_URL } from './config';
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from 'jwt-decode';
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -234,7 +249,7 @@ function App() {
           children: [
             {
               path: "dashboard",
-              // element: <TeacherDashboard />,
+              element: <TeacherDashboard />,
             },
             {
               path: "obavijesti",
