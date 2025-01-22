@@ -1,29 +1,25 @@
 import React, { useEffect, useState } from "react";
-import './TeacherDashboard.css';
+import './TeacherStudents.css';
 
-function TeacherDashboard() {
-    const [teacherData, setTeacherData] = useState(null);
+function TeacherStudents() {
+    const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchTeacherData = async () => {
+        const fetchStudents = async () => {
             try {
-                const response = await fetch('http://localhost:8080/nastavnik/current', {
+                const response = await fetch('http://localhost:8080/nastavnik/svi-studenti', {
                     method: "GET",
                     credentials: "include",
                     headers: {
                         "Content-Type": "application/json",
-                        'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
                     },
                 });
 
-                if (!response.ok) {
-                    throw new Error("Failed to fetch teacher data");
-                }
-
                 const data = await response.json();
-                setTeacherData(data);
+
+                setStudents(data);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -31,28 +27,20 @@ function TeacherDashboard() {
             }
         };
 
-        fetchTeacherData();
+        fetchStudents();
     }, []);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    if (!teacherData) return <div>No teacher data found.</div>;
-
-    const { firstname, lastname, email, officeLocation, students } = teacherData;
+    if (students.length === 0) return <div>No students found.</div>;
 
     return (
-        <div className="teacher-dashboard">
-            <h1>Dobrodošli, {firstname} {lastname}</h1>
-
-            <div className="teacher-info">
-                <p><strong>Email:</strong> {email}</p>
-                <p><strong>Lokacija ureda:</strong> {officeLocation}</p>
-            </div>
+        <div className="teacher-students">
+            <h1>Lista svih studenata</h1>
 
             <div className="students-info">
-                <h3>Studenti</h3>
-                {students && students.length > 0 ? (
+                {students.length > 0 ? (
                     <ul>
                         {students.map((student, index) => (
                             <li key={index}>
@@ -61,11 +49,11 @@ function TeacherDashboard() {
                         ))}
                     </ul>
                 ) : (
-                    <p>Trenutno nemate svojih studenata.</p>
+                    <p>Trenutno nema studenata u sustavu.</p>
                 )}
             </div>
         </div>
     );
 }
 
-export default TeacherDashboard;
+export default TeacherStudents;

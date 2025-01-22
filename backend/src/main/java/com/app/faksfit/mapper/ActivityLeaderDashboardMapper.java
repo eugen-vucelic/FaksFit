@@ -5,8 +5,6 @@ import com.app.faksfit.dto.ActivityTypeDTO;
 import com.app.faksfit.dto.LocationDTO;
 import com.app.faksfit.dto.TermDTO;
 import com.app.faksfit.model.*;
-import com.app.faksfit.repository.ActivityTypeRepository;
-import com.app.faksfit.repository.TermRepository;
 import com.app.faksfit.repository.UserRepository;
 import org.springframework.stereotype.Component;
 
@@ -17,17 +15,13 @@ import java.util.stream.Collectors;
 public class ActivityLeaderDashboardMapper {
 
     private final UserRepository userRepository;
-    private final TermRepository termRepository;
-    private final ActivityTypeRepository activityTypeRepository;
 
-    public ActivityLeaderDashboardMapper(UserRepository userRepository, TermRepository termRepository, ActivityTypeRepository activityTypeRepository) {
+    public ActivityLeaderDashboardMapper(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.termRepository = termRepository;
-        this.activityTypeRepository = activityTypeRepository;
     }
 
     public ActivityLeaderDashboardDTO toActivityLeaderDashboardDTO(ActivityLeader activityLeader){
-        User user = userRepository.getById(activityLeader.getUserId());
+        User user = userRepository.findByUserId(activityLeader.getUserId());
         return new ActivityLeaderDashboardDTO(
                 user.getFirstName(),
                 user.getLastName(),

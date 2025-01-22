@@ -1,10 +1,8 @@
 package com.app.faksfit.controller;
 
-import com.app.faksfit.dto.StudentSettingsDTO;
+import com.app.faksfit.dto.StudentTeacherDTO;
 import com.app.faksfit.dto.TeacherDashboardDTO;
-import com.app.faksfit.model.Student;
 import com.app.faksfit.model.Teacher;
-import com.app.faksfit.service.impl.StudentServiceImpl;
 import com.app.faksfit.service.impl.TeacherServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +18,15 @@ import java.util.List;
 @RequestMapping("/nastavnik")
 public class TeacherController {
 
-    private final StudentServiceImpl studentService;
     private final TeacherServiceImpl teacherService;
 
-    public TeacherController(StudentServiceImpl studentService, TeacherServiceImpl teacherService) {
-        this.studentService = studentService;
+    public TeacherController(TeacherServiceImpl teacherService) {
         this.teacherService = teacherService;
     }
 
     @GetMapping("/svi-studenti")
-    public ResponseEntity<List<Student>> getStudents() {
-        List<Student> students = studentService.getAllStudents();
+    public ResponseEntity<List<StudentTeacherDTO>> getStudents() {
+        List<StudentTeacherDTO> students = teacherService.getAllStudents();
 
         if (students.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

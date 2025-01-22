@@ -13,6 +13,7 @@ import Obavijesti from "./components/Notification.jsx";
 import PrijavaTermina from "./components/NoviTermin.jsx";
 import LeaderDashboard from "./components/LeaderDashboard.jsx";
 import TeacherDashboard from "./components/TeacherDashboard.jsx";
+import TeacherStudents from "./components/TeacherStudents.jsx";
 import ListaTermina from "./components/PrijavaTermina.jsx";
 import { API_URL } from './config';
 import { jwtDecode } from 'jwt-decode';
@@ -251,6 +252,10 @@ function App() {
             {
               path: "dashboard",
               element: <TeacherDashboard />,
+            },
+            {
+              path: "studenti",
+              element: <TeacherStudents />,
             },
             {
               path: "obavijesti",

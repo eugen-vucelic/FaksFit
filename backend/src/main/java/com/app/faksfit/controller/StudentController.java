@@ -10,7 +10,6 @@ import com.app.faksfit.model.StudentTerminAssoc;
 import com.app.faksfit.service.impl.StudentServiceImpl;
 import com.app.faksfit.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.app.faksfit.dto.TermDTO;
@@ -40,17 +39,6 @@ public class StudentController {
 
         studentService.addStudent(studentDTO);
         return ResponseEntity.ok("Student added successfully");
-    }
-
-    @GetMapping("/svi-studenti")
-    public ResponseEntity<List<Student>> getStudents() {
-        List<Student> students = studentService.getAllStudents();
-
-        if (students.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
     @GetMapping("/current")
@@ -89,6 +77,7 @@ public class StudentController {
             return ResponseEntity.status(404).body("Student not found");
         }
     }
+
     @GetMapping("/moji-bodovi")
     public ResponseEntity<MyPointsDTO> getResults(@RequestHeader("Authorization") String token) {
         String jwt = token.replace("Bearer ", "");
