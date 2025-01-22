@@ -2,7 +2,6 @@ import "./Profile.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from '../config';
-import {getFirstTokens} from "eslint-plugin-react/lib/util/eslint.js";
 
 function Profile({ isLoggedIn, setIsLoggedIn }) {
     const [profileData, setProfileData] = useState(null);

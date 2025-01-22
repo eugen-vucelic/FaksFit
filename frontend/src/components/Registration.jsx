@@ -53,8 +53,7 @@ function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth }
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify(user),
                 credentials: 'include',
