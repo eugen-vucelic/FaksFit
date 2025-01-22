@@ -49,6 +49,7 @@ public class ActivityLeaderDashboardMapper {
                 term.getTermEnd(),
                 toLocationDTO(term.getLocationTerm()),
                 toActivityTypeDTO(term.getActivityTypeTerm()),
+                term.getCapacity(),
                 term.getTermId()
         );
     }
