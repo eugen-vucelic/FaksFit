@@ -37,7 +37,7 @@ function TeacherStudents() {
 
     return (
         <div className="teacher-students">
-            <h1>Lista svih studenata</h1>
+            <h1>Lista studenata</h1>
 
             <div className="students-info">
                 {students.length > 0 ? (
