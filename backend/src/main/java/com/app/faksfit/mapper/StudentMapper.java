@@ -29,7 +29,7 @@ public class StudentMapper {
         Student student = new Student();
 
         Faculty studentFaculty = facultyRepository.findByFacultyName(dto.userFaculty());
-        Teacher randomTeacher = teacherRepository.findRandomTeacherByFaculty(studentFaculty);
+        Teacher randomTeacher = teacherRepository.findRandomTeacherByFaculty(studentFaculty).get(0);
 
         student.setFirstName(dto.firstName());
         student.setLastName(dto.lastName());

@@ -5,9 +5,13 @@ package com.app.faksfit.controller;
 import com.app.faksfit.dto.ActivityLeaderDashboardDTO;
 import com.app.faksfit.dto.TermDTO;
 import com.app.faksfit.mapper.ActivityLeaderDashboardMapper;
+import com.app.faksfit.mapper.TermMapper;
 import com.app.faksfit.model.ActivityLeader;
+import com.app.faksfit.model.Student;
+import com.app.faksfit.model.Term;
 import com.app.faksfit.model.User;
 import com.app.faksfit.service.impl.ActivityLeaderServiceImpl;
+import com.app.faksfit.service.impl.TermService;
 import com.app.faksfit.service.impl.UserServiceImpl;
 import com.app.faksfit.utils.JWTUtil;
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/voditelj")
@@ -24,12 +30,16 @@ public class ActivityLeaderController {
     private final ActivityLeaderServiceImpl activityLeaderService;
     private final ActivityLeaderDashboardMapper activityLeaderDashboardMapper;
     private final JWTUtil jwtUtil;
+    private final TermService termService;
+    private final TermMapper termMapper;
 
-    public ActivityLeaderController(UserServiceImpl userService, ActivityLeaderServiceImpl activityLeaderService, ActivityLeaderDashboardMapper activityLeaderDashboardMapper, JWTUtil jwtUtil) {
+    public ActivityLeaderController(UserServiceImpl userService, ActivityLeaderServiceImpl activityLeaderService, ActivityLeaderDashboardMapper activityLeaderDashboardMapper, JWTUtil jwtUtil, TermService termService, TermMapper termMapper) {
         this.userService = userService;
         this.activityLeaderService = activityLeaderService;
         this.activityLeaderDashboardMapper = activityLeaderDashboardMapper;
         this.jwtUtil = jwtUtil;
+        this.termService = termService;
+        this.termMapper = termMapper;
     }
 
     @GetMapping("/current")
@@ -112,6 +122,29 @@ public class ActivityLeaderController {
         } catch (Exception e) {
             return new ResponseEntity<>("An error occurred while updating the term", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping("/svi-termini")
+    public ResponseEntity<List<TermDTO>> getTerms(@AuthenticationPrincipal OAuth2User oauthUser) {
+        if (oauthUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String email = oauthUser.getAttribute("email");
+        User user = userService.findByEmail(email);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        List<Term> availableTerms = termService.getTermsByActivityLeaderUserId(user.getUserId());
+
+        if (availableTerms.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        List<TermDTO> termDTOList = termMapper.toTermDTOList(availableTerms);
+        return ResponseEntity.ok(termDTOList);
     }
 
 }

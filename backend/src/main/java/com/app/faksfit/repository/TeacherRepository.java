@@ -31,6 +31,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     List<Teacher> findTeachersWithoutStudents();
 
     @Query(value = "SELECT t FROM Teacher t WHERE t.userFaculty = :faculty ORDER BY FUNCTION('RANDOM')")
-    Teacher findRandomTeacherByFaculty(@Param("faculty") Faculty faculty);
+    List<Teacher> findRandomTeacherByFaculty(@Param("faculty") Faculty faculty);
 
 }

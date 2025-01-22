@@ -64,6 +64,11 @@ public class TermService implements ITermService {
         return termRepository.findByActivityTypeTermAndTermStartAfter(activityType, LocalDateTime.now());
     }
 
+    @Override
+    public List<Term> getTermsByActivityLeaderUserId(Long activityLeaderUserId) {
+        return termRepository.findByActivityLeaderTermUserId(activityLeaderUserId);
+    }
+
 
     @Override
     public Term getTermById(Long id) {

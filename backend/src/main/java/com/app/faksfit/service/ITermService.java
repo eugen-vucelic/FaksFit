@@ -13,6 +13,7 @@ public interface ITermService {
     List<Term> getTermsBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
     List<Term> getTermsByLocation(String location);
     List<Term> getTermsBySubjectAferNow(String subject);
+    List<Term> getTermsByActivityLeaderUserId(Long activityLeaderUserId);
 
     Term getTermById(Long id);
     Term saveTerm(Term term);

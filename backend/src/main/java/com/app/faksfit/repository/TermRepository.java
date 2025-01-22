@@ -31,6 +31,7 @@ public interface TermRepository extends JpaRepository<Term, Long> {
     // Activity leader based
     List<Term> findByActivityLeaderTerm(ActivityLeader activityLeader);
     List<Term> findByActivityLeaderTermAndTermStartAfter(ActivityLeader activityLeader, LocalDateTime date);
+    List<Term> findByActivityLeaderTermUserId(Long activityLeaderTermUserId);
 
     // Location based
     List<Term> findByLocationTerm(Location location);
