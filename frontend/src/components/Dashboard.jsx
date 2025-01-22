@@ -41,7 +41,8 @@ function Dashboard(props) {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
                 }
             });
     

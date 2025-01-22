@@ -8,11 +8,10 @@ import com.app.faksfit.mapper.StudentTermMapper;
 import com.app.faksfit.model.Student;
 import com.app.faksfit.model.StudentTerminAssoc;
 import com.app.faksfit.service.impl.StudentServiceImpl;
+import com.app.faksfit.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import com.app.faksfit.dto.TermDTO;
 
@@ -26,12 +25,14 @@ public class StudentController {
     private final StudentServiceImpl studentService;
     private final StudentTermMapper studentTermMapper;
     private final StudentMyPointsMapper studentMyPointsMapper;
+    private final JWTUtil jwtUtil;
 
     @Autowired
-    public StudentController(StudentServiceImpl studentService, StudentTermMapper studentTermMapper, StudentMyPointsMapper studentMyPointsMapper) {
+    public StudentController(StudentServiceImpl studentService, StudentTermMapper studentTermMapper, StudentMyPointsMapper studentMyPointsMapper, JWTUtil jwtUtil) {
         this.studentService = studentService;
         this.studentTermMapper = studentTermMapper;
         this.studentMyPointsMapper = studentMyPointsMapper;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping("/register")
@@ -53,8 +54,10 @@ public class StudentController {
     }
 
     @GetMapping("/current")
-    public ResponseEntity<StudentSettingsDTO> getCurrentStudent(@AuthenticationPrincipal OAuth2User oauthUser) {
-        String email = oauthUser.getAttribute("email");
+    public ResponseEntity<StudentSettingsDTO> getCurrentStudent(@RequestHeader("Authorization") String token) {
+        String jwt = token.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(jwt);
+
         Student student = studentService.findByEmail(email);
 
         if (student == null) {
@@ -75,8 +78,10 @@ public class StudentController {
     }
 
     @PatchMapping("/patch")
-    public ResponseEntity<String> updateStudent(@AuthenticationPrincipal OAuth2User oauthUser, @RequestBody StudentSettingsDTO studentSettingsDTO){
-        String email = oauthUser.getAttribute("email");
+    public ResponseEntity<String> updateStudent(@RequestHeader("Authorization") String token, @RequestBody StudentSettingsDTO studentSettingsDTO){
+        String jwt = token.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(jwt);
+
         boolean updated = studentService.updateStudent(email, studentSettingsDTO);
         if (updated) {
             return ResponseEntity.ok("Student updated successfully");
@@ -85,8 +90,10 @@ public class StudentController {
         }
     }
     @GetMapping("/moji-bodovi")
-    public ResponseEntity<MyPointsDTO> getResults(@AuthenticationPrincipal OAuth2User oauthUser) {
-        String email = oauthUser.getAttribute("email");
+    public ResponseEntity<MyPointsDTO> getResults(@RequestHeader("Authorization") String token) {
+        String jwt = token.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(jwt);
+
         Student student = studentService.findByEmail(email);
         MyPointsDTO myPointsDTO = studentMyPointsMapper.mapToMyPointsDTO(student);
         return ResponseEntity.ok(myPointsDTO);
@@ -121,8 +128,10 @@ public class StudentController {
     }
 
     @GetMapping("/termini")
-    public ResponseEntity<List<TermDTO>> getTerms(@AuthenticationPrincipal OAuth2User oauthUser) {
-        String email = oauthUser.getAttribute("email");
+    public ResponseEntity<List<TermDTO>> getTerms(@RequestHeader("Authorization") String token) {
+        String jwt = token.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(jwt);
+
         Student student = studentService.findByEmail(email);
         List<StudentTerminAssoc> studentTerms = student.getTerminList();
 

@@ -7,5 +7,6 @@ public record TermDTO(Integer maxPoints,
                       LocalDateTime termEnd,
                       LocationDTO location,
                       ActivityTypeDTO activityType,
+                      Integer capacity,
                       Long termId) {
 }

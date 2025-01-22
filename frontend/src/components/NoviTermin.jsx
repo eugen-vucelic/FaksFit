@@ -100,7 +100,6 @@ const PrijavaTermina = () => {
         
 
         const termin = {
-            activityLeaderID,
             activityType,
             date: datum,
             start: pocetak,
@@ -112,7 +111,7 @@ const PrijavaTermina = () => {
         };
 
         try {
-            const response = await fetch(`${API_URL}/voditelj/noviTermin`, {
+            const response = await fetch(`${API_URL}/voditelj/noviTermin/${activityLeaderID}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

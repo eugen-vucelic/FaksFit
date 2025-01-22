@@ -6,7 +6,6 @@ import com.app.faksfit.dto.TermDTO;
 import com.app.faksfit.model.*;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -47,6 +46,7 @@ public class StudentTermMapper {
                 studentTerminAssoc.getTerm().getTermEnd(),
                 mapLocation(studentTerminAssoc.getTerm().getLocationTerm()),
                 mapActivityType(studentTerminAssoc.getTerm().getActivityTypeTerm()),
+                studentTerminAssoc.getTerm().getCapacity(),
                 studentTerminAssoc.getTerm().getTermId()
         );
     }
