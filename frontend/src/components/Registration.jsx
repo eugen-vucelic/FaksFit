@@ -67,8 +67,8 @@ function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth }
                 headers: { 'Accept': 'application/json' }
                 });
                 if (userResponse.ok) {
-                navigate('/student/dashboard');
-                setIsLoggedIn(true);
+                navigate('/');
+                setIsLoggedIn(false);
                 } else {
                 alert('Session not recognized. Please log in again.');
                 return;
