@@ -2,6 +2,7 @@ import "./Profile.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from '../config';
+import {getFirstTokens} from "eslint-plugin-react/lib/util/eslint.js";
 
 function Profile({ isLoggedIn, setIsLoggedIn }) {
     const [profileData, setProfileData] = useState(null);
@@ -26,7 +27,8 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
             method: 'GET',
             credentials: 'include',
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
             }
         })
         .then(response => {
@@ -89,7 +91,8 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
                 },
                 body: JSON.stringify(updatedFields),
                 credentials: 'include',

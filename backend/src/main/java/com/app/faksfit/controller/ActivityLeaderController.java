@@ -3,16 +3,15 @@ package com.app.faksfit.controller;
 
 
 import com.app.faksfit.dto.ActivityLeaderDashboardDTO;
-import com.app.faksfit.dto.StudentSettingsDTO;
-import com.app.faksfit.dto.TerminDTO;
+import com.app.faksfit.dto.TermDTO;
 import com.app.faksfit.mapper.ActivityLeaderDashboardMapper;
 import com.app.faksfit.model.ActivityLeader;
 import com.app.faksfit.model.User;
 import com.app.faksfit.service.impl.ActivityLeaderServiceImpl;
 import com.app.faksfit.service.impl.UserServiceImpl;
+import com.app.faksfit.utils.JWTUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,16 +21,20 @@ public class ActivityLeaderController {
     private final UserServiceImpl userService;
     private final ActivityLeaderServiceImpl activityLeaderService;
     private final ActivityLeaderDashboardMapper activityLeaderDashboardMapper;
+    private final JWTUtil jwtUtil;
 
-    public ActivityLeaderController(UserServiceImpl userService, ActivityLeaderServiceImpl activityLeaderservice, ActivityLeaderDashboardMapper activityLeaderDashboardMapper) {
+    public ActivityLeaderController(UserServiceImpl userService, ActivityLeaderServiceImpl activityLeaderService, ActivityLeaderDashboardMapper activityLeaderDashboardMapper, JWTUtil jwtUtil) {
         this.userService = userService;
-        this.activityLeaderService = activityLeaderservice;
+        this.activityLeaderService = activityLeaderService;
         this.activityLeaderDashboardMapper = activityLeaderDashboardMapper;
+        this.jwtUtil = jwtUtil;
     }
 
     @GetMapping("/current")
-    public ResponseEntity<ActivityLeaderDashboardDTO> getCurrentActivityLeader(@AuthenticationPrincipal OAuth2User oauthUser) {
-        String email = oauthUser.getAttribute("email");
+    public ResponseEntity<ActivityLeaderDashboardDTO> getCurrentActivityLeader(@RequestHeader("Authorization") String token) {
+        String jwt = token.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(jwt);
+
         User user = userService.findByEmail(email);
         ActivityLeader activityLeader = activityLeaderService.getById(user.getUserId());
 
@@ -45,21 +48,70 @@ public class ActivityLeaderController {
     }
 
     @PostMapping("/noviTermin")
-    public ResponseEntity<String> createTermin(@RequestBody TerminDTO terminDTO) {
+    public ResponseEntity<String> addTerm(@RequestBody TermDTO termDTO, @RequestHeader("Authorization") String token) {
+        String jwt = token.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(jwt);
 
-        // Log podataka za provjeru
-        System.out.println("Primljeni podaci za novi termin:");
-//        System.out.println("Voditelj ID: " + terminDTO.activityLeaderID());
-        System.out.println("Aktivnost voditelja: " + terminDTO.activityType());
-        System.out.println("Datum: " + terminDTO.date());
-        System.out.println("Početak: " + terminDTO.start());
-        System.out.println("Kraj: " + terminDTO.end());
-        System.out.println("Lokacija: " + terminDTO.location());
-        System.out.println("Bodovi: " + terminDTO.maxPoints());
-        System.out.println("Maksimalni kapacitet: " + terminDTO.maxCapacity());
-        System.out.println("Lista prijavljenih studenata: " + terminDTO.listOfStudentsIDs());
-        //moze se i trenutni kapacitet slat ili ćemo ga racunat po duljini liste
+        User user = userService.findByEmail(email);
+        ActivityLeader activityLeader = activityLeaderService.getById(user.getUserId());
 
-        return ResponseEntity.ok("Novi termin uspješno kreiran.");
+        if (activityLeader == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+
+        try {
+            activityLeaderService.addTerm(termDTO, activityLeader);
+            return new ResponseEntity<>("Term added successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
+
+    @DeleteMapping("/termin/{termId}")
+    public ResponseEntity<String> deleteTerm(@PathVariable Long termId, @RequestHeader("Authorization") String token) {
+        String jwt = token.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(jwt);
+
+        User user = userService.findByEmail(email);
+        ActivityLeader activityLeader = activityLeaderService.getById(user.getUserId());
+
+        if (activityLeader == null) {
+            return ResponseEntity.status(404).body("Activity leader not found");
+        }
+
+        try {
+            activityLeaderService.removeTerm(termId, activityLeader);
+            return new ResponseEntity<>("Term deleted successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred while deleting the term", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/termin/{termId}/update")
+    public ResponseEntity<String> updateTerm(
+            @PathVariable Long termId,
+            @RequestBody TermDTO termDTO,
+            @RequestHeader("Authorization") String token) {
+        String jwt = token.replace("Bearer ", "");
+        String email = jwtUtil.extractEmail(jwt);
+
+        User user = userService.findByEmail(email);
+        ActivityLeader activityLeader = activityLeaderService.getById(user.getUserId());
+
+        if (activityLeader == null) {
+            return ResponseEntity.status(404).body("Activity leader not found");
+        }
+
+        try {
+            activityLeaderService.updateTerm(termId, termDTO, activityLeader);
+            return new ResponseEntity<>("Term updated successfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("An error occurred while updating the term", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

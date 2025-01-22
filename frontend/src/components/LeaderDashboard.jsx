@@ -9,7 +9,7 @@ function LeaderDashboard(props) {
 
     const fetchDashboardData = () => {
         setLoading(true);
-        fetch('http://localhost:8080/dashboard/activity_lead', {
+        fetch('http://localhost:8080/voditelj/current', {
             method: 'GET',
             credentials: 'include',
         })
