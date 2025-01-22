@@ -43,7 +43,6 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                         <>
                             <Link to={'/teacher/dashboard'} className="link">Dashboard</Link>
                             <Link to={'/teacher/studenti'} className="link">Studenti</Link>
-                            <Link to={'/teacher/aktivnosti'} className="link">Aktivnosti</Link>
                             <button className="montserrat-regular" onClick={Logout}>Odjava</button>
                         </>
                     )}

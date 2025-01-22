@@ -35,16 +35,29 @@ function TeacherStudents() {
 
     if (students.length === 0) return <div>No students found.</div>;
 
+    function getText(totalPoints) {
+        let lastDigit = totalPoints % 10;
+
+        if (lastDigit === 1 && totalPoints !== 11) {
+            return "bod";
+        } else if (lastDigit >= 2 && lastDigit <= 4 && (totalPoints < 12 || totalPoints > 14)) {
+            return "boda";
+        } else {
+            return "bodova";
+        }
+    }
+
+
     return (
         <div className="teacher-students">
-            <h1>Lista studenata</h1>
+            <h1>Lista studenata s bodovima</h1>
 
             <div className="students-info">
                 {students.length > 0 ? (
                     <ul>
                         {students.map((student, index) => (
                             <li key={index}>
-                                <strong>{student.firstName} {student.lastName}</strong> - {student.email}
+                                <strong>{student.firstName} {student.lastName}</strong> - {student.email} - {student.totalPoints} {getText(student.totalPoints)}
                             </li>
                         ))}
                     </ul>
