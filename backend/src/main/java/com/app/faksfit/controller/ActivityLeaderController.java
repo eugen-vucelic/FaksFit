@@ -12,6 +12,8 @@ import com.app.faksfit.service.impl.UserServiceImpl;
 import com.app.faksfit.utils.JWTUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,10 +33,8 @@ public class ActivityLeaderController {
     }
 
     @GetMapping("/current")
-    public ResponseEntity<ActivityLeaderDashboardDTO> getCurrentActivityLeader(@RequestHeader("Authorization") String token) {
-        String jwt = token.replace("Bearer ", "");
-        String email = jwtUtil.extractEmail(jwt);
-
+    public ResponseEntity<ActivityLeaderDashboardDTO> getCurrentActivityLeader(@AuthenticationPrincipal OAuth2User oauthUser) {
+        String email = oauthUser.getAttribute("email");
         User user = userService.findByEmail(email);
         ActivityLeader activityLeader = activityLeaderService.getById(user.getUserId());
 

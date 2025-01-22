@@ -111,11 +111,12 @@ const PrijavaTermina = () => {
         };
 
         try {
-            const response = await fetch(`${API_URL}/voditelj/noviTermin/${activityLeaderID}`, {
+            const response = await fetch(`${API_URL}/voditelj/noviTermin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
                 },
                 body: JSON.stringify(termin),
                 credentials: 'include',

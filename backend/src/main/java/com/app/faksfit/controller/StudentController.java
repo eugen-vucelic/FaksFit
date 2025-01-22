@@ -11,6 +11,8 @@ import com.app.faksfit.service.impl.StudentServiceImpl;
 import com.app.faksfit.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import com.app.faksfit.dto.TermDTO;
 
@@ -36,16 +38,13 @@ public class StudentController {
 
     @PostMapping("/register")
     public ResponseEntity<String> createStudent(@RequestBody StudentDTO studentDTO){
-
         studentService.addStudent(studentDTO);
         return ResponseEntity.ok("Student added successfully");
     }
 
     @GetMapping("/current")
-    public ResponseEntity<StudentSettingsDTO> getCurrentStudent(@RequestHeader("Authorization") String token) {
-        String jwt = token.replace("Bearer ", "");
-        String email = jwtUtil.extractEmail(jwt);
-
+    public ResponseEntity<StudentSettingsDTO> getCurrentStudent(@AuthenticationPrincipal OAuth2User oauthUser) {
+        String email = oauthUser.getAttribute("email");
         Student student = studentService.findByEmail(email);
 
         if (student == null) {
