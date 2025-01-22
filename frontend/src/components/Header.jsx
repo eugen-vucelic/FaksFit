@@ -31,11 +31,11 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                     )}
                     {role == "activity_leader" &&(
                         <>
-                            <Link to={'/voditelj/dashboard'} className="link">Dashboard</Link>
-                            <Link to={'/voditelj/moja-aktivnost'} className="link">Moja aktivnost</Link>
-                            <Link to={'/voditelj/evidencije'} className="link">Evidencije</Link>
-                            <Link to={'/voditelj/novi-termin'} className="link">Novi termin</Link>
-                            <Link to={'/voditelj/obavijesti'} className="link">Obavijesti</Link>
+                            <Link to={'/activity_leader/dashboard'} className="link">Dashboard</Link>
+                            <Link to={'/activity_leader/moja-aktivnost'} className="link">Moja aktivnost</Link>
+                            <Link to={'/activity_leader/evidencije'} className="link">Evidencije</Link>
+                            <Link to={'/activity_leader/novi-termin'} className="link">Novi termin</Link>
+                            <Link to={'/activity_leader/obavijesti'} className="link">Obavijesti</Link>
                             <button className="montserrat-regular" onClick={Logout}>Odjava</button>
                         </>
                     )}
@@ -43,7 +43,7 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                         <>
                             <Link to={'/teacher/dashboard'} className="link">Dashboard</Link>
                             <Link to={'/teacher/studenti'} className="link">Studenti</Link>
-                            <Link to={'/nastavnik/aktivnosti'} className="link">Aktivnosti</Link>
+                            <Link to={'/teacher/aktivnosti'} className="link">Aktivnosti</Link>
                             <button className="montserrat-regular" onClick={Logout}>Odjava</button>
                         </>
                     )}
