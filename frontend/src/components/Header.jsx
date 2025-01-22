@@ -42,8 +42,8 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                     )}
                     {role == "teacher" && (
                         <>
-                            <Link to={'/nastavnik/dashboard'} className="link">Dashboard</Link>
-                            <Link to={'/nastavnik/studenti'} className="link">Studenti</Link>
+                            <Link to={'/teacher/dashboard'} className="link">Dashboard</Link>
+                            <Link to={'/teacher/studenti'} className="link">Studenti</Link>
                             <Link to={'/nastavnik/aktivnosti'} className="link">Aktivnosti</Link>
                             <button className="montserrat-regular" onClick={Logout}>Odjava</button>
                         </>

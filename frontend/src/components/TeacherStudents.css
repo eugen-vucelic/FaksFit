@@ -1,0 +1,22 @@
+.student-dashboard {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.student-dashboard h1 {
+    color: #2d3b4f;
+}
+
+.students-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.students-info li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.students-info li strong {
+    color: #2d3b4f;
+}
