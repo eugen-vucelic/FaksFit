@@ -5,6 +5,8 @@ import com.app.faksfit.dto.LocationDTO;
 import com.app.faksfit.dto.NoviTerminDTO;
 import com.app.faksfit.dto.TermDTO;
 import com.app.faksfit.model.*;
+import com.app.faksfit.repository.ActivityTypeRepository;
+import com.app.faksfit.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,11 +19,15 @@ public class TermMapper {
 
     private final LocationMapper locationMapper;
     private final ActivityTypeMapper activityTypeMapper;
+    private final ActivityTypeRepository activityTypeRepository;
+    private final LocationRepository locationRepository;
 
     @Autowired
-    public TermMapper(LocationMapper locationMapper, ActivityTypeMapper activityTypeMapper) {
+    public TermMapper(LocationMapper locationMapper, ActivityTypeMapper activityTypeMapper, ActivityTypeRepository activityTypeRepository, LocationRepository locationRepository) {
         this.locationMapper = locationMapper;
         this.activityTypeMapper = activityTypeMapper;
+        this.activityTypeRepository = activityTypeRepository;
+        this.locationRepository = locationRepository;
     }
 
     public List<TermDTO> toTermDTOList(List<Term> terminList){
@@ -51,6 +57,20 @@ public class TermMapper {
         term.setTermEnd(termDTO.termEnd());
         term.setLocationTerm(locationMapper.toEntity(termDTO.location()));
         term.setActivityTypeTerm(activityTypeMapper.toEntity(termDTO.activityType()));
+        term.setActivityLeaderTerm(activityLeader);
+        term.setCapacity(termDTO.capacity());
+
+        return term;
+    }
+    public Term toEntityNewTerm(TermDTO termDTO, ActivityLeader activityLeader) {
+        Location location = locationMapper.toEntity(termDTO.location());
+        locationRepository.save(location);
+        Term term = new Term();
+        term.setMaxPoints(termDTO.maxPoints());
+        term.setTermStart(termDTO.termStart());
+        term.setTermEnd(termDTO.termEnd());
+        term.setLocationTerm(location);
+        term.setActivityTypeTerm(activityTypeRepository.findByActivityTypeName(termDTO.activityType().activityTypeName()));
         term.setActivityLeaderTerm(activityLeader);
         term.setCapacity(termDTO.capacity());
 

@@ -87,7 +87,7 @@ const PrijavaTermina = () => {
     }, []);
     function combineDateAndTime(date, time) {
         const [day, month, year] = date.split(".");
-        return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")} ${time}`;
+        return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}T${time}`;
     }
 
     const handleSubmit = async (e) => {
@@ -101,16 +101,13 @@ const PrijavaTermina = () => {
             return;
         }
         
-
         const termin = {
-            maxPoints: maksBodova,
             termStart: combineDateAndTime(datum,pocetak),
             termEnd: combineDateAndTime(datum,kraj),
-            location: {
-                locationName: locationName,
-                address: location,
-            },
-            capacity: kapacitet,
+            maxPoints: parseInt(maksBodova, 10),
+            capacity: parseInt(kapacitet, 10),
+            location: lokacija,
+            locationName: locationName,
         };
 
         try {

@@ -113,7 +113,7 @@ public class TermService implements ITermService {
 
     @Override
     public void addTerm(TermDTO termDTO, ActivityLeader activityLeader) {
-        termRepository.save(termMapper.toEntity(termDTO, activityLeader));
+        termRepository.save(termMapper.toEntityNewTerm(termDTO, activityLeader));
     }
 
 }
