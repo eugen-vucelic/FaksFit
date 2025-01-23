@@ -7,6 +7,7 @@ const PrijavaTermina = () => {
     const [pocetak, setPocetak] = useState('');
     const [kraj, setKraj] = useState('');
     const [lokacija, setLokacija] = useState('');
+    const [locationName, setLocationName] = useState('');
     const [maksBodova, setMaksBodova] = useState('4');
     const [kapacitet, setKapacitet] = useState('15');
     const [map, setMap] = useState(null);
@@ -84,8 +85,10 @@ const PrijavaTermina = () => {
             delete window.initMap;
         };
     }, []);
-
-    const { activityLeaderID, activityType } = data;
+    function combineDateAndTime(date, time) {
+        const [day, month, year] = date.split(".");
+        return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}T${time}`;
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -100,14 +103,14 @@ const PrijavaTermina = () => {
         
 
         const termin = {
-            activityType,
-            date: datum,
-            start: pocetak,
-            end: kraj,
-            location: lokacija,
             maxPoints: maksBodova,
-            maxCapacity: kapacitet,
-            listOfStudentsIDs: []
+            termStart: combineDateAndTime(datum,pocetak),
+            termEnd: combineDateAndTime(datum,kraj),
+            location: {
+                locationName: locationName,
+                address: location,
+            },
+            capacity: kapacitet,
         };
 
         try {
@@ -152,6 +155,10 @@ const PrijavaTermina = () => {
                     <div className="form-row">
                         <label htmlFor="kraj">Kraj:</label>
                         <input type="text" id="kraj" value={kraj} onChange={(e) => setKraj(e.target.value)} required />
+                    </div>
+                    <div className="form-row">
+                        <label htmlFor="kraj">Ime lokacije:</label>
+                        <input type="text" id="kraj" value={locationName} onChange={(e) => setLocationName(e.target.value)} required />
                     </div>
                     <div className="form-row">
                         <label htmlFor="kapacitet">Kapacitet:</label>
