@@ -34,7 +34,7 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                             <Link to={'/activity_leader/dashboard'} className="link">Dashboard</Link>
                             <Link to={'/activity_leader/moja-aktivnost'} className="link">Moja aktivnost</Link>
                             <Link to={'/activity_leader/evidencije'} className="link">Evidencije</Link>
-                            <Link to={'/activity_leader/novi-termin'} className="link">Novi termin</Link>
+                            <Link to={'/activity_leader/noviTermin'} className="link">Novi termin</Link>
                             <Link to={'/activity_leader/obavijesti'} className="link">Obavijesti</Link>
                             <button className="montserrat-regular" onClick={Logout}>Odjava</button>
                         </>
