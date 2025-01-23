@@ -8,8 +8,8 @@ const PrijavaTermina = () => {
     const [kraj, setKraj] = useState('');
     const [lokacija, setLokacija] = useState('');
     const [locationName, setLocationName] = useState('');
-    const [maksBodova, setMaksBodova] = useState('4');
-    const [kapacitet, setKapacitet] = useState('15');
+    const [maksBodova, setMaksBodova] = useState(4);
+    const [kapacitet, setKapacitet] = useState(15);
     const [map, setMap] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
     const mapRef = useRef(null);
@@ -85,9 +85,10 @@ const PrijavaTermina = () => {
             delete window.initMap;
         };
     }, []);
+    console.log("datum i vrijeme "+datum+" "+pocetak)
     function combineDateAndTime(date, time) {
         const [day, month, year] = date.split(".");
-        return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}T${time}`;
+        return `${date}T${time}`;
     }
 
     const handleSubmit = async (e) => {
@@ -104,8 +105,8 @@ const PrijavaTermina = () => {
         const termin = {
             termStart: combineDateAndTime(datum,pocetak),
             termEnd: combineDateAndTime(datum,kraj),
-            maxPoints: parseInt(maksBodova, 10),
-            capacity: parseInt(kapacitet, 10),
+            maxPoints: maksBodova,
+            capacity: kapacitet,
             location: lokacija,
             locationName: locationName,
         };
@@ -143,15 +144,15 @@ const PrijavaTermina = () => {
                 <form method="POST" className="montserrat-regular registration-form" onSubmit={handleSubmit}>
                     <div className="form-row">
                         <label htmlFor="datum">Datum:</label>
-                        <input type="text" id="datum" value={datum} onChange={(e) => setDatum(e.target.value)} required />
+                        <input type="date" id="datum" value={datum} onChange={(e) => setDatum(e.target.value)} required />
                     </div>
                     <div className="form-row">
                         <label htmlFor="pocetak">Početak:</label>
-                        <input type="text" id="pocetak" value={pocetak} onChange={(e) => setPocetak(e.target.value)} required />
+                        <input type="time" id="pocetak" value={pocetak} onChange={(e) => setPocetak(e.target.value)} required />
                     </div>
                     <div className="form-row">
                         <label htmlFor="kraj">Kraj:</label>
-                        <input type="text" id="kraj" value={kraj} onChange={(e) => setKraj(e.target.value)} required />
+                        <input type="time" id="kraj" value={kraj} onChange={(e) => setKraj(e.target.value)} required />
                     </div>
                     <div className="form-row">
                         <label htmlFor="kraj">Ime lokacije:</label>
@@ -159,7 +160,7 @@ const PrijavaTermina = () => {
                     </div>
                     <div className="form-row">
                         <label htmlFor="kapacitet">Kapacitet:</label>
-                        <input type="text" id="kapacitet" value={kapacitet} onChange={(e) => setKapacitet(e.target.value)} required />
+                        <input type="number" id="kapacitet" value={kapacitet} onChange={(e) => setKapacitet(e.target.value)} required />
                     </div>
                     <div className="form-row">
                         <label htmlFor="maksBodova">Broj bodova:</label>
