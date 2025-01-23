@@ -3,6 +3,7 @@ package com.app.faksfit.controller;
 
 
 import com.app.faksfit.dto.ActivityLeaderDashboardDTO;
+import com.app.faksfit.dto.NoviTerminDTO;
 import com.app.faksfit.dto.TermDTO;
 import com.app.faksfit.mapper.ActivityLeaderDashboardMapper;
 import com.app.faksfit.mapper.TermMapper;
@@ -58,7 +59,7 @@ public class ActivityLeaderController {
     }
 
     @PostMapping("/noviTermin")
-    public ResponseEntity<String> addTerm(@RequestBody TermDTO termDTO, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<String> addTerm(@RequestBody NoviTerminDTO noviTerminDTO, @RequestHeader("Authorization") String token) {
         String jwt = token.replace("Bearer ", "");
         String email = jwtUtil.extractEmail(jwt);
 
@@ -70,7 +71,7 @@ public class ActivityLeaderController {
         }
 
         try {
-            activityLeaderService.addTerm(termDTO, activityLeader);
+            termService.addTerm(termMapper.toTermDTO(noviTerminDTO, activityLeader), activityLeader);
             return new ResponseEntity<>("Term added successfully", HttpStatus.OK);
         } catch (IllegalArgumentException | IllegalStateException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

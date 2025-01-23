@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Registration.css';
 import { API_URL } from '../config';
+import { jsx } from 'react/jsx-runtime';
 
 function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth }) {
     const [ime, setIme] = useState('');
@@ -47,6 +48,7 @@ function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth }
             userFaculty: Fakultet,
             semester: Semestar
         };
+        console.log("registracija"+JSON.stringify(user));
 
         try {
             const response = await fetch(`${API_URL}/student/register`, {

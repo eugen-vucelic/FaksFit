@@ -1,5 +1,8 @@
 package com.app.faksfit.service.impl;
 
+import com.app.faksfit.dto.TermDTO;
+import com.app.faksfit.mapper.TermMapper;
+import com.app.faksfit.model.ActivityLeader;
 import com.app.faksfit.model.ActivityType;
 import com.app.faksfit.model.Location;
 import com.app.faksfit.model.Term;
@@ -18,12 +21,14 @@ public class TermService implements ITermService {
     private final TermRepository termRepository;
     private final ActivityTypeRepository activityTypeRepository;
     private final LocationRepository locationRepository;
+    private final TermMapper termMapper;
 
     @Autowired
-    public TermService(TermRepository termRepository, ActivityTypeRepository activityTypeRepository, LocationRepository locationRepository) {
+    public TermService(TermRepository termRepository, ActivityTypeRepository activityTypeRepository, LocationRepository locationRepository, TermMapper termMapper) {
         this.termRepository = termRepository;
         this.activityTypeRepository = activityTypeRepository;
         this.locationRepository = locationRepository;
+        this.termMapper = termMapper;
     }
 
     @Override
@@ -104,6 +109,11 @@ public class TermService implements ITermService {
     public int getCapacity(Long termId) {
         Term term = termRepository.findByTermId(termId);
         return term.getCapacity();
+    }
+
+    @Override
+    public void addTerm(TermDTO termDTO, ActivityLeader activityLeader) {
+        termRepository.save(termMapper.toEntity(termDTO, activityLeader));
     }
 
 }

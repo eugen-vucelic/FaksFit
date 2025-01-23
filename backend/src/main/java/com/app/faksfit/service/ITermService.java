@@ -1,5 +1,7 @@
 package com.app.faksfit.service;
 
+import com.app.faksfit.dto.TermDTO;
+import com.app.faksfit.model.ActivityLeader;
 import com.app.faksfit.model.Term;
 
 import java.time.LocalDateTime;
@@ -22,4 +24,5 @@ public interface ITermService {
     void incrementCapacity(Long termId);
     void decrementCapacity(Long termId);
     int getCapacity(Long termId);
+    void addTerm(TermDTO termDTO, ActivityLeader activityLeader);
 }

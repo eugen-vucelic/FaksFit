@@ -2,11 +2,13 @@ package com.app.faksfit.mapper;
 
 import com.app.faksfit.dto.ActivityTypeDTO;
 import com.app.faksfit.dto.LocationDTO;
+import com.app.faksfit.dto.NoviTerminDTO;
 import com.app.faksfit.dto.TermDTO;
 import com.app.faksfit.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,5 +55,20 @@ public class TermMapper {
         term.setCapacity(termDTO.capacity());
 
         return term;
+    }
+
+    public TermDTO toTermDTO(NoviTerminDTO noviTerminDTO, ActivityLeader activityLeader){
+        LocationDTO locationDTO = new LocationDTO(noviTerminDTO.locationName(),
+                noviTerminDTO.location().split(",")[0].trim());
+        ActivityTypeDTO activityTypeDTO = new ActivityTypeDTO(activityLeader.getLeaderActivityType().getActivityTypeName());
+
+        TermDTO termDTO = new TermDTO(noviTerminDTO.maxPoints(),
+                LocalDateTime.parse(noviTerminDTO.termStart()),
+                LocalDateTime.parse(noviTerminDTO.termEnd()),
+                locationDTO,
+                activityTypeDTO,
+                noviTerminDTO.capacity(),
+                0L);
+        return termDTO;
     }
 }
