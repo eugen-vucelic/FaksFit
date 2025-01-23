@@ -210,11 +210,7 @@ function App() {
             {
               path: "moji-bodovi",
               element: <MojiBodovi />,
-            },
-            {
-              path: "obavijesti",
-              element: <Obavijesti />,
-            },
+            }
           ],
         },
         // Activity Leader Routes
@@ -233,11 +229,7 @@ function App() {
             {
               path: "noviTermin",
               element: <PrijavaTermina />,
-            },
-            {
-              path: "obavijesti",
-              element: <Obavijesti />,
-            },
+            }
           ],
         },
         // Teacher Routes

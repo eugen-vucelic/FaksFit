@@ -25,17 +25,13 @@ function Header({ isLoggedIn, setIsLoggedIn, role }) {
                             <Link to={'student/moji-termini'} className={location.pathname === '/moji-termini' ? "link current montserrat-regular" : "link montserrat-regular"}>Moji termini</Link>
                             <Link to={'/student/moji-bodovi'} className={location.pathname === '/moji-bodovi' ? "link current montserrat-regular" : "link montserrat-regular"}>Moji bodovi</Link>
                             <Link to={'/student/profile'} className={location.pathname === '/profil' ? "link current montserrat-regular" : "link montserrat-regular"}>Profil</Link>
-                            <Link to={'/student/obavijesti'} className={location.pathname === '/obavijesti' ? "link current montserrat-regular" : "link montserrat-regular"}>Obavijesti</Link>
                             <button className="montserrat-regular link" onClick={Logout}>Odjava</button>
                         </>
                     )}
                     {role == "activity_leader" &&(
                         <>
                             <Link to={'/activity_leader/dashboard'} className="link">Dashboard</Link>
-                            <Link to={'/activity_leader/moja-aktivnost'} className="link">Moja aktivnost</Link>
-                            <Link to={'/activity_leader/evidencije'} className="link">Evidencije</Link>
                             <Link to={'/activity_leader/noviTermin'} className="link">Novi termin</Link>
-                            <Link to={'/activity_leader/obavijesti'} className="link">Obavijesti</Link>
                             <button className="montserrat-regular" onClick={Logout}>Odjava</button>
                         </>
                     )}

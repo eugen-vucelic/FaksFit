@@ -85,7 +85,7 @@ const PrijavaTermina = () => {
             delete window.initMap;
         };
     }, []);
-    console.log("datum i vrijeme "+datum+" "+pocetak)
+
     function combineDateAndTime(date, time) {
         const [day, month, year] = date.split(".");
         return `${date}T${time}`;
@@ -124,8 +124,9 @@ const PrijavaTermina = () => {
             });
 
             if (response.ok) {
-                navigate('/voditelj/dashboard');
-                console.log('Uspješna prijava');
+                alert('Uspješna prijava');
+                window.location.reload();
+
             } else {
                 const errorData = await response.text();
                 console.error('Registration error:', errorData);
