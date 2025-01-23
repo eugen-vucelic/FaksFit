@@ -25,9 +25,8 @@ public class ActivityLeaderDashboardMapper {
         return new ActivityLeaderDashboardDTO(
                 user.getFirstName(),
                 user.getLastName(),
-                activityLeader.getLeaderActivityType(),
+                activityLeader.getLeaderActivityType().getActivityTypeName(),
                 toTermDTOList(activityLeader.getActivityLeaderTerms())
-
         );
     }
     public List<TermDTO> toTermDTOList(List<Term> terms) {
