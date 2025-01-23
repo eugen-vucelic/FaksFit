@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 function LeaderDashboard(props) {
     const [dashboardData, setDashboardData] = useState(null);
+    const [termData, setTermData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -68,16 +69,15 @@ function LeaderDashboard(props) {
                     {dashboardData.firstName ?? 'Voditelj'} {dashboardData.lastName ?? ''}
                 </h2>
                 <h3 className="montserrat-semibold-italic">
-                    Aktivnost: {dashboardData.leaderActivityType ?? ''}
-                    Aktivnost: Trčanje
+                    Aktivnost: {dashboardData.activityTypeName ?? ''}
                 </h3>
             </div>
             <div className="activity-window">
                 <div className="activities montserrat-regular">
                 </div>
                 <div className="window">
-                    {dashboardData.activityLeaderTerms && dashboardData.activityLeaderTerms.length > 0 ? (
-                        dashboardData.activityLeaderTerms.map((term, index) => (
+                    {dashboardData.termini && dashboardData.termini.length > 0 ? (
+                        dashboardData.termini.map((term, index) => (
                             <div
                                 key={index}
                                 className="activity montserrat-regular"
