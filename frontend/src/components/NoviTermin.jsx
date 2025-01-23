@@ -87,7 +87,7 @@ const PrijavaTermina = () => {
     }, []);
     function combineDateAndTime(date, time) {
         const [day, month, year] = date.split(".");
-        return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}T${time}`;
+        return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")} ${time}`;
     }
 
     const handleSubmit = async (e) => {
