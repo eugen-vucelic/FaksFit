@@ -1,4 +1,4 @@
-package com.app.faksfit;
+package com.app.faksfit.integration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
