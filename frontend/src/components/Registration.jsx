@@ -48,7 +48,6 @@ function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth }
             userFaculty: Fakultet,
             semester: Semestar
         };
-        console.log("registracija"+JSON.stringify(user));
 
         try {
             const response = await fetch(`${API_URL}/student/register`, {
