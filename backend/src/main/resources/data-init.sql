@@ -123,12 +123,19 @@ VALUES
      (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
      'ACTIVITY_LEADER'),
     ('Voditelj',
-     'Aktivnosti',
+     'FaksFit',
      'voditelj.faksfit@gmail.com',
      'hashed_password14',
      '2025-03-01',
      (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
-     'ACTIVITY_LEADER');
+     'ACTIVITY_LEADER'),
+    ('Nastavnik',
+     'FaksFit',
+     'nastavnik.faksfit@gmail.com',
+     'hashedpass2222',
+     '2025-02-01',
+     (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
+     'TEACHER');
 
 -- 4. Unos Nastavnika (TEACHER)
 INSERT INTO TEACHER (user_id, profile_pictureurl, office_location)
@@ -146,6 +153,13 @@ VALUES
          WHERE email = 'marija.kovac@ft.unizg.hr'),
         'http://example.com/images/marija_kovac.jpg',
         'Ured 202, FER'
+    ),
+    (
+        (SELECT user_id
+         FROM KORISNIK
+         WHERE email = 'nastavnik.faksfit@gmail.com'),
+        'http://example.com/images/nastavnik.jpg',
+        'Ured D101, FER'
     );
 
 -- 5. Unos Tipova Aktivnosti
