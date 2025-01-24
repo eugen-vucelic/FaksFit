@@ -121,6 +121,13 @@ VALUES
      'hashed_password13',
      '2025-02-01',
      (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
+     'ACTIVITY_LEADER'),
+    ('Voditelj',
+     'Aktivnosti',
+     'voditelj.faksfit@gmail.com',
+     'hashed_password14',
+     '2025-03-01',
+     (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
      'ACTIVITY_LEADER');
 
 -- 4. Unos Nastavnika (TEACHER)
@@ -233,6 +240,20 @@ SELECT
      WHERE activity_type_name = 'Tenis')
 FROM KORISNIK
 WHERE email = 'marijan.majstorovic@fer.hr';
+
+INSERT INTO ACTIVITY_LEADER (
+    user_id,
+    profile_pictureurl,
+    leader_activity_type_activity_type_id
+)
+SELECT
+    user_id,
+    'http://example.com/images/voditelj_aktivnosti.jpg',
+    (SELECT activity_type_id
+     FROM TIP_AKTIVNOSTI
+     WHERE activity_type_name = 'Stolni tenis')
+FROM KORISNIK
+WHERE email = 'voditelj.faksfit@gmail.com';
 
 -- 7. Unos Studenta (STUDENT)
 INSERT INTO STUDENT (
