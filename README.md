@@ -9,9 +9,8 @@
 2. [Funkcijski zahtjevi](#funkcijski-zahtjevi)
 3. [Tehnologije](#tehnologije)
 4. [Instalacija i pokretanje](#instalacija-i-pokretanje)
-5. [Članovi tima](#članovi-tima)
-6. [Pridonošenje](#pridonošenje)
-7. [Licenca](#licenca)
+5. [Podaci za testiranje](#podaci-za-testiranje-po-ulogama)
+6. [Članovi tima](#članovi-tima)
 
 ---
 
