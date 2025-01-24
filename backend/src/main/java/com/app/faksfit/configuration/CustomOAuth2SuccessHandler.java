@@ -24,7 +24,7 @@ public class CustomOAuth2SuccessHandler implements AuthenticationSuccessHandler 
     private final StudentServiceImpl studentServiceImpl;
     private final UserServiceImpl userService;
     private final JWTUtil jwtUtil;
-    private final boolean production = false;
+    private final boolean production = true;
 
     private final String FRONTEND_URL = production ? "https://faksfit-7du1.onrender.com" : "http://localhost:5173";
 

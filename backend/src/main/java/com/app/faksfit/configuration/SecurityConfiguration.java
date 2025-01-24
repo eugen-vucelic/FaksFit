@@ -19,10 +19,9 @@ import java.util.List;
 public class SecurityConfiguration {
 
     private final CustomOAuth2SuccessHandler successHandler;
-    private final boolean production = false;
+    private final boolean production = true;
     private final JWTFilter jwtfilter;
-
-    private final String FRONTEND_URL = production ? "https://faksfit-7du1.onrender.com" : "http://localhost:5173";
+    private final String FRONTEND_URL = "https://faksfit-7du1.onrender.com";
 
     @Autowired
     public SecurityConfiguration(CustomOAuth2SuccessHandler successHandler, JWTFilter jwtfilter) {
@@ -35,27 +34,20 @@ public class SecurityConfiguration {
         http
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/h2-console/**","/student/register", "/login**", "/error**", "/student/patch", "/oauth2/**").permitAll()
-//                        .requestMatchers("/student/**").hasRole("STUDENT")
-//                        .requestMatchers("/teacher/**").hasRole("TEACHER")
-//                        .requestMatchers("/voditelj/**").hasRole("ACTIVITY_LEADER") #to add once jwt works on the front
+                        .requestMatchers("/login**", "/error**", "/student/register", "/oauth2/**").permitAll()
+                        .requestMatchers("/student/**").hasRole("STUDENT")
+                        .requestMatchers("/teacher/**").hasRole("TEACHER")
+                        .requestMatchers("/voditelj/**").hasRole("ACTIVITY_LEADER")
                         .anyRequest().authenticated()
                 )
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/h2-console/**", "/auth/**")
-                )
-                .headers(headers -> headers
-                        .frameOptions().sameOrigin() // Allow H2 Console to be displayed in iframe
-                )
                 .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/oauth2/authorization/google")  // Enables endpoint
+                        .loginPage("/oauth2/authorization/google")
                         .successHandler(successHandler)
                         .failureUrl(FRONTEND_URL)
                 )
                 .csrf(AbstractHttpConfigurer::disable);
 
-//        http.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class); #once jwt works on the front
-
+        http.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -63,11 +55,7 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(
-                "https://faksfit-7du1.onrender.com",
-                "http://localhost:5173",
-                "http://localhost:4173"
-        ));
+        config.setAllowedOrigins(List.of(FRONTEND_URL));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
