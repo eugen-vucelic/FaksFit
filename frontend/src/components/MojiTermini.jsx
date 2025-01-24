@@ -57,9 +57,9 @@ function MojiTermini() {
 
     return (
         <div className="terms-page">
-            <h1>Moji Termini</h1>
+            <h1 className="montserrat-bold">Moji Termini</h1>
 
-            <div className="terms-section">
+            <div className="terms-section montserrat-regular">
                 {terms && terms.length > 0 ? (
                     <ul>
                         {terms.map((term) => (  // Changed to use termId as key
@@ -80,17 +80,17 @@ function MojiTermini() {
 
             {/* Points Section */}
             <div className="points-section">
-                <h3>Prošli prijavljeni termini:</h3>
+                <h3 className="montserrat-semibold">Prošli prijavljeni termini:</h3>
                 {pointsData && pointsData.scores && pointsData.scores.terms && pointsData.scores.terms.length > 0 ? (
                     <ul>
                         {pointsData.scores.terms.map((term, index) => (
                             <li key={index}>
-                                <strong>Termin {index + 1}:</strong> {term} bodova
+                                <strong className="montserrat-regular">Termin {index + 1}:</strong> {term} bodova
                             </li>
                         ))}
                         {pointsData.scores.extra > 0 && (
                             <li>
-                                <strong>Dodatni bodovi od nastavnika:</strong> {pointsData.scores.extra}
+                                <strong className="montserrat-regular">Dodatni bodovi od nastavnika:</strong> {pointsData.scores.extra}
                             </li>
                         )}
                     </ul>

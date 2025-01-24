@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_URL } from '../config';
+import "./PrijavaTermina.css";
 
 function ListaTermina(){
     const [terms, setTerms] = useState([]);
@@ -62,9 +63,9 @@ function ListaTermina(){
     }
 
     return (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
+        <div className="terms-container">
         {terms.map((term) => (
-            <div
+            <div className="term-card"
             key={term.termId}
             style={{
                 border: "1px solid #ddd",
@@ -92,14 +93,14 @@ function ListaTermina(){
             </p>
             <button
                 onClick={() => handleSignUp(term.termId)}
-                style={{
-                backgroundColor: "#28a745",
-                color: "white",
-                border: "none",
-                padding: "10px 16px",
-                borderRadius: "4px",
-                cursor: "pointer",
-                }}
+                // style={{
+                // backgroundColor: "#28a745",
+                // color: "white",
+                // border: "none",
+                // padding: "10px 16px",
+                // borderRadius: "4px",
+                // cursor: "pointer",
+                // }}
             >
                 Prijavi se
             </button>
