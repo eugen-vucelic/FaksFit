@@ -1,6 +1,7 @@
 import "./LeaderDashboard.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../config";
 
 function LeaderDashboard(props) {
     const [dashboardData, setDashboardData] = useState(null);
@@ -10,7 +11,7 @@ function LeaderDashboard(props) {
 
     const fetchDashboardData = () => {
         setLoading(true);
-        fetch('http://localhost:8080/voditelj/current', {
+        fetch(`${API_URL}}/voditelj/current`, {
             method: 'GET',
             credentials: 'include',
         })

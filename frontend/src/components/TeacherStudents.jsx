@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './TeacherStudents.css';
+import { API_URL } from "../config";
 
 function TeacherStudents() {
     const [students, setStudents] = useState([]);
@@ -9,7 +10,7 @@ function TeacherStudents() {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await fetch('http://localhost:8080/nastavnik/svi-studenti', {
+                const response = await fetch(`${API_URL}/nastavnik/svi-studenti`, {
                     method: "GET",
                     credentials: "include",
                     headers: {

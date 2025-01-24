@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './TeacherDashboard.css';
+import { API_URL } from "../config";
 
 function TeacherDashboard() {
     const [teacherData, setTeacherData] = useState(null);
@@ -10,7 +11,7 @@ function TeacherDashboard() {
     useEffect(() => {
         const fetchTeacherData = async () => {
             try {
-                const teacherResponse = await fetch('http://localhost:8080/nastavnik/current', {
+                const teacherResponse = await fetch(`${API_URL}}/nastavnik/current`, {
                     method: "GET",
                     credentials: "include",
                     headers: {
@@ -27,7 +28,7 @@ function TeacherDashboard() {
                 setTeacherData(teacherData);
 
                 // Fetch students data
-                const studentsResponse = await fetch('http://localhost:8080/nastavnik/svi-studenti', {
+                const studentsResponse = await fetch(`${API_URL}}/nastavnik/svi-studenti`, {
                     method: "GET",
                     credentials: "include",
                     headers: {
