@@ -10,13 +10,13 @@ Ovaj projekt je rezultat timskog rada u sklopu projeknog zadatka kolegija [Progr
 
 
 # Funkcijski zahtjevi
-> Pregled i prijava dostupnih termina od strane studenta <br>
-> Pregled ostvarenih bodova i bodova potrebnih za prolaz <br>
-> Potvrđivanje bodova i prolaska od strane nastavnika <br>
-> Dodavanje novih termina od strane voditelja <br>
-> Pregled liste svojih studenata od strane nastavnika <br>
-> Mogućnost registracije i prijave u sustav <br>
-> Implementacija Google Maps feature-a <br>
+- Pregled i prijava dostupnih termina od strane studenta <br>
+- Pregled ostvarenih bodova i bodova potrebnih za prolaz <br>
+- Potvrđivanje bodova i prolaska od strane nastavnika <br>
+- Dodavanje novih termina od strane voditelja <br>
+- Pregled liste svojih studenata od strane nastavnika <br>
+- Mogućnost registracije i prijave u sustav <br>
+- Implementacija Google Maps feature-a <br>
 
 
 # Tehnologije
