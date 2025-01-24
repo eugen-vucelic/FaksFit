@@ -11,7 +11,7 @@ function LeaderDashboard(props) {
 
     const fetchDashboardData = () => {
         setLoading(true);
-        fetch(`${API_URL}}/voditelj/current`, {
+        fetch(`${API_URL}/voditelj/current`, {
             method: 'GET',
             credentials: 'include',
         })

@@ -11,7 +11,7 @@ function TeacherDashboard() {
     useEffect(() => {
         const fetchTeacherData = async () => {
             try {
-                const teacherResponse = await fetch(`${API_URL}}/nastavnik/current`, {
+                const teacherResponse = await fetch(`${API_URL}/nastavnik/current`, {
                     method: "GET",
                     credentials: "include",
                     headers: {
@@ -27,7 +27,7 @@ function TeacherDashboard() {
                 setTeacherData(teacherData);
 
                 // Fetch students data
-                const studentsResponse = await fetch(`${API_URL}}/nastavnik/svi-studenti`, {
+                const studentsResponse = await fetch(`${API_URL}/nastavnik/svi-studenti`, {
                     method: "GET",
                     credentials: "include",
                     headers: {
