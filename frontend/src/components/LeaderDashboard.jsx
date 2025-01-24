@@ -14,9 +14,6 @@ function LeaderDashboard(props) {
         fetch(`${API_URL}}/voditelj/current`, {
             method: 'GET',
             credentials: 'include',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
-            }
         })
             .then(response => {
                 if (!response.ok) {
