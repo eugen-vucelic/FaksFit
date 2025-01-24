@@ -26,7 +26,8 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
             method: 'GET',
             credentials: 'include',
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
             }
         })
         .then(response => {
@@ -89,7 +90,8 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
                 },
                 body: JSON.stringify(updatedFields),
                 credentials: 'include',
@@ -97,7 +99,7 @@ function Profile({ isLoggedIn, setIsLoggedIn }) {
 
             if (response.ok) {
                 console.log('User successfully updated');
-                setIsLoggedIn(true);
+                // setIsLoggedIn(true);
                 navigate('/student/dashboard');
             } else {
                 const errorData = await response.json();

@@ -1,10 +1,11 @@
-package com.app.faksfit;
+package com.app.faksfit.integration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,40 +14,14 @@ import java.time.Duration;
 
 public class RegistrationTest {
 
-    WebDriver driver;
+    private WebDriver driver;
 
     @BeforeClass
     public void setUp() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.get("https://faksfit-7du1.onrender.com");
+        driver.get("http://localhost:5173/");
 
-//        TODO: dodaj delete iz postgres baze
-//        try {
-//            String jdbcURL = "jdbc:h2:~/test;DB_CLOSE_ON_EXIT=FALSE";
-//            String username = "sa";
-//            String password = "";
-//
-//            Connection connection = DriverManager.getConnection(jdbcURL, username, password);
-//            System.out.println("Database connected!");
-//
-//            String emailToDelete = "testfaksfit@gmail.com";
-//
-//            String sqlDeleteQuery = "DELETE FROM students WHERE email = ?";
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteQuery);
-//            preparedStatement.setString(1, emailToDelete);
-//
-//            int rowsAffected = preparedStatement.executeUpdate();
-//            System.out.println(rowsAffected + " row(s) deleted.");
-//
-//            preparedStatement.close();
-//            connection.close();
-//
-//        } catch (SQLException e) {
-//            System.out.println("Database connection error: " + e.getMessage());
-//            e.printStackTrace();
-//        }
     }
 
     @AfterClass
@@ -64,8 +39,6 @@ public class RegistrationTest {
         String firstName = "Testni";
         String lastName = "Primjer";
         String jmbag = "0036555555";
-
-        System.out.println("found the register page");
 
 //      gumb Prijava
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("link-button")));
@@ -91,7 +64,11 @@ public class RegistrationTest {
         driver.findElement(By.xpath("//button[contains(@class, 'nCP5yc')]"))
                 .click();
 
-        Thread.sleep(5000);
+//      continue
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div[1]/div[2]/c-wiz/div/div[3]/div/div/div[2]/div/div/button")));
+        driver.findElement(By.xpath("/html/body/div[1]/div[1]/div[2]/c-wiz/div/div[3]/div/div/div[2]/div/div/button"))
+                .click();
+        Thread.sleep(2000);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ime")));
 
@@ -110,7 +87,11 @@ public class RegistrationTest {
         driver.findElement(By.xpath("//button[@type='submit']"))
                 .click();
 
-//        TODO: dodaj assert da je na dashboardu
-//        Assert.assertEquals();
+        wait.until(ExpectedConditions.urlContains( "dashboard"));
+        driver.navigate().refresh();
+
+        Thread.sleep(10000);
+
+        Assert.assertTrue(driver.getCurrentUrl().contains("dashboard"));
     }
 }

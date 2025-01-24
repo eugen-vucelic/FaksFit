@@ -32,7 +32,7 @@ public class Term {
     @JsonBackReference
     private ActivityLeader activityLeaderTerm;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Location locationTerm;
 

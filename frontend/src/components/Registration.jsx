@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './Registration.css';
 import { API_URL } from '../config';
+import { jsx } from 'react/jsx-runtime';
 
 function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth }) {
     const [ime, setIme] = useState('');
@@ -67,8 +68,8 @@ function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth }
                 headers: { 'Accept': 'application/json' }
                 });
                 if (userResponse.ok) {
-                setIsLoggedIn(true);
-                navigate('/student/dashboard');
+                navigate('/');
+                setIsLoggedIn(false);
                 } else {
                 alert('Session not recognized. Please log in again.');
                 return;

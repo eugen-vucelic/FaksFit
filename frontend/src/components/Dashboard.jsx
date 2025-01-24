@@ -3,10 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "../config";
 
+import { jwtDecode } from 'jwt-decode';
+import { useLocation, useNavigate } from "react-router-dom";
+
 function Dashboard(props) {
     const [dashboardData, setDashboardData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [role, setRole] = React.useState(null);
 
     const fetchDashboardData = () => {
         setLoading(true);
@@ -31,6 +35,31 @@ function Dashboard(props) {
             .finally(() => setLoading(false));
     };
 
+    const handleTermUnenrollment = async (termId) => {
+        try {
+            const response = await fetch(`${API_URL}/termini/odjava/${termId}`, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
+                }
+            });
+    
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                throw new Error('Odjava nije uspjela');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Greška prilikom odjave s termina. Pokušajte ponovno.');
+        }
+    };
+    
+    // In your JSX:
+    <button onClick={() => handleTermUnenrollment(termId)}>Odjavi</button>
+    
     useEffect(() => {
         fetchDashboardData();
     }, []);
@@ -104,9 +133,7 @@ function Dashboard(props) {
                                 </p>
                                 <p>{term.activityType?.activityTypeName ?? 'Unknown Activity'}</p>
                                 <p>{term.maxPoints ?? 0} bodova</p>
-                                <button onClick={() => alert('Prijava nije implementirana.')}>
-                                    Prijavi
-                                </button>
+                                <button onClick={() => handleTermUnenrollment(term.termId)}>Odjavi</button>
                             </div>
                         ))
                     ) : (

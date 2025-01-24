@@ -2,7 +2,6 @@ package com.app.faksfit.service.impl;
 
 import com.app.faksfit.dto.StudentDTO;
 import com.app.faksfit.dto.StudentSettingsDTO;
-import com.app.faksfit.mapper.StudentDashboardMapper;
 import com.app.faksfit.mapper.StudentMapper;
 import com.app.faksfit.model.Student;
 import com.app.faksfit.repository.StudentRepository;
@@ -10,13 +9,10 @@ import com.app.faksfit.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class StudentServiceImpl implements IStudentService {
 
     private final StudentRepository studentRepository;
-
     private final StudentMapper studentMapper;
 
     @Autowired
@@ -43,11 +39,6 @@ public class StudentServiceImpl implements IStudentService {
     @Override
     public Student findByEmail(String email) {
         return studentRepository.findByEmail(email);
-    }
-
-    @Override
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
     }
 
     @Override
