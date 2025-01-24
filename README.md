@@ -57,7 +57,7 @@ Projekt je rezultat timskog rada u sklopu kolegija [Programsko inženjerstvo](ht
 
 1. **Kloniranje repozitorija**
    ```bash
-   git clone <link>
+   git clone https://github.com/eugen-vucelic/FaksFit.git
    git checkout dev
 
 2. **Pokretanje backenda**
