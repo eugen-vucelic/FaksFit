@@ -1,5 +1,6 @@
 package com.app.faksfit.configuration;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +45,12 @@ public class SecurityConfiguration {
                         .loginPage("/oauth2/authorization/google")
                         .successHandler(successHandler)
                         .failureUrl(FRONTEND_URL)
+                )
+                .exceptionHandling(ex -> ex
+                        // Send a 401 for unauthenticated requests instead of redirecting
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                        })
                 )
                 .csrf(AbstractHttpConfigurer::disable);
 
