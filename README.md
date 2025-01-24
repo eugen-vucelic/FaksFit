@@ -1,19 +1,22 @@
 # FaksFit
-FaksFit - web aplikacija/projektni zadatak iz kolegija Programsko Inženjerstvo, grupa G04
-Želimo olakšati svim studentima prolazak kolegija Tjelesne i zdravstvene kulture!
+FaksFit - web aplikacija/projektni zadatak iz kolegija Programsko Inženjerstvo, grupa G04 <br>
+### Želimo olakšati svim studentima prolazak kolegija Tjelesne i zdravstvene kulture!
 # Opis projekta
+Prolazak kolegija Tjelesne i zdravstvene kulture na fakultetu zna biti kompliciran i nejasan proces. Studenti nisu sigurni
+gdje gledati, koga pitati i koji su kriteriji za prolazak. Glavni cilj ove aplikacije je centralizirati sve aktivnosti koje spadaju pod Tjelesnu i zdravstvenu kulturu te olakšati 
+studentima prijave termina, pregled bodova i općeniti pristup informacijama na kolegiju.
+ 
 Ovaj projekt je reuzltat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
 
-Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije »Zato što je to bio zadatak i nismo imali ideje za drugo.«). Koji problem rješavate?
-> Obzirom da je ovo zadani projekt navedite i što želite/jeste novo  naučili.
-
-> Dobro izrađen opis omogućuje vam da pokažete svoj rad drugim programerima, kao i potencijalnim poslodavcima. Ne samo da prvi dojam na stranici opisa često razlikuje dobar projekt od lošeg projekta već i predstavlja dobru praksu koju morate savladati.
 
 # Funkcijski zahtjevi
 > Navedite ključne zahtjeve Vašeg projekta.
 
 
 # Tehnologije
+- Spring Boot
+- React
+
 
 #Instalcija
 # Članovi tima 
