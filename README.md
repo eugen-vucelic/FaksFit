@@ -26,6 +26,8 @@ Ovaj projekt je rezultat timskog rada u sklopu projeknog zadatka kolegija [Progr
 - JavaScript
 - Postgres
 - HTML, CSS
+- Docker
+- Render
 
 
 # Članovi tima 
