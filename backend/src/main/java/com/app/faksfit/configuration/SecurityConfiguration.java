@@ -36,9 +36,9 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/login**", "/error**", "/student/register", "/oauth2/**").permitAll()
-                        .requestMatchers("/student/**").hasRole("STUDENT")
-                        .requestMatchers("/teacher/**").hasRole("TEACHER")
-                        .requestMatchers("/voditelj/**").hasRole("ACTIVITY_LEADER")
+//                        .requestMatchers("/student/**").hasRole("STUDENT")
+//                        .requestMatchers("/teacher/**").hasRole("TEACHER")
+//                        .requestMatchers("/voditelj/**").hasRole("ACTIVITY_LEADER")
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
