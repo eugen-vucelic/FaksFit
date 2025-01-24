@@ -4,6 +4,8 @@
 
 ### Deployed aplikacija: [FaksFit](https://faksfit-7du1.onrender.com/)
 
+### PDF dokumentacije projekta: [PDF](Home · eugen-vucelic_FaksFit Wiki.pdf)
+
 ## Sadržaj
 1. [Opis projekta](#opis-projekta)
 2. [Funkcijski zahtjevi](#funkcijski-zahtjevi)
