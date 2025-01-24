@@ -17,6 +17,9 @@ function Dashboard(props) {
         fetch(`${API_URL}/dashboard/student`, {
             method: 'GET',
             credentials: 'include',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
+            }
         })
             .then(response => {
                 if (!response.ok) {

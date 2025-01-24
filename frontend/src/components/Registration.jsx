@@ -54,7 +54,8 @@ function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth }
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
                 },
                 body: JSON.stringify(user),
                 credentials: 'include',
@@ -65,7 +66,9 @@ function Registration({ isLoggedIn, setIsLoggedIn, setPassedOauth, passedOauth }
                 // Double-check user is logged in (fetch current user)
                 const userResponse = await fetch(`${API_URL}/student/current`, {
                 credentials: 'include',
-                headers: { 'Accept': 'application/json' }
+                headers: { 'Accept': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
+                 }
                 });
                 if (userResponse.ok) {
                 navigate('/');
