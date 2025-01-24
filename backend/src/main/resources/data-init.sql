@@ -1,5 +1,3 @@
---IN PRODUCTION REMOVE COMMENT DO $$
-
 -- 1. Unos Sveučilišta
 INSERT INTO SVEUCILISTE (university_name)
 VALUES ('Sveučilište u Zagrebu');
@@ -94,7 +92,36 @@ VALUES
         '2024-08-18',
         (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
         'ACTIVITY_LEADER'
-    );
+    ),
+    (
+        'Ana',
+        'Kovač',
+        'ana.kovac@ft.unizg.hr',
+        'hashed_password9',
+        '2024-09-25',
+        (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
+        'ACTIVITY_LEADER'),
+    ('Petra',
+     'Novak',
+     'petra.novak@ft.unizg.hr',
+     'hashed_password11',
+     '2024-11-30',
+     (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
+     'ACTIVITY_LEADER'),
+    ('Student',
+     'FaksFit',
+     'student.faksfit@gmail.com',
+     'hashed_password12',
+     '2025-01-01',
+     (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
+     'STUDENT'),
+    ('Marijan',
+     'Majstorovic',
+     'marijan.majstorovic@fer.hr',
+     'hashed_password13',
+     '2025-02-01',
+     (SELECT faculty_id FROM FAKULTET WHERE faculty_name = 'FER'),
+     'ACTIVITY_LEADER');
 
 -- 4. Unos Nastavnika (TEACHER)
 INSERT INTO TEACHER (user_id, profile_pictureurl, office_location)
@@ -120,13 +147,21 @@ VALUES
     ('Rukomet'),
     ('Nogomet'),
     ('Kros'),
-    ('Veslanje');
+    ('Veslanje'),
+    ('Kosarka'),
+    ('Odbojka'),
+    ('Tenis'),
+    ('Stolni tenis'),
+    ('Plivanje'),
+    ('Atletika');
 
 INSERT INTO LOKACIJA (location_name, address, city_code)
 VALUES
     ('Glavna dvorana', 'Ulica sporta 5', '10000'),
     ('Laboratorij 1', 'Tehnička 12', '10001'),
-    ('Seminarska sala A', 'Sveučilišna 3', '10002');
+    ('Seminarska sala A', 'Sveučilišna 3', '10002'),
+    ('Laboratorij 2', 'Tehnička 12', '10001'),
+    ('Teren 1', 'Ulica sporta 5', '10000');
 
 -- 6. Unos Activity Leader-a
 INSERT INTO ACTIVITY_LEADER (
@@ -157,6 +192,48 @@ SELECT
 FROM KORISNIK
 WHERE email = 'marko.lukic@fm.unizg.hr';
 
+INSERT INTO ACTIVITY_LEADER (
+    user_id,
+    profile_pictureurl,
+    leader_activity_type_activity_type_id
+)
+SELECT
+    user_id,
+    'http://example.com/images/petra_novak.jpg',
+    (SELECT activity_type_id
+     FROM TIP_AKTIVNOSTI
+     WHERE activity_type_name = 'Kosarka')
+FROM KORISNIK
+WHERE email = 'petra.novak@ft.unizg.hr';
+
+INSERT INTO ACTIVITY_LEADER (
+    user_id,
+    profile_pictureurl,
+    leader_activity_type_activity_type_id
+)
+SELECT
+    user_id,
+    'http://example.com/images/ana_kovac.jpg',
+    (SELECT activity_type_id
+     FROM TIP_AKTIVNOSTI
+     WHERE activity_type_name = 'Odbojka')
+FROM KORISNIK
+WHERE email = 'ana.kovac@ft.unizg.hr';
+
+INSERT INTO ACTIVITY_LEADER (
+    user_id,
+    profile_pictureurl,
+    leader_activity_type_activity_type_id
+)
+SELECT
+    user_id,
+    'http://example.com/images/marijan_majstorovic.jpg',
+    (SELECT activity_type_id
+     FROM TIP_AKTIVNOSTI
+     WHERE activity_type_name = 'Tenis')
+FROM KORISNIK
+WHERE email = 'marijan.majstorovic@fer.hr';
+
 -- 7. Unos Studenta (STUDENT)
 INSERT INTO STUDENT (
     user_id,
@@ -173,13 +250,13 @@ INSERT INTO STUDENT (
 )
 SELECT
     user_id,
-    'JMBAG' || user_id,
-    '2023/2024',
+    '00365509' || user_id,
+    '2024/2025',
     '2000-01-01',
     'M',
     'Croatian',
-    true,
-    '0987654321',
+    false,
+    '0958919146',
     1,
     0,
     (SELECT user_id FROM TEACHER LIMIT 1)
@@ -229,6 +306,54 @@ VALUES
         (SELECT location_id
          FROM LOKACIJA
          WHERE location_name = 'Laboratorij 1')
+    ),
+    (
+        'Trening kosarka',
+        '2024-10-03 10:00:00',
+        '2024-10-03 12:00:00',
+        1,
+        40,
+        (SELECT activity_type_id
+         FROM TIP_AKTIVNOSTI
+         WHERE activity_type_name = 'Kosarka'),
+        (SELECT user_id
+         FROM KORISNIK
+         WHERE email = 'ana.kovac@ft.unizg.hr'),
+        (SELECT location_id
+         FROM LOKACIJA
+         WHERE location_name = 'Glavna dvorana')
+    ),
+    (
+        'Trening odbojka',
+        '2024-10-04 15:00:00',
+        '2024-10-04 17:00:00',
+        1,
+        35,
+        (SELECT activity_type_id
+         FROM TIP_AKTIVNOSTI
+         WHERE activity_type_name = 'Odbojka'),
+        (SELECT user_id
+         FROM KORISNIK
+         WHERE email = 'marijan.majstorovic@fer.hr'),
+        (SELECT location_id
+         FROM LOKACIJA
+         WHERE location_name = 'Laboratorij 2')
+    ),
+    (
+        'Trening tenis',
+        '2024-10-05 08:00:00',
+        '2024-10-05 10:00:00',
+        1,
+        20,
+        (SELECT activity_type_id
+         FROM TIP_AKTIVNOSTI
+         WHERE activity_type_name = 'Tenis'),
+        (SELECT user_id
+         FROM KORISNIK
+         WHERE email = 'petra.novak@ft.unizg.hr'),
+        (SELECT location_id
+         FROM LOKACIJA
+         WHERE location_name = 'Teren 1')
     );
 
 -- 9. Prijave Termina
@@ -258,6 +383,3 @@ VALUES
                  LIMIT 1),
                 0
             );
-
-
--- END $$;
