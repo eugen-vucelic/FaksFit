@@ -6,17 +6,17 @@ Prolazak kolegija Tjelesne i zdravstvene kulture na fakultetu zna biti komplicir
 gdje gledati, koga pitati i koji su kriteriji za prolazak. Glavni cilj ove aplikacije je centralizirati sve aktivnosti koje spadaju pod Tjelesnu i zdravstvenu kulturu te olakšati 
 studentima prijave termina, pregled bodova i općeniti pristup informacijama na kolegiju.
  
-Ovaj projekt je reuzltat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
+Ovaj projekt je rezultat timskog rada u sklopu projeknog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu. 
 
 
 # Funkcijski zahtjevi
-> Pregled i prijava dostupnih termina od strane studenta
-> Pregled ostvarenih bodova i bodova potrebnih za prolaz
-> Potvrđivanje bodova i prolaska od strane nastavnika
-> Dodavanje novih termina od strane voditelja 
-> Pregled liste svojih studenata od strane nastavnika
-> Mogućnost registracije i prijave u sustav
-> Implementacija Google Maps feature-a
+> Pregled i prijava dostupnih termina od strane studenta <br>
+> Pregled ostvarenih bodova i bodova potrebnih za prolaz <br>
+> Potvrđivanje bodova i prolaska od strane nastavnika <br>
+> Dodavanje novih termina od strane voditelja <br>
+> Pregled liste svojih studenata od strane nastavnika <br>
+> Mogućnost registracije i prijave u sustav <br>
+> Implementacija Google Maps feature-a <br>
 
 
 # Tehnologije
