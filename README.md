@@ -25,6 +25,7 @@ Ovaj projekt je rezultat timskog rada u sklopu projeknog zadatka kolegija [Progr
 - Java
 - JavaScript
 - Postgres
+- HTML, CSS
 
 
 # Članovi tima 
