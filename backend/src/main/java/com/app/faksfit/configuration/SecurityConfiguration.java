@@ -54,7 +54,7 @@ public class SecurityConfiguration {
                 )
                 .csrf(AbstractHttpConfigurer::disable);
 
-        http.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
+        // http.addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
