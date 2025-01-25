@@ -85,7 +85,7 @@ Login podaci za testiranje (login putem Google računa):
 
 - **Student**  
 email: `student.faksfit@gmail.com` \
-lozinka: `student`
+lozinka: `nastavnik`
 
 
 - **Voditelj**  
